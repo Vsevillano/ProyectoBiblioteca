@@ -1,0 +1,102 @@
+package biblioteca.gui;
+
+import java.awt.EventQueue;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.DefaultComboBoxModel;
+
+import biblioteca.estructura.Fichero;
+import biblioteca.estructura.GeneroPeriodico;
+import biblioteca.estructura.GeneroRevista;
+import biblioteca.estructura.Periodo;
+import biblioteca.excepciones.EditorialNoValidaException;
+import biblioteca.excepciones.FechaNoValidaException;
+import biblioteca.excepciones.NumeroPaginasNoValidoException;
+import biblioteca.excepciones.PeriodoNoValidoException;
+import biblioteca.excepciones.TituloNoValidoException;
+
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.awt.event.ActionEvent;
+
+public class AnnadirPeriodico extends VentanaPadre {
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AnnadirPeriodico dialog = new AnnadirPeriodico();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	private Periodo getPeriodo() {
+		if (rdbtnDiario.isSelected()) {
+			return Periodo.DIARIO;
+		} else if (rdbtnSemanal.isSelected()) {
+			return Periodo.SEMANAL;
+		} else if (rdbtnMensual.isSelected()) {
+			return Periodo.MENSUAL;
+		} else if (rdbtnAnual.isSelected()) {
+			return Periodo.ANUAL;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public AnnadirPeriodico() {
+		btnEnviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+					LocalDate dateIngreso = LocalDate.parse(formater.format(spinnerIngreso.getValue()));
+					LocalDate datePublicacion = LocalDate.parse(formater.format(spinnerPublicacion.getValue()));
+					Fichero.almacen.annadirPeriodico(textTitulo.getText(),
+							(GeneroPeriodico) comboGenero.getSelectedItem(), getPeriodo(), dateIngreso, datePublicacion,
+							Integer.parseInt(textNumeroPaginas.getText()));
+					textTitulo.setText("");
+					textNumeroPaginas.setText("");
+					int id = Integer.parseInt(textId.getText());
+					textId.setText((id + 1) + "");
+					Fichero.almacen.setModificado(true);
+
+				} catch (PeriodoNoValidoException | FechaNoValidaException | NumeroPaginasNoValidoException
+						| TituloNoValidoException e1) {
+					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (NumberFormatException e2) {
+					JOptionPane.showMessageDialog(contentPanel, "Numero de paginas no valido!", "ERROR!!!!",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+		btnEnviar.setEnabled(true);
+		spinnerIngreso.setLocation(136, 63);
+		spinnerPublicacion.setLocation(136, 97);
+		btnEnviar.setText("A\u00F1adir");
+		cancelButton.setText("Aceptar");
+		setTitle("A\u00F1adir peri\u00F3dico");
+		comboGenero.setModel(new DefaultComboBoxModel(GeneroPeriodico.values()));
+		setBounds(100, 100, 450, 320);
+
+		btnAtras.setVisible(false);
+		buttonAdelante.setVisible(false);
+		okButton.setVisible(false);
+
+	}
+
+}
