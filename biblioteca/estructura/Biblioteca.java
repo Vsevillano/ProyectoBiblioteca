@@ -333,10 +333,10 @@ public class Biblioteca implements Serializable {
 					publicacion.calcularFechaDevolucion(((Periodico) publicacion).calcularTiempoPrestado());
 				} else if (publicacion instanceof LibroTexto) {
 					publicacion.calcularFechaDevolucion(((LibroTexto) publicacion).calcularTiempoPrestado());
-				} else if (publicacion.isPrestado() == true) {
-					throw new LibroYaPrestadoException("El libro ya se encuentra prestado");
 				}
-			}
+			} else if (publicacion.getIdentificador() == id && publicacion.isPrestado() == true) {
+			throw new LibroYaPrestadoException("El libro ya se encuentra prestado");
+		}
 
 		}
 	}
