@@ -177,7 +177,7 @@ public class TestBiblioteca {
 			// Devolver libro
 			try {
 				biblioteca.devolverPublicacion(Teclado.leerEntero("ID de la publicacion:"));
-			} catch (PublicacionYaPrestadaException e) {
+			} catch (PublicacionNoPrestadaException e) {
 				System.err.println(e.getMessage());
 			}
 			break;

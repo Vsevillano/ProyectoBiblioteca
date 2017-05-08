@@ -92,12 +92,12 @@ public class BorrarPorID extends VentanaPadre {
 						textTitulo.setText("");
 						textNumeroPaginas.setText("");
 						textId.setText("");
+						// Actualizamos estado del fichero
 						Fichero.almacen.setModificado(true);
 
 					}
 				} catch (NumberFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Id no valido!", "Error!", JOptionPane.ERROR_MESSAGE);
 				} catch (PublicacionNoExisteException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 				} catch (ParseException e2) {

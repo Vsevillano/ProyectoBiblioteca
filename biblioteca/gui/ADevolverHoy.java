@@ -103,6 +103,7 @@ public class ADevolverHoy extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public ADevolverHoy() {
+		comboGenero.setEditable(true);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarPublicacion(--indicePublicacion);

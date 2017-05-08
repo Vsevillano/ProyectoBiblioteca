@@ -101,6 +101,7 @@ public class PublicacionesPrestadas extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public PublicacionesPrestadas() {
+		comboGenero.setEditable(true);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarPublicacion(--indicePublicacion);

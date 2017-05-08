@@ -10,6 +10,7 @@ import biblioteca.estructura.LibroTexto;
 import biblioteca.estructura.Novela;
 import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
+import biblioteca.estructura.PublicacionNoPrestadaException;
 import biblioteca.estructura.PublicacionYaPrestadaException;
 import biblioteca.estructura.Revista;
 import biblioteca.excepciones.PublicacionNoExisteException;
@@ -54,6 +55,7 @@ public class DevolverPublicacion extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public DevolverPublicacion() {
+		comboGenero.setEditable(true);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -80,6 +82,7 @@ public class DevolverPublicacion extends VentanaPadre {
 						textTitulo.setText("");
 						textNumeroPaginas.setText("");
 						textId.setText("");
+						// Actualizamos estado del fichero
 						Fichero.almacen.setModificado(true);
 					}
 				} catch (NumberFormatException e1) {
@@ -93,7 +96,7 @@ public class DevolverPublicacion extends VentanaPadre {
 					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
 				} catch (PublicacionNoExisteException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
-				} catch (PublicacionYaPrestadaException e1) {
+				} catch (PublicacionNoPrestadaException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 			}

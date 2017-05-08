@@ -347,16 +347,17 @@ public class Biblioteca implements Serializable {
 	 * @param id
 	 * @return
 	 * @throws PublicacionYaPrestadaException 
+	 * @throws PublicacionNoPrestadaException 
 	 * @throws FechaNoValidaException
 	 */
-	public void devolverPublicacion(int id) throws PublicacionYaPrestadaException {
+	public void devolverPublicacion(int id) throws PublicacionNoPrestadaException {
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.getIdentificador() == id && publicacion.isPrestado() == true) {
 				publicacion.setPrestado(false);
 				publicacion.setFechaDevolucion(null);
 			}
-			else if (publicacion.getIdentificador() == id && publicacion.isPrestado() == true) {
-				throw new PublicacionYaPrestadaException("La publicacion se encuentra prestada");
+			else if (publicacion.getIdentificador() == id && publicacion.isPrestado() == false) {
+				throw new PublicacionNoPrestadaException("La publicacion no esta prestada");
 			}
 
 		}

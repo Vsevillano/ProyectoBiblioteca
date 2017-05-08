@@ -86,7 +86,9 @@ public class PrestarPublicacion extends VentanaPadre {
 						textTitulo.setText("");
 						textNumeroPaginas.setText("");
 						textId.setText("");
+						// Actualizamos estado del fichero
 						Fichero.almacen.setModificado(true);
+						
 						} catch (LibroYaPrestadoException e) {
 							JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 						}
@@ -97,7 +99,7 @@ public class PrestarPublicacion extends VentanaPadre {
 					e2.printStackTrace();
 
 				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe", "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Id no valido!", "Error!", JOptionPane.ERROR_MESSAGE);
 
 				} catch (PublicacionNoExisteException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
