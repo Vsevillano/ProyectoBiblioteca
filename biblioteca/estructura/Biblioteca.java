@@ -8,9 +8,12 @@ import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
+import biblioteca.excepciones.LibroYaPrestadoException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.PublicacionNoExisteException;
+import biblioteca.excepciones.PublicacionNoPrestadaException;
+import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.TituloNoValidoException;
 
 /**

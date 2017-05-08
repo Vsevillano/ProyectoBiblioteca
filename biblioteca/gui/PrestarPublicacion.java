@@ -7,11 +7,11 @@ import javax.swing.JOptionPane;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.LibroTexto;
-import biblioteca.estructura.LibroYaPrestadoException;
 import biblioteca.estructura.Novela;
 import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
 import biblioteca.estructura.Revista;
+import biblioteca.excepciones.LibroYaPrestadoException;
 import biblioteca.excepciones.PublicacionNoExisteException;
 
 import java.awt.event.ActionListener;

@@ -17,7 +17,12 @@ import biblioteca.estructura.Revista;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class PublicacionesPrestadas extends VentanaPadre {
 
 	/**

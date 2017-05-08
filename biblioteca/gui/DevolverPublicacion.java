@@ -10,10 +10,9 @@ import biblioteca.estructura.LibroTexto;
 import biblioteca.estructura.Novela;
 import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
-import biblioteca.estructura.PublicacionNoPrestadaException;
-import biblioteca.estructura.PublicacionYaPrestadaException;
 import biblioteca.estructura.Revista;
 import biblioteca.excepciones.PublicacionNoExisteException;
+import biblioteca.excepciones.PublicacionNoPrestadaException;
 
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -22,6 +21,11 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class DevolverPublicacion extends VentanaPadre {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Launch the application.
