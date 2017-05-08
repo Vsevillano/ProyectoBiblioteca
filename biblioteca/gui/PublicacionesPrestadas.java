@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.LibroTexto;
@@ -42,7 +43,6 @@ public class PublicacionesPrestadas extends VentanaPadre {
 		});
 	}
 
-
 	private void comprobarBotones() {
 		if (indicePublicacion + 1 >= Fichero.almacen.listarPrestados().size()) {
 			buttonAdelante.setEnabled(false);
@@ -55,7 +55,7 @@ public class PublicacionesPrestadas extends VentanaPadre {
 			btnAtras.setEnabled(true);
 		}
 	}
-	
+
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
 			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
@@ -68,23 +68,20 @@ public class PublicacionesPrestadas extends VentanaPadre {
 	}
 
 	private void mostrarPublicacion(int indicePublicacion) {
-		Publicacion publicacion = Fichero.almacen.listarPrestados().get(indicePublicacion);
-		textId.setText(publicacion.getIdentificador() + "");
-		textTitulo.setText(publicacion.getTitulo());
-		getGenero(publicacion);
-		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
-
 		try {
+			Publicacion publicacion = Fichero.almacen.listarPrestados().get(indicePublicacion);
+			textId.setText(publicacion.getIdentificador() + "");
+			textTitulo.setText(publicacion.getTitulo());
+			getGenero(publicacion);
+			textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
+
 			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
 			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
 			textFechaDevolucion.setText(model.format(dateDev));
-		} catch (NullPointerException | ParseException e1) {
-			textFechaDevolucion.setText("");
-		}
-		
-		String dateIngreso = publicacion.getFechaIngreso().toString();
-		String datePublicacion = publicacion.getFechaPublicacion().toString();
-		try {
+
+			String dateIngreso = publicacion.getFechaIngreso().toString();
+			String datePublicacion = publicacion.getFechaPublicacion().toString();
+
 			Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
 			Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
 			spinnerIngreso.setValue(dateIng);
@@ -92,6 +89,10 @@ public class PublicacionesPrestadas extends VentanaPadre {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException e) {
+			textFechaDevolucion.setText("");
+			JOptionPane.showMessageDialog(null, "No hay publicaciones!", "Error!", JOptionPane.ERROR_MESSAGE);
+
 		}
 
 	}
@@ -123,7 +124,7 @@ public class PublicacionesPrestadas extends VentanaPadre {
 		btnEnviar.setText("Prestar");
 		btnEnviar.setEnabled(true);
 		setBounds(100, 100, 450, 300);
-		
+
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);
 		rdbtnMensual.setVisible(false);

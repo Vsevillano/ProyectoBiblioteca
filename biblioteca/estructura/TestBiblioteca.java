@@ -167,11 +167,19 @@ public class TestBiblioteca {
 		switch (opcion) {
 		case 1:
 			// Prestar libro
-			biblioteca.prestarPublicacion(Teclado.leerEntero("ID de la publicacion:"));
+			try {
+				biblioteca.prestarPublicacion(Teclado.leerEntero("ID de la publicacion:"));
+			} catch (LibroYaPrestadoException e) {
+				System.err.println(e.getMessage());
+			}
 			break;
 		case 2:
 			// Devolver libro
-			biblioteca.devolverPublicacion(Teclado.leerEntero("ID de la publicacion:"));
+			try {
+				biblioteca.devolverPublicacion(Teclado.leerEntero("ID de la publicacion:"));
+			} catch (PublicacionYaPrestadaException e) {
+				System.err.println(e.getMessage());
+			}
 			break;
 		case 3:
 			// Listar prestados

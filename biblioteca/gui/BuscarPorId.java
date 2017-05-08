@@ -75,26 +75,30 @@ public class BuscarPorId extends VentanaPadre {
 
 					String dateIngreso = publicacion.getFechaIngreso().toString();
 					String datePublicacion = publicacion.getFechaPublicacion().toString();
-					try {
-						Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
-						Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
-						spinnerIngreso.setValue(dateIng);
-						spinnerPublicacion.setValue(datePub);
-					} catch (ParseException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
+					Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
+					Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
+					spinnerIngreso.setValue(dateIng);
+					spinnerPublicacion.setValue(datePub);
+
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (PublicacionNoExisteException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+				} catch (ParseException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+
+				} catch (NullPointerException e2) {
+					JOptionPane.showMessageDialog(null, "La publicacion no existe", "Error!", JOptionPane.ERROR_MESSAGE);
+
 				}
 
 			}
 
 		});
 		btnEnviar.setEnabled(true);
+
 		setTitle("Buscar publicacion");
 		textNumeroPaginas.setEnabled(false);
 		comboGenero.setEnabled(false);

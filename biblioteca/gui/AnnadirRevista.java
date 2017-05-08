@@ -5,7 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 import javax.swing.DefaultComboBoxModel;
 
 import biblioteca.estructura.Fichero;
@@ -89,6 +91,15 @@ public class AnnadirRevista extends VentanaPadre {
 					textEditorial.setText("");
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
+					
+					SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
+					spinnerIngreso.setModel(new SpinnerDateModel());
+					spinnerIngreso.setEditor(new JSpinner.DateEditor(spinnerIngreso, model.toPattern()));
+					spinnerPublicacion.setModel(new SpinnerDateModel());
+					spinnerPublicacion.setEditor(new JSpinner.DateEditor(spinnerPublicacion, model.toPattern()));
+					
+					textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
+
 
 					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
@@ -134,6 +145,10 @@ public class AnnadirRevista extends VentanaPadre {
 		okButton.setVisible(false);
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
-
+		try {
+		textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
+		}catch (IndexOutOfBoundsException e) {
+			textId.setText(0+"");
+		}
 	}
 }

@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.LibroTexto;
+import biblioteca.estructura.LibroYaPrestadoException;
 import biblioteca.estructura.Novela;
 import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
@@ -42,7 +43,7 @@ public class PrestarPublicacion extends VentanaPadre {
 			}
 		});
 	}
-	
+
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
 			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
@@ -53,7 +54,6 @@ public class PrestarPublicacion extends VentanaPadre {
 		else if (publicacion instanceof LibroTexto)
 			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
 	}
-
 
 	/**
 	 * Create the dialog.
@@ -71,39 +71,41 @@ public class PrestarPublicacion extends VentanaPadre {
 
 					String dateIngreso = publicacion.getFechaIngreso().toString();
 					String datePublicacion = publicacion.getFechaPublicacion().toString();
-					try {
-						Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
-						Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
-						spinnerIngreso.setValue(dateIng);
-						spinnerPublicacion.setValue(datePub);
-					} catch (ParseException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
 
-					int respuesta = JOptionPane.showConfirmDialog(null,
-							"Se va a prestar la publicacion, ¿Está seguro?", "!!", JOptionPane.YES_NO_OPTION,
-							JOptionPane.WARNING_MESSAGE);
+					Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
+					Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
+					spinnerIngreso.setValue(dateIng);
+					spinnerPublicacion.setValue(datePub);
+
+					int respuesta = JOptionPane.showConfirmDialog(null, "Se va a prestar la publicacion, ¿Está seguro?",
+							"!!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 					if (respuesta == JOptionPane.YES_OPTION) {
 						try {
-							Fichero.almacen.prestarPublicacion(Integer.parseInt(textId.getText()));
-							textTitulo.setText("");
-							textNumeroPaginas.setText("");
-							textId.setText("");
-							Fichero.almacen.setModificado(true);
-						} catch (NumberFormatException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+						Fichero.almacen.prestarPublicacion(Integer.parseInt(textId.getText()));
+						textTitulo.setText("");
+						textNumeroPaginas.setText("");
+						textId.setText("");
+						Fichero.almacen.setModificado(true);
+						} catch (LibroYaPrestadoException e) {
+							JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 						}
+						
 					}
-				} catch (NumberFormatException e1) {
+				} catch (ParseException e2) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e2.printStackTrace();
+
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, "La publicacion no existe", "Error!", JOptionPane.ERROR_MESSAGE);
+
 				} catch (PublicacionNoExisteException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+
+				} catch (NullPointerException e) {
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 			}
 		});
 		textId.setEnabled(true);
@@ -117,7 +119,7 @@ public class PrestarPublicacion extends VentanaPadre {
 		btnEnviar.setText("Prestar");
 		btnEnviar.setEnabled(true);
 		setBounds(100, 100, 450, 300);
-		
+
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);
 		rdbtnMensual.setVisible(false);

@@ -76,37 +76,35 @@ public class BorrarPorID extends VentanaPadre {
 
 					String dateIngreso = publicacion.getFechaIngreso().toString();
 					String datePublicacion = publicacion.getFechaPublicacion().toString();
-					try {
-						Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
-						Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
-						spinnerIngreso.setValue(dateIng);
-						spinnerPublicacion.setValue(datePub);
-					} catch (ParseException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
+
+					Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
+					Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
+					spinnerIngreso.setValue(dateIng);
+					spinnerPublicacion.setValue(datePub);
 
 					int respuesta = JOptionPane.showConfirmDialog(null,
 							"Se va a eliminar la publicacion, ¿Está seguro?", "!!", JOptionPane.YES_NO_OPTION,
 							JOptionPane.WARNING_MESSAGE);
 
 					if (respuesta == JOptionPane.YES_OPTION) {
-						try {
-							Fichero.almacen.eliminarIdent(Integer.parseInt(textId.getText()));
-							textTitulo.setText("");
-							textNumeroPaginas.setText("");
-							textId.setText("");
-							Fichero.almacen.setModificado(true);
-						} catch (NumberFormatException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+
+						Fichero.almacen.eliminarIdent(Integer.parseInt(textId.getText()));
+						textTitulo.setText("");
+						textNumeroPaginas.setText("");
+						textId.setText("");
+						Fichero.almacen.setModificado(true);
+
 					}
 				} catch (NumberFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (PublicacionNoExisteException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+				} catch (ParseException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (NullPointerException e) {
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}

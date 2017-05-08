@@ -19,7 +19,9 @@ import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
 
 /**
  * 
@@ -67,7 +69,7 @@ public class AnnadirNovela extends VentanaPadre {
 					SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 					LocalDate dateIngreso = LocalDate.parse(formater.format(spinnerIngreso.getValue()));
 					LocalDate datePublicacion = LocalDate.parse(formater.format(spinnerPublicacion.getValue()));
-
+				
 					// Añadimos novela
 					Fichero.almacen.anadirNovela(textTitulo.getText(), textAutor.getText(), textEditorial.getText(),
 							(GeneroNovela) comboGenero.getSelectedItem(), dateIngreso, datePublicacion,
@@ -78,6 +80,15 @@ public class AnnadirNovela extends VentanaPadre {
 					textEditorial.setText("");
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
+					
+					SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
+					spinnerIngreso.setModel(new SpinnerDateModel());
+					spinnerIngreso.setEditor(new JSpinner.DateEditor(spinnerIngreso, model.toPattern()));
+					spinnerPublicacion.setModel(new SpinnerDateModel());
+					spinnerPublicacion.setEditor(new JSpinner.DateEditor(spinnerPublicacion, model.toPattern()));
+					
+					textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
+
 
 					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
@@ -141,7 +152,11 @@ public class AnnadirNovela extends VentanaPadre {
 		buttonAdelante.setVisible(false);
 		okButton.setVisible(false);
 		cancelButton.setText("Aceptar");
-
+		try {
+		textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
+		}catch (IndexOutOfBoundsException e) {
+			textId.setText(0+"");
+		}
 	}
 
 }

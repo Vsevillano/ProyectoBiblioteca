@@ -318,9 +318,10 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws LibroYaPrestadoException 
 	 * @throws FechaNoValidaException
 	 */
-	public void prestarPublicacion(int id) {
+	public void prestarPublicacion(int id) throws LibroYaPrestadoException {
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.getIdentificador() == id && publicacion.isPrestado() == false) {
 				publicacion.setPrestado(true);
@@ -332,7 +333,8 @@ public class Biblioteca implements Serializable {
 					publicacion.calcularFechaDevolucion(((Periodico) publicacion).calcularTiempoPrestado());
 				} else if (publicacion instanceof LibroTexto) {
 					publicacion.calcularFechaDevolucion(((LibroTexto) publicacion).calcularTiempoPrestado());
-				} else {
+				} else if (publicacion.isPrestado() == true) {
+					throw new LibroYaPrestadoException("El libro ya se encuentra prestado");
 				}
 			}
 
@@ -344,13 +346,17 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @param id
 	 * @return
+	 * @throws PublicacionYaPrestadaException 
 	 * @throws FechaNoValidaException
 	 */
-	public void devolverPublicacion(int id) {
+	public void devolverPublicacion(int id) throws PublicacionYaPrestadaException {
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.getIdentificador() == id && publicacion.isPrestado() == true) {
 				publicacion.setPrestado(false);
 				publicacion.setFechaDevolucion(null);
+			}
+			else if (publicacion.getIdentificador() == id && publicacion.isPrestado() == true) {
+				throw new PublicacionYaPrestadaException("La publicacion se encuentra prestada");
 			}
 
 		}

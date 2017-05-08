@@ -10,6 +10,7 @@ import biblioteca.estructura.LibroTexto;
 import biblioteca.estructura.Novela;
 import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
+import biblioteca.estructura.PublicacionYaPrestadaException;
 import biblioteca.estructura.Revista;
 import biblioteca.excepciones.PublicacionNoExisteException;
 
@@ -37,7 +38,7 @@ public class DevolverPublicacion extends VentanaPadre {
 			}
 		});
 	}
-	
+
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
 			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
@@ -64,36 +65,35 @@ public class DevolverPublicacion extends VentanaPadre {
 
 					String dateIngreso = publicacion.getFechaIngreso().toString();
 					String datePublicacion = publicacion.getFechaPublicacion().toString();
-					try {
-						Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
-						Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
-						spinnerIngreso.setValue(dateIng);
-						spinnerPublicacion.setValue(datePub);
-					} catch (ParseException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-					}
 
-					int respuesta = JOptionPane.showConfirmDialog(null,
-							"Se va a prestar la publicacion, ¿Está seguro?", "!!", JOptionPane.YES_NO_OPTION,
-							JOptionPane.WARNING_MESSAGE);
+					Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
+					Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
+					spinnerIngreso.setValue(dateIng);
+					spinnerPublicacion.setValue(datePub);
+
+					int respuesta = JOptionPane.showConfirmDialog(null, "Se va a prestar la publicacion, ¿Está seguro?",
+							"!!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 					if (respuesta == JOptionPane.YES_OPTION) {
-						try {
-							Fichero.almacen.devolverPublicacion(Integer.parseInt(textId.getText()));
-							textTitulo.setText("");
-							textNumeroPaginas.setText("");
-							textId.setText("");
-							Fichero.almacen.setModificado(true);
-						} catch (NumberFormatException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+
+						Fichero.almacen.devolverPublicacion(Integer.parseInt(textId.getText()));
+						textTitulo.setText("");
+						textNumeroPaginas.setText("");
+						textId.setText("");
+						Fichero.almacen.setModificado(true);
 					}
 				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+				} catch (ParseException e2) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					e2.printStackTrace();
+
+				} catch (NullPointerException e1) {
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
 				} catch (PublicacionNoExisteException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+				} catch (PublicacionYaPrestadaException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -110,7 +110,7 @@ public class DevolverPublicacion extends VentanaPadre {
 		btnEnviar.setText("Devolver");
 		btnEnviar.setEnabled(true);
 		setBounds(100, 100, 450, 300);
-		
+
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);
 		rdbtnMensual.setVisible(false);

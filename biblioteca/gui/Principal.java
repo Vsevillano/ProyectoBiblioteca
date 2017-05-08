@@ -179,6 +179,7 @@ public class Principal extends JFrame implements Serializable {
 		mnEdicion.add(mntmPorIndice_1);
 
 		JMenuItem mntmPorColor = new JMenuItem("Buscar");
+		mntmPorColor.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
 		mntmPorColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				BuscarPorId buscarPorId = new BuscarPorId();
@@ -192,6 +193,7 @@ public class Principal extends JFrame implements Serializable {
 		menuBar.add(mnListar);
 
 		JMenuItem mntmListarNovelas = new JMenuItem("Listar novelas");
+		mntmListarNovelas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarNovelas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -205,6 +207,7 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(mntmListarNovelas);
 
 		JMenuItem mntmListarRevistas = new JMenuItem("Listar revistas");
+		mntmListarRevistas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarRevistas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -219,6 +222,7 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(mntmListarRevistas);
 
 		JMenuItem mntmListarPeriodicos = new JMenuItem("Listar periodicos");
+		mntmListarPeriodicos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarPeriodicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -232,6 +236,7 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(mntmListarPeriodicos);
 
 		JMenuItem mntmListarLibrosDe = new JMenuItem("Listar libros de texto");
+		mntmListarLibrosDe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarLibrosDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -248,6 +253,7 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(separator_1);
 
 		JMenuItem mntmListarTodo = new JMenuItem("Listar todo");
+		mntmListarTodo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
@@ -262,6 +268,7 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(mntmListarTodo);
 
 		JMenu mnPrestamosdevoluciones = new JMenu("Prestamos/Devoluciones");
+		mnPrestamosdevoluciones.setMnemonic('P');
 		menuBar.add(mnPrestamosdevoluciones);
 
 		JMenuItem mntmRealizarPrstamo = new JMenuItem("Realizar pr\u00E9stamo");
@@ -285,8 +292,13 @@ public class Principal extends JFrame implements Serializable {
 		JMenuItem mntmListarPrestados = new JMenuItem("Pubicaciones prestadas");
 		mntmListarPrestados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PublicacionesPrestadas publicacionesPrestadas = new PublicacionesPrestadas();
-				publicacionesPrestadas.setVisible(true);
+				try {
+					PublicacionesPrestadas publicacionesPrestadas = new PublicacionesPrestadas();
+					publicacionesPrestadas.setVisible(true);
+				} catch (IndexOutOfBoundsException e1) {
+					JOptionPane.showMessageDialog(null, "No hay publicaciones prestadas!", "Error!",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		mnPrestamosdevoluciones.add(mntmListarPrestados);
@@ -294,8 +306,13 @@ public class Principal extends JFrame implements Serializable {
 		JMenuItem mntmListarADevolver = new JMenuItem("A devolver hoy");
 		mntmListarADevolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ADevolverHoy aDevolverHoy = new ADevolverHoy();
-				aDevolverHoy.setVisible(true);
+				try {
+					ADevolverHoy aDevolverHoy = new ADevolverHoy();
+					aDevolverHoy.setVisible(true);
+				} catch (IndexOutOfBoundsException e1) {
+					JOptionPane.showMessageDialog(null, "No hay libros a devolver hoy", "Error!",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		mnPrestamosdevoluciones.add(mntmListarADevolver);
