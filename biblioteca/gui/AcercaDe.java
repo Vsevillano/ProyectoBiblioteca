@@ -12,6 +12,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class AcercaDe extends JDialog {
 
 	/**

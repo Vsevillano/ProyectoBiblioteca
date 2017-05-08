@@ -54,7 +54,6 @@ public class Fichero implements Serializable {
 		}
 	}
 
-
 	/**
 	 * Método que te carga un fichero que contiene un objeto
 	 *

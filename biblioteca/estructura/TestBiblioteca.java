@@ -10,44 +10,90 @@ import biblioteca.excepciones.ISBNNoValidoException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.PublicacionNoExisteException;
-import biblioteca.excepciones.PublicacionYaExisteException;
 import biblioteca.excepciones.TituloNoValidoException;
 import biblioteca.utiles.Menu;
 import biblioteca.utiles.Teclado;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class TestBiblioteca {
 
+	/**
+	 * Biblioteca
+	 */
 	private static Biblioteca biblioteca = new Biblioteca();
 
+	/**
+	 * Menu general
+	 */
 	private static Menu menuGeneral = new Menu("*** Menu general ***", new String[] { "Añadir publicacion",
 			"Borrar publicacion", "Listar publicaciones", "Buscar publicacion", "Prestamos/Devoluciones" });
 
+	/**
+	 * Menu añadir
+	 */
 	private static Menu menuAnnadir = new Menu("***Añadir publicacion ***",
 			new String[] { "Añadir novela", "Añadir revista", "Añadir periodico", "Añadir libro de texto" });
 
+	/**
+	 * Menu borrar
+	 */
 	private static Menu menuBorrar = new Menu("***Borrar publicacion ***",
 			new String[] { "Borrar por indice", "Borrar por identificador" });
 
+	/**
+	 * Menu Listar
+	 */
 	private static Menu menuListar = new Menu("***Listar publicacion ***", new String[] { "Listar todo",
 			"Listar novelas", "Listar revistas", "Listar perdiodicos", "Listar libros de texto" });
 
+	/**
+	 * Menu buscar
+	 */
 	private static Menu menuBuscar = new Menu("***Buscar publicacion ***",
 			new String[] { "Por titulo", "Por identificador" });
 
+	/**
+	 * Menu prestar
+	 */
 	private static Menu menuPrestar = new Menu("***Prestamos/Devoluciones ***",
 			new String[] { "Prestar libro", "Devolver libro", "Listar prestados", "Libros a devolver hoy" });
 
+	/**
+	 * Menu genero novela
+	 */
 	private static Menu menuGeneroNovela = new Menu("Elija un Genero", GeneroNovela.AUTOAYUDA.generarOpcionesNovela());
 
+	/**
+	 * Menu periodo
+	 */
 	private static Menu menuPeriodo = new Menu("Elija un Periodo", Periodo.DIARIO.generarOpcionesPeriodo());
 
+	/**
+	 * Menu genero revista
+	 */
 	private static Menu menuGeneroRevista = new Menu("Elija un genero", GeneroRevista.CULTURA.generarOpcionesRevista());
 
+	/**
+	 * Menu genero periodico
+	 */
 	private static Menu menuGeneroPeriodico = new Menu("Elija un genero",
-			GeneroPeriodico.CULTURA.generarOpcionesRevista());
+			GeneroPeriodico.CULTURA.generarOpcionesPeriodico());
 
+	/**
+	 * Menu figuras
+	 */
 	private static Menu menuFiguras;
 
+	/**
+	 * Main
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		cargaRapida();
 		int opcion;
@@ -113,6 +159,7 @@ public class TestBiblioteca {
 
 	/**
 	 * Gestiona las opciones del menu prestar
+	 * 
 	 * @param opcion
 	 * @throws FechaNoValidaException
 	 */
@@ -139,6 +186,7 @@ public class TestBiblioteca {
 
 	/**
 	 * Gestiona las opciones del menu Buscar
+	 * 
 	 * @param opcion
 	 */
 	private static void gestionarOpcionesBuscar(int opcion) {
@@ -166,6 +214,7 @@ public class TestBiblioteca {
 
 	/**
 	 * Gestiona las opciones del menu borrar
+	 * 
 	 * @param opcion
 	 */
 	private static void gestionarOpcionesMenuBorrar(int opcion) {
@@ -194,6 +243,7 @@ public class TestBiblioteca {
 
 	/**
 	 * Gestiona las opciones del menu listar
+	 * 
 	 * @param opcion
 	 */
 	private static void gestionarOpcionesListar(int opcion) {
@@ -275,6 +325,7 @@ public class TestBiblioteca {
 
 	/**
 	 * Pide una fecha por teclado
+	 * 
 	 * @param mensaje
 	 * @return
 	 */
@@ -285,13 +336,13 @@ public class TestBiblioteca {
 			int mes = Teclado.leerEntero("Mes:"); // mes [1,...,12]
 			int dia = Teclado.leerEntero("Dia:"); // día [1,...,31]
 
-//			if (year < 1900) {
-//				throw new IllegalArgumentException("Año inválido.");
-//			}
+			// if (year < 1900) {
+			// throw new IllegalArgumentException("Año inválido.");
+			// }
 
 			hoy = LocalDate.of(anno, mes, dia);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			System.out.println(formatter.format(hoy)); // 01/01/2016
+			// System.out.println(formatter.format(hoy)); // 01/01/2016
 			return hoy;
 		} catch (IllegalArgumentException e) {
 			System.err.println(e.getMessage());

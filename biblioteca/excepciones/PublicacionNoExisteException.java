@@ -1,5 +1,11 @@
 package biblioteca.excepciones;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class PublicacionNoExisteException extends Exception {
 
 	/**

@@ -9,6 +9,12 @@ import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class Publicacion implements Serializable {
 	/**
 	 * 
@@ -49,10 +55,11 @@ public class Publicacion implements Serializable {
 	 */
 	private static final Pattern patternField = Pattern.compile("([¥,'\\-a-zA-Z·ÈÌÛ˙Ò—0-9]+\\s?){2,}");
 
-	/**
-	 * Patron para las fechas, acepta 11/12/2017
-	 */
-	private static final Pattern patronFecha = Pattern.compile("^\\d{2}[/]\\d{2}[/]\\d{4}$");
+	// /**
+	// * Patron para las fechas, acepta 11/12/2017
+	// */
+	// private static final Pattern patronFecha =
+	// Pattern.compile("^\\d{2}[/]\\d{2}[/]\\d{4}$");
 
 	/**
 	 * Constructor de la publicacion
@@ -69,8 +76,8 @@ public class Publicacion implements Serializable {
 	 *             si el numero de paginas es menor a 0.
 	 * @throws CampoVacioException
 	 *             Si el campo esta vacio o contiene un solo caracter
-	 * @throws TituloNoValidoException 
-	 * @throws FechaNoValidaException 
+	 * @throws TituloNoValidoException
+	 * @throws FechaNoValidaException
 	 */
 	public Publicacion(String titulo, LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas)
 			throws NumeroPaginasNoValidoException, TituloNoValidoException, FechaNoValidaException {
@@ -114,39 +121,38 @@ public class Publicacion implements Serializable {
 		return fechaDevolucion;
 	}
 
-	protected void setFechaDevolucion(LocalDate fechaDevolucion){
-//		if (fechaValida(fechaDevolucion))
-			this.fechaDevolucion = fechaDevolucion;
-//		else
-//			throw new FechaNoValidaException("La fecha de devolucion no es valida");
+	protected void setFechaDevolucion(LocalDate fechaDevolucion) {
+		// if (fechaValida(fechaDevolucion))
+		this.fechaDevolucion = fechaDevolucion;
+		// else
+		// throw new FechaNoValidaException("La fecha de devolucion no es
+		// valida");
 	}
 
-	
 	/**
 	 * Asigna la fecha de ingreso en la biblioteca
 	 * 
 	 * @param fechaIngreso
-	 * @throws FechaNoValidaException 
+	 * @throws FechaNoValidaException
 	 */
-	private void setFechaIngreso(LocalDate fechaIngreso)  {
-//		if (fechaValida(fechaIngreso))
-			this.fechaIngreso = fechaIngreso;
-//		else
-//			throw new FechaNoValidaException("La fecha de ingreso no es valida");
+	private void setFechaIngreso(LocalDate fechaIngreso) {
+		// if (fechaValida(fechaIngreso))
+		this.fechaIngreso = fechaIngreso;
+		// else
+		// throw new FechaNoValidaException("La fecha de ingreso no es valida");
 	}
-	
 
 	/**
 	 * Asigna la fecha de publicacion
 	 * 
 	 * @param fechaPublicacion
-	 * @throws FechaNoValidaException 
+	 * @throws FechaNoValidaException
 	 */
 	private void setFechaPublicacion(LocalDate fechaPublicacion) {
-//		if (fechaValida(fechaPublicacion))
-			this.fechaPublicacion = fechaPublicacion;
-//		else
-//			throw new FechaNoValidaException("La fecha de ingreso no es valida");
+		// if (fechaValida(fechaPublicacion))
+		this.fechaPublicacion = fechaPublicacion;
+		// else
+		// throw new FechaNoValidaException("La fecha de ingreso no es valida");
 	}
 
 	/**
@@ -189,7 +195,6 @@ public class Publicacion implements Serializable {
 		return fechaIngreso;
 	}
 
-
 	/**
 	 * Obtiene el valor de prestado de una publicacion
 	 * 
@@ -216,7 +221,6 @@ public class Publicacion implements Serializable {
 	public LocalDate getFechaPublicacion() {
 		return fechaPublicacion;
 	}
-
 
 	/**
 	 * Obtiene el numero de paginas dela publicacion
@@ -253,14 +257,14 @@ public class Publicacion implements Serializable {
 		return patternField.matcher(campo).matches();
 	}
 
-	/**
-	 * 
-	 * @param fecha
-	 * @return
-	 */
-	protected boolean fechaValida(LocalDate fecha) {
-		return patronFecha.matcher(fecha.toString()).matches();
-	}
+	// /**
+	// *
+	// * @param fecha
+	// * @return
+	// */
+	// protected boolean fechaValida(LocalDate fecha) {
+	// return patronFecha.matcher(fecha.toString()).matches();
+	// }
 
 	/*
 	 * (non-Javadoc)
@@ -298,7 +302,8 @@ public class Publicacion implements Serializable {
 
 	/**
 	 * Calcula la fecha de devolucion de una publicacion
-	 * @throws FechaNoValidaException 
+	 * 
+	 * @throws FechaNoValidaException
 	 */
 	protected void calcularFechaDevolucion(double puntuacion) throws FechaNoValidaException {
 		LocalDate hoy = LocalDate.now();

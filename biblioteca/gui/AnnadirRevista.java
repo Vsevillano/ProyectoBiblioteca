@@ -22,6 +22,12 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class AnnadirRevista extends VentanaPadre {
 	/**
 	 * 
@@ -64,21 +70,27 @@ public class AnnadirRevista extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public AnnadirRevista() {
+		btnEnviar.setText("A\u00F1adir");
 		setTitle("A\u00F1adir revista");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+					// Obtenemos fechas
 					SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 					LocalDate dateIngreso = LocalDate.parse(formater.format(spinnerIngreso.getValue()));
 					LocalDate datePublicacion = LocalDate.parse(formater.format(spinnerPublicacion.getValue()));
+
+					// Añadimos revista
 					Fichero.almacen.anadirRevista(textTitulo.getText(), textEditorial.getText(), getPeriodo(),
 							(GeneroRevista) comboGenero.getSelectedItem(), dateIngreso, datePublicacion,
 							Integer.parseInt(textNumeroPaginas.getText()));
+
+					// Reseteamos campos de la ventana
 					textEditorial.setText("");
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
-					int id = Integer.parseInt(textId.getText());
-					textId.setText((id + 1) + "");
+
+					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
 				} catch (PeriodoNoValidoException | FechaNoValidaException | NumeroPaginasNoValidoException
@@ -122,7 +134,6 @@ public class AnnadirRevista extends VentanaPadre {
 		okButton.setVisible(false);
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
-
 
 	}
 }

@@ -10,15 +10,41 @@ import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class Periodico extends Publicacion implements Evaluable, Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Genero del periodico
+	 */
 	private GeneroPeriodico genero;
+	/**
+	 * Periodo del periodico
+	 */
 	private Periodo periodo;
 
+	/**
+	 * Constructor del periodico
+	 * 
+	 * @param titulo
+	 * @param genero
+	 * @param periodo
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws TituloNoValidoException
+	 * @throws FechaNoValidaException
+	 * @throws PeriodoNoValidoException
+	 */
 	public Periodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas) throws NumeroPaginasNoValidoException,
 			TituloNoValidoException, FechaNoValidaException, PeriodoNoValidoException {
@@ -27,18 +53,40 @@ public class Periodico extends Publicacion implements Evaluable, Serializable {
 		setPeriodo(periodo);
 	}
 
+	/**
+	 * Obtiene el Genero del periodico
+	 * 
+	 * @return
+	 */
 	public GeneroPeriodico getGenero() {
 		return genero;
 	}
 
+	/**
+	 * Asigna el genero del periodico
+	 * 
+	 * @param genero
+	 */
 	private void setGenero(GeneroPeriodico genero) {
 		this.genero = genero;
 	}
 
+	/**
+	 * Obtiene el periodo
+	 * 
+	 * @return
+	 */
 	public Periodo getPeriodo() {
 		return periodo;
 	}
 
+	/**
+	 * Asigna el periodo
+	 * 
+	 * @param periodo
+	 * @throws PeriodoNoValidoException
+	 *             si el periodo es null
+	 */
 	private void setPeriodo(Periodo periodo) throws PeriodoNoValidoException {
 		if (periodo != null)
 			this.periodo = periodo;
@@ -46,6 +94,11 @@ public class Periodico extends Publicacion implements Evaluable, Serializable {
 			throw new PeriodoNoValidoException("El periodo no es válido");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see biblioteca.estructura.Evaluable#calcularTiempoPrestado()
+	 */
 	@Override
 	public double calcularTiempoPrestado() {
 		LocalDate hoy = LocalDate.now();
@@ -62,11 +115,15 @@ public class Periodico extends Publicacion implements Evaluable, Serializable {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see biblioteca.estructura.Publicacion#toString()
+	 */
 	@Override
 	public String toString() {
-		return "Periodico [genero=" + getGenero() + ", periodo=" + getPeriodo() + ", toString()=" + super.toString() + "]\n";
+		return "Periodico [genero=" + getGenero() + ", periodo=" + getPeriodo() + ", toString()=" + super.toString()
+				+ "]\n";
 	}
-
-	
 
 }

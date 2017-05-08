@@ -8,9 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroPeriodico;
-import biblioteca.estructura.GeneroRevista;
 import biblioteca.estructura.Periodo;
-import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
@@ -21,7 +19,18 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class AnnadirPeriodico extends VentanaPadre {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Launch the application.
@@ -61,19 +70,24 @@ public class AnnadirPeriodico extends VentanaPadre {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+					// Obtenemos fechas
 					SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 					LocalDate dateIngreso = LocalDate.parse(formater.format(spinnerIngreso.getValue()));
 					LocalDate datePublicacion = LocalDate.parse(formater.format(spinnerPublicacion.getValue()));
+
+					// Añadimos periodico
 					Fichero.almacen.annadirPeriodico(textTitulo.getText(),
 							(GeneroPeriodico) comboGenero.getSelectedItem(), getPeriodo(), dateIngreso, datePublicacion,
 							Integer.parseInt(textNumeroPaginas.getText()));
+
+					// Reseteamos campos de la ventana
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
-					int id = Integer.parseInt(textId.getText());
-					textId.setText((id + 1) + "");
+
+					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
-				} catch (PeriodoNoValidoException | FechaNoValidaException | NumeroPaginasNoValidoException
+				} catch (FechaNoValidaException | NumeroPaginasNoValidoException | PeriodoNoValidoException
 						| TituloNoValidoException e1) {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);

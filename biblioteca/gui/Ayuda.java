@@ -13,6 +13,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class Ayuda extends JDialog {
 
 	/**
@@ -34,7 +40,6 @@ public class Ayuda extends JDialog {
 		}
 	}
 
-
 	/**
 	 * Create the dialog.
 	 */
@@ -46,10 +51,11 @@ public class Ayuda extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		JTextPane txtpnAyudaACerca = new JTextPane();
 		txtpnAyudaACerca.setFont(new Font("Tahoma", Font.BOLD, 12));
-		txtpnAyudaACerca.setText("\r\nAyuda a cerca de la Biblioteca:\r\n\r\n - Menu Edicion:\r\n\r\n - Menu Buscar:\r\n\r\n - Menu Listar:\r\n\r\n - Menu Ayuda:");
+		txtpnAyudaACerca.setText(
+				"\r\nAyuda a cerca de la Biblioteca:\r\n\r\n - Menu Edicion:\r\n\r\n - Menu Buscar:\r\n\r\n - Menu Listar:\r\n\r\n - Menu Ayuda:");
 		txtpnAyudaACerca.setBounds(10, 11, 411, 217);
 		contentPanel.add(txtpnAyudaACerca);
 		{
@@ -62,7 +68,7 @@ public class Ayuda extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						dispose();
 					}
-				});	
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

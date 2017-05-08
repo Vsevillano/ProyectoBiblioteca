@@ -27,6 +27,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class Principal extends JFrame implements Serializable {
 
 	private final Filtro filtro = new Filtro(".obj", "Objeto");
@@ -244,7 +250,13 @@ public class Principal extends JFrame implements Serializable {
 		JMenuItem mntmListarTodo = new JMenuItem("Listar todo");
 		mntmListarTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(Fichero.almacen.toString());
+				try {
+					ListarBiblioteca listarBiblioteca = new ListarBiblioteca();
+					listarBiblioteca.setVisible(true);
+				} catch (IndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null, "Biblioteca vacia!", "Error!", JOptionPane.ERROR_MESSAGE);
+
+				}
 			}
 		});
 		mnListar.add(mntmListarTodo);

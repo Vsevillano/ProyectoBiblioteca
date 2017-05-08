@@ -15,6 +15,12 @@ import biblioteca.estructura.Publicacion;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class ListarRevistas extends VentanaPadre {
 	/**
 	 * 
@@ -22,6 +28,7 @@ public class ListarRevistas extends VentanaPadre {
 	private static final long serialVersionUID = 1L;
 	private JTextField textEditorial;
 	private int indicePublicacion = 0;
+
 	/**
 	 * Launch the application.
 	 */
@@ -38,7 +45,7 @@ public class ListarRevistas extends VentanaPadre {
 			}
 		});
 	}
-	
+
 	private void comprobarBotones() {
 		if (indicePublicacion + 1 >= Fichero.almacen.listarRevistas().size()) {
 			buttonAdelante.setEnabled(false);
@@ -52,15 +59,14 @@ public class ListarRevistas extends VentanaPadre {
 		}
 	}
 
-	
 	private void mostrarRevista(int indicePublicacion) {
 		Publicacion publicacion = Fichero.almacen.listarRevistas().get(indicePublicacion);
-		textId.setText(publicacion.getIdentificador()+"");
-		textTitulo.setText(publicacion.getTitulo());	
+		textId.setText(publicacion.getIdentificador() + "");
+		textTitulo.setText(publicacion.getTitulo());
 		textEditorial.setText(((Revista) publicacion).getEditorial());
 		comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
-		textNumeroPaginas.setText(publicacion.getNumeroPaginas()+"");
-		
+		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
+
 		switch (((Revista) Fichero.almacen.listarRevistas().get(indicePublicacion)).getPeriodo()) {
 		case DIARIO:
 			rdbtnDiario.setSelected(true);
@@ -72,9 +78,9 @@ public class ListarRevistas extends VentanaPadre {
 			rdbtnMensual.setSelected(true);
 		case ANUAL:
 			rdbtnAnual.setSelected(true);
-			
+
 		}
-		
+
 		String dateIngreso = publicacion.getFechaIngreso().toString();
 		String datePublicacion = publicacion.getFechaPublicacion().toString();
 		try {
@@ -87,8 +93,8 @@ public class ListarRevistas extends VentanaPadre {
 			e.printStackTrace();
 		}
 
-
 	}
+
 	/**
 	 * Create the dialog.
 	 */
@@ -129,11 +135,11 @@ public class ListarRevistas extends VentanaPadre {
 		lblPeriodo.setLocation(10, 185);
 		lblNumeroPaginas.setLocation(10, 214);
 		textNumeroPaginas.setLocation(86, 215);
-		
+
 		JLabel lblEditorial = new JLabel("Editorial:");
 		lblEditorial.setBounds(10, 56, 60, 23);
 		contentPanel.add(lblEditorial);
-		
+
 		textEditorial = new JTextField();
 		textEditorial.setEnabled(false);
 		textEditorial.setBounds(80, 52, 215, 20);

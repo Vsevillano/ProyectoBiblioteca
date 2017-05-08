@@ -11,24 +11,29 @@ import biblioteca.excepciones.ISBNNoValidoException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.PublicacionNoExisteException;
-import biblioteca.excepciones.PublicacionYaExisteException;
 import biblioteca.excepciones.TituloNoValidoException;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class Biblioteca implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
-	
-	private ArrayList<Publicacion> biblioteca  = new ArrayList<Publicacion>();;
-	
-	private static ArrayList<Publicacion> lista = new ArrayList<Publicacion>();
-	
-	//private Publicacion publicacion;
 
+	/**
+	 * Estructura para almacenar publicaciones
+	 */
+	private ArrayList<Publicacion> biblioteca = new ArrayList<Publicacion>();;
+	
+	/**
+	 * Estructura donde almacenaremos temporalmente ciertas publicaciones
+	 */
+	private ArrayList<Publicacion> lista;
 
 	/**
 	 * Bandera que me indica si el archivo ha sido modificado
@@ -36,7 +41,7 @@ public class Biblioteca implements Serializable {
 	private boolean modificado = false;
 
 	/**
-	 * 
+	 * Devuelve el estado de modificado
 	 * @return
 	 */
 	public boolean isModificado() {
@@ -44,7 +49,7 @@ public class Biblioteca implements Serializable {
 	}
 
 	/**
-	 * 
+	 * Asigna valor a modificado
 	 * @param modificado
 	 */
 	public void setModificado(boolean modificado) {
@@ -62,16 +67,18 @@ public class Biblioteca implements Serializable {
 	 * @return
 	 * @throws CampoVacioException
 	 * @throws NumeroPaginasNoValidoException
-	 * @throws PublicacionYaExisteException 
-	 * @throws TituloNoValidoException 
-	 * @throws AutorNovalidoException 
-	 * @throws EditorialNoValidaException 
+	 * @throws TituloNoValidoException
+	 * @throws AutorNovalidoException
+	 * @throws EditorialNoValidaException
 	 */
 	public void anadirNovela(String titulo, String autor, String editorial, GeneroNovela genero, LocalDate fechaIngreso,
-			LocalDate fechaPublicacion, int numeroPaginas) throws FechaNoValidaException,NumeroPaginasNoValidoException, EditorialNoValidaException, AutorNovalidoException, TituloNoValidoException {
-			biblioteca.add(new Novela(titulo, autor, editorial, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
+			LocalDate fechaPublicacion, int numeroPaginas)
+			throws FechaNoValidaException, NumeroPaginasNoValidoException, EditorialNoValidaException,
+			AutorNovalidoException, TituloNoValidoException {
+		biblioteca.add(new Novela(titulo, autor, editorial, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 
 	}
+
 	/**
 	 * 
 	 * @param titulo
@@ -83,13 +90,14 @@ public class Biblioteca implements Serializable {
 	 * @return
 	 * @throws CampoVacioException
 	 * @throws NumeroPaginasNoValidoException
-	 * @throws EditorialNoValidaException 
-	 * @throws TituloNoValidoException 
-	 * @throws PeriodoNoValidoException 
+	 * @throws EditorialNoValidaException
+	 * @throws TituloNoValidoException
+	 * @throws PeriodoNoValidoException
 	 */
 	public void anadirRevista(String titulo, String editorial, Periodo periodo, GeneroRevista genero,
 			LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas)
-			throws FechaNoValidaException, NumeroPaginasNoValidoException, TituloNoValidoException, EditorialNoValidaException, PeriodoNoValidoException {
+			throws FechaNoValidaException, NumeroPaginasNoValidoException, TituloNoValidoException,
+			EditorialNoValidaException, PeriodoNoValidoException {
 		biblioteca.add(new Revista(titulo, editorial, periodo, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
 
@@ -107,30 +115,32 @@ public class Biblioteca implements Serializable {
 	 * @throws PeriodoNoValidoException
 	 */
 	public void annadirPeriodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
-			LocalDate fechaPublicacion, int numeroPaginas) throws FechaNoValidaException,NumeroPaginasNoValidoException, TituloNoValidoException, PeriodoNoValidoException {
+			LocalDate fechaPublicacion, int numeroPaginas) throws FechaNoValidaException,
+			NumeroPaginasNoValidoException, TituloNoValidoException, PeriodoNoValidoException {
 		biblioteca.add(new Periodico(titulo, genero, periodo, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
 
 	/**
-	 * Añade un libro de texto a nuestra biblioteca
+	 * Añade un libro de texto a la bilioteca
 	 * 
 	 * @param titulo
 	 * @param editorial
 	 * @param isbn
+	 * @param fechaIngreso
 	 * @param fechaPublicacion
 	 * @param numeroPaginas
 	 * @param materia
-	 * @return
 	 * @throws ISBNNoValidoException
-	 * @throws CampoVacioException
+	 * @throws FechaNoValidaException
 	 * @throws NumeroPaginasNoValidoException
-	 * @throws EditorialNoValidaException 
-	 * @throws TituloNoValidoException 
+	 * @throws TituloNoValidoException
+	 * @throws EditorialNoValidaException
 	 */
 	public void annadirLibroTexto(String titulo, String editorial, String isbn, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, Materia materia)
-			throws ISBNNoValidoException, FechaNoValidaException, NumeroPaginasNoValidoException, TituloNoValidoException, EditorialNoValidaException {
-		 biblioteca.add(new LibroTexto(titulo, editorial, isbn, fechaIngreso, fechaPublicacion, numeroPaginas, materia));
+			throws ISBNNoValidoException, FechaNoValidaException, NumeroPaginasNoValidoException,
+			TituloNoValidoException, EditorialNoValidaException {
+		biblioteca.add(new LibroTexto(titulo, editorial, isbn, fechaIngreso, fechaPublicacion, numeroPaginas, materia));
 	}
 
 	/*
@@ -149,7 +159,7 @@ public class Biblioteca implements Serializable {
 	 * @return un array de Novelas
 	 */
 	public ArrayList<Publicacion> listarNovelas() {
-		lista.clear();
+		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion instanceof Novela)
 				lista.add((Novela) publicacion);
@@ -163,7 +173,7 @@ public class Biblioteca implements Serializable {
 	 * @return arrayList de periodicos
 	 */
 	public ArrayList<Publicacion> listarPeriodicos() {
-		lista.clear();
+		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion instanceof Periodico)
 				lista.add((Periodico) publicacion);
@@ -177,7 +187,7 @@ public class Biblioteca implements Serializable {
 	 * @return un arrayList de revistas
 	 */
 	public ArrayList<Publicacion> listarRevistas() {
-		lista.clear();
+		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion instanceof Revista)
 				lista.add((Revista) publicacion);
@@ -191,7 +201,7 @@ public class Biblioteca implements Serializable {
 	 * @return un arrayList de libros de texto
 	 */
 	public ArrayList<Publicacion> listarLibrosTexto() {
-		lista.clear();
+		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion instanceof LibroTexto)
 				lista.add((LibroTexto) publicacion);
@@ -199,8 +209,13 @@ public class Biblioteca implements Serializable {
 		return lista;
 	}
 
+	/**
+	 * Lista los libros prestados
+	 * 
+	 * @return
+	 */
 	public ArrayList<Publicacion> listarPrestados() {
-		lista.clear();
+		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.isPrestado() == true)
 				lista.add(publicacion);
@@ -208,8 +223,13 @@ public class Biblioteca implements Serializable {
 		return lista;
 	}
 
+	/**
+	 * Lista los libros a devolver a fecha de hoy
+	 * 
+	 * @return
+	 */
 	public ArrayList<Publicacion> listarADevolverHoy() {
-		lista.clear();
+		lista = new ArrayList<Publicacion>();
 		LocalDate hoy = LocalDate.now();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.getFechaDevolucion() != null && publicacion.getFechaDevolucion().equals(hoy)) {
@@ -220,6 +240,8 @@ public class Biblioteca implements Serializable {
 	}
 
 	/**
+	 * Elimina por indice una publicacion
+	 * 
 	 * @throws PublicacionNoExisteException
 	 * 
 	 */
@@ -232,6 +254,7 @@ public class Biblioteca implements Serializable {
 	}
 
 	/**
+	 * Elimina por identificador una publicacion
 	 * 
 	 * @param ident
 	 * @throws PublicacionNoExisteException
@@ -261,8 +284,8 @@ public class Biblioteca implements Serializable {
 			}
 			if (!lista.isEmpty())
 				return lista;
-				else
-					throw new PublicacionNoExisteException("La publicacion no existe.");
+			else
+				throw new PublicacionNoExisteException("La publicacion no existe.");
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw new PublicacionNoExisteException("La publicacion no existe.");
 		}
@@ -295,7 +318,7 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @param id
 	 * @return
-	 * @throws FechaNoValidaException 
+	 * @throws FechaNoValidaException
 	 */
 	boolean prestarPublicacion(int id) throws FechaNoValidaException {
 		for (Publicacion publicacion : biblioteca) {
@@ -328,7 +351,7 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @param id
 	 * @return
-	 * @throws FechaNoValidaException 
+	 * @throws FechaNoValidaException
 	 */
 	boolean devolverPublicacion(int id) throws FechaNoValidaException {
 		for (Publicacion publicacion : biblioteca) {
@@ -360,6 +383,5 @@ public class Biblioteca implements Serializable {
 	public Publicacion get(int i) {
 		return biblioteca.get(i);
 	}
-
 
 }

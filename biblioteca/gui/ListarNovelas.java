@@ -4,10 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerDateModel;
-import javax.swing.SpinnerModel;
 import javax.swing.DefaultComboBoxModel;
 
 import biblioteca.estructura.Fichero;
@@ -18,16 +15,24 @@ import biblioteca.estructura.Publicacion;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class ListarNovelas extends VentanaPadre {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField textAutor;
 	private JTextField textEditorial;
-	
-	private int indicePublicacion = 0;
 
+	private int indicePublicacion = 0;
 
 	/**
 	 * Launch the application.
@@ -58,16 +63,16 @@ public class ListarNovelas extends VentanaPadre {
 			btnAtras.setEnabled(true);
 		}
 	}
-	
+
 	private void mostrarNovela(int indicePublicacion) {
 		Publicacion publicacion = Fichero.almacen.listarNovelas().get(indicePublicacion);
-		textId.setText(publicacion.getIdentificador()+"");
-		textTitulo.setText(publicacion.getTitulo());	
+		textId.setText(publicacion.getIdentificador() + "");
+		textTitulo.setText(publicacion.getTitulo());
 		textAutor.setText(((Novela) publicacion).getAutor());
 		textEditorial.setText(((Novela) publicacion).getEditorial());
 		comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
-		textNumeroPaginas.setText(publicacion.getNumeroPaginas()+"");
-		
+		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
+
 		String dateIngreso = publicacion.getFechaIngreso().toString();
 		String datePublicacion = publicacion.getFechaPublicacion().toString();
 		try {
@@ -80,8 +85,8 @@ public class ListarNovelas extends VentanaPadre {
 			e.printStackTrace();
 		}
 
-
 	}
+
 	/**
 	 * Create the dialog.
 	 */
@@ -120,28 +125,28 @@ public class ListarNovelas extends VentanaPadre {
 		lblPeriodo.setLocation(10, 195);
 		lblNumeroPaginas.setLocation(10, 221);
 		textNumeroPaginas.setLocation(86, 222);
-		
+
 		JLabel lblAutor = new JLabel("Autor:");
 		lblAutor.setBounds(10, 60, 46, 23);
 		contentPanel.add(lblAutor);
-		
+
 		textAutor = new JTextField();
 		textAutor.setEnabled(false);
 		textAutor.setBounds(80, 57, 215, 20);
 		contentPanel.add(textAutor);
 		textAutor.setColumns(10);
-		
+
 		textEditorial = new JTextField();
 		textEditorial.setEnabled(false);
 		textEditorial.setColumns(10);
 		textEditorial.setBounds(80, 89, 215, 20);
 		contentPanel.add(textEditorial);
-		
+
 		JLabel lblEditorial = new JLabel("Editorial:");
 		lblEditorial.setBounds(10, 92, 46, 23);
 		contentPanel.add(lblEditorial);
 		setBounds(100, 100, 450, 327);
-		
+
 		lblPeriodo.setVisible(false);
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);
@@ -152,7 +157,7 @@ public class ListarNovelas extends VentanaPadre {
 		btnEnviar.setVisible(false);
 		buttonAdelante.setEnabled(false);
 		cancelButton.setText("Aceptar");
-		
+
 		mostrarNovela(indicePublicacion);
 		comprobarBotones();
 

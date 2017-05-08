@@ -19,7 +19,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class BuscarPorId extends VentanaPadre {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Launch the application.
@@ -37,16 +48,16 @@ public class BuscarPorId extends VentanaPadre {
 			}
 		});
 	}
-	
+
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
-		comboGenero.setSelectedItem(((Novela)publicacion).getGenero());
+			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
 		else if (publicacion instanceof Revista)
-		comboGenero.setSelectedItem(((Revista)publicacion).getGenero());
+			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
 		else if (publicacion instanceof Periodico)
-			comboGenero.setSelectedItem(((Periodico)publicacion).getGenero());
+			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
 		else if (publicacion instanceof LibroTexto)
-		comboGenero.setSelectedItem(((LibroTexto)publicacion).getMateria());
+			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
 	}
 
 	/**
@@ -58,8 +69,8 @@ public class BuscarPorId extends VentanaPadre {
 				try {
 					Publicacion publicacion = Fichero.almacen.buscarPorID(Integer.parseInt(textId.getText()));
 					textTitulo.setText(publicacion.getTitulo());
-					textId.setText(publicacion.getIdentificador()+"");
-					textNumeroPaginas.setText(publicacion.getNumeroPaginas()+"");
+					textId.setText(publicacion.getIdentificador() + "");
+					textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
 					getGenero(publicacion);
 
 					String dateIngreso = publicacion.getFechaIngreso().toString();
@@ -82,7 +93,6 @@ public class BuscarPorId extends VentanaPadre {
 
 			}
 
-
 		});
 		btnEnviar.setEnabled(true);
 		setTitle("Buscar publicacion");
@@ -100,7 +110,7 @@ public class BuscarPorId extends VentanaPadre {
 		okButton.setVisible(false);
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
-		
+
 		lblPeriodo.setVisible(false);
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);

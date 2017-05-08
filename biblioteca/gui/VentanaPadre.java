@@ -7,7 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeListener;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -15,17 +14,17 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
-import java.awt.Color;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import javax.swing.SpinnerModel;
 
-import java.util.Date;
-import java.util.Calendar;
-
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class VentanaPadre extends JDialog {
 
 	/**
@@ -82,113 +81,111 @@ public class VentanaPadre extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		lblTitulo = new JLabel("Titulo:");
 		lblTitulo.setBounds(10, 22, 46, 23);
 		contentPanel.add(lblTitulo);
-		
+
 		lblFechaIngreso = new JLabel("Fecha ingreso:");
 		lblFechaIngreso.setBounds(10, 63, 86, 23);
 		contentPanel.add(lblFechaIngreso);
-		
+
 		lblFechaPublicacion = new JLabel("Fecha publicacion:");
 		lblFechaPublicacion.setBounds(10, 97, 108, 23);
 		contentPanel.add(lblFechaPublicacion);
-		
+
 		lblNumeroPaginas = new JLabel("N\u00BA p\u00E1gs:");
 		lblNumeroPaginas.setBounds(10, 194, 46, 23);
 		contentPanel.add(lblNumeroPaginas);
-		
+
 		lblId = new JLabel("ID:");
 		lblId.setBounds(316, 22, 24, 23);
 		contentPanel.add(lblId);
-		
+
 		lblFechaDevolucion = new JLabel("Fecha devolucion:");
 		lblFechaDevolucion.setBounds(316, 56, 108, 23);
 		contentPanel.add(lblFechaDevolucion);
-		
+
 		textTitulo = new JTextField();
 		textTitulo.setBounds(80, 23, 215, 20);
 		contentPanel.add(textTitulo);
 		textTitulo.setColumns(10);
-		
+
 		textId = new JTextField();
 		textId.setEnabled(false);
 		textId.setBounds(343, 23, 68, 20);
 		contentPanel.add(textId);
 		textId.setColumns(10);
-		
+
 		textFechaDevolucion = new JTextField();
 		textFechaDevolucion.setEditable(false);
 		textFechaDevolucion.setBounds(316, 79, 95, 20);
 		contentPanel.add(textFechaDevolucion);
 		textFechaDevolucion.setColumns(10);
-		
+
 		lblGenero = new JLabel("Genero:");
 		lblGenero.setBounds(10, 132, 46, 23);
 		contentPanel.add(lblGenero);
-		
+
 		comboGenero = new JComboBox();
 		comboGenero.setBounds(80, 133, 215, 20);
 		contentPanel.add(comboGenero);
-		
+
 		lblPeriodo = new JLabel("Periodo:");
 		lblPeriodo.setBounds(10, 165, 50, 23);
 		contentPanel.add(lblPeriodo);
-		
+
 		rdbtnDiario = new JRadioButton("Diario");
 		buttonGroup.add(rdbtnDiario);
 		rdbtnDiario.setBounds(86, 165, 60, 23);
 		contentPanel.add(rdbtnDiario);
-		
+
 		rdbtnSemanal = new JRadioButton("Semanal");
 		buttonGroup.add(rdbtnSemanal);
 		rdbtnSemanal.setBounds(148, 165, 84, 23);
 		contentPanel.add(rdbtnSemanal);
-		
+
 		rdbtnMensual = new JRadioButton("Mensual");
 		buttonGroup.add(rdbtnMensual);
 		rdbtnMensual.setBounds(234, 165, 74, 23);
 		contentPanel.add(rdbtnMensual);
-		
+
 		rdbtnAnual = new JRadioButton("Anual");
 		buttonGroup.add(rdbtnAnual);
 		rdbtnAnual.setBounds(316, 165, 79, 23);
 		contentPanel.add(rdbtnAnual);
-		
+
 		btnEnviar = new JButton("Enviar");
 		btnEnviar.setEnabled(false);
 		btnEnviar.setBounds(316, 110, 95, 23);
 		contentPanel.add(btnEnviar);
-		
+
 		btnAtras = new JButton("<");
 		btnAtras.setBounds(316, 135, 46, 23);
 		contentPanel.add(btnAtras);
-		
+
 		buttonAdelante = new JButton(">");
 		buttonAdelante.setBounds(366, 135, 45, 23);
 		contentPanel.add(buttonAdelante);
-		
+
 		textNumeroPaginas = new JFormattedTextField();
 		textNumeroPaginas.setBounds(86, 195, 60, 20);
 		contentPanel.add(textNumeroPaginas);
-		
+
 		SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
 		spinnerIngreso = new JSpinner();
 		spinnerIngreso.setModel(new SpinnerDateModel());
-		spinnerIngreso.setEditor(new JSpinner.DateEditor(spinnerIngreso,model.toPattern()));
+		spinnerIngreso.setEditor(new JSpinner.DateEditor(spinnerIngreso, model.toPattern()));
 		spinnerIngreso.setBounds(112, 64, 120, 20);
-		
-		
-	
+
 		contentPanel.add(spinnerIngreso);
-		
+
 		spinnerPublicacion = new JSpinner();
 		spinnerPublicacion.setModel(new SpinnerDateModel());
 		spinnerPublicacion.setEditor(new JSpinner.DateEditor(spinnerPublicacion, model.toPattern()));
 		spinnerPublicacion.setBounds(112, 98, 120, 20);
 		contentPanel.add(spinnerPublicacion);
-		
+
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

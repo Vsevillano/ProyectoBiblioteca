@@ -9,9 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 
 import biblioteca.estructura.Fichero;
-import biblioteca.estructura.GeneroNovela;
 import biblioteca.estructura.Materia;
-import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
@@ -23,7 +21,17 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class AnnadirLibroTexto extends VentanaPadre {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField textEditorial;
 	private JTextField textISBN;
 
@@ -52,17 +60,22 @@ public class AnnadirLibroTexto extends VentanaPadre {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					// Obtenemos las fechas
 					SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 					LocalDate dateIngreso = LocalDate.parse(formater.format(spinnerIngreso.getValue()));
 					LocalDate datePublicacion = LocalDate.parse(formater.format(spinnerPublicacion.getValue()));
+
+					// Añadimos libro
 					Fichero.almacen.annadirLibroTexto(textTitulo.getText(), textEditorial.getText(), textISBN.getText(),
-						dateIngreso, datePublicacion, 
-							Integer.parseInt(textNumeroPaginas.getText()), (Materia) comboGenero.getSelectedItem());
+							dateIngreso, datePublicacion, Integer.parseInt(textNumeroPaginas.getText()),
+							(Materia) comboGenero.getSelectedItem());
+
+					// Reseteamos campos de la ventana
 					textEditorial.setText("");
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
 					textISBN.setText("");
-					int id = Integer.parseInt(textId.getText());
+					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
 				} catch (FechaNoValidaException | NumeroPaginasNoValidoException | EditorialNoValidaException
@@ -87,20 +100,20 @@ public class AnnadirLibroTexto extends VentanaPadre {
 		lblGenero.setLocation(10, 180);
 		lblNumeroPaginas.setLocation(10, 214);
 		textNumeroPaginas.setLocation(86, 215);
-		
+
 		JLabel lblEditorial = new JLabel("Editorial:");
 		lblEditorial.setBounds(10, 60, 68, 19);
 		contentPanel.add(lblEditorial);
-		
+
 		textEditorial = new JTextField();
 		textEditorial.setBounds(80, 57, 215, 20);
 		contentPanel.add(textEditorial);
 		textEditorial.setColumns(10);
-		
+
 		JLabel lblIsbn = new JLabel("ISBN");
 		lblIsbn.setBounds(10, 95, 46, 14);
 		contentPanel.add(lblIsbn);
-		
+
 		textISBN = new JTextField();
 		textISBN.setBounds(80, 88, 215, 20);
 		contentPanel.add(textISBN);
@@ -115,7 +128,6 @@ public class AnnadirLibroTexto extends VentanaPadre {
 		lblPeriodo.setVisible(false);
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
-		
 
 	}
 }

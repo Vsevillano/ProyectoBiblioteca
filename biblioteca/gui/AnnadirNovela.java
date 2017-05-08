@@ -7,13 +7,10 @@ import javax.swing.DefaultComboBoxModel;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroNovela;
-import biblioteca.estructura.Publicacion;
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
-import biblioteca.excepciones.PublicacionNoExisteException;
-import biblioteca.excepciones.PublicacionYaExisteException;
 import biblioteca.excepciones.TituloNoValidoException;
 
 import java.awt.event.ActionListener;
@@ -24,6 +21,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class AnnadirNovela extends VentanaPadre {
 	/**
 	 * 
@@ -60,18 +63,24 @@ public class AnnadirNovela extends VentanaPadre {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
+					// Obtenemos las fechas
 					SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 					LocalDate dateIngreso = LocalDate.parse(formater.format(spinnerIngreso.getValue()));
 					LocalDate datePublicacion = LocalDate.parse(formater.format(spinnerPublicacion.getValue()));
+
+					// Añadimos novela
 					Fichero.almacen.anadirNovela(textTitulo.getText(), textAutor.getText(), textEditorial.getText(),
 							(GeneroNovela) comboGenero.getSelectedItem(), dateIngreso, datePublicacion,
 							Integer.parseInt(textNumeroPaginas.getText()));
+
+					// Reseteamos campos de la ventana
 					textAutor.setText("");
 					textEditorial.setText("");
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
-					Fichero.almacen.setModificado(true);
 
+					// Actualizamos estado del fichero
+					Fichero.almacen.setModificado(true);
 
 				} catch (FechaNoValidaException | NumeroPaginasNoValidoException | EditorialNoValidaException
 						| AutorNovalidoException | TituloNoValidoException e1) {
@@ -132,7 +141,6 @@ public class AnnadirNovela extends VentanaPadre {
 		buttonAdelante.setVisible(false);
 		okButton.setVisible(false);
 		cancelButton.setText("Aceptar");
-		
 
 	}
 

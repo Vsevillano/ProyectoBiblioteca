@@ -11,13 +11,18 @@ import javax.swing.JTextField;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.LibroTexto;
-import biblioteca.estructura.Novela;
 import biblioteca.estructura.Publicacion;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import biblioteca.estructura.Materia;
 
+/**
+ * 
+ * @author Victoriano Sevillano Vega
+ * @version 1.0
+ *
+ */
 public class ListarLibrosTexto extends VentanaPadre {
 	/**
 	 * 
@@ -43,10 +48,9 @@ public class ListarLibrosTexto extends VentanaPadre {
 			}
 		});
 	}
-	
 
 	private void comprobarBotones() {
-		if (indicePublicacion  + 1 >= Fichero.almacen.listarLibrosTexto().size()) {
+		if (indicePublicacion + 1 >= Fichero.almacen.listarLibrosTexto().size()) {
 			buttonAdelante.setEnabled(false);
 		} else {
 			buttonAdelante.setEnabled(true);
@@ -57,17 +61,16 @@ public class ListarLibrosTexto extends VentanaPadre {
 			btnAtras.setEnabled(true);
 		}
 	}
-	
+
 	private void mostrarLibroTexto(int indicePublicacion) {
 		Publicacion publicacion = Fichero.almacen.listarLibrosTexto().get(indicePublicacion);
-		textId.setText(publicacion.getIdentificador()+"");
-		textTitulo.setText(publicacion.getTitulo());	
+		textId.setText(publicacion.getIdentificador() + "");
+		textTitulo.setText(publicacion.getTitulo());
 		textISBN.setText(((LibroTexto) publicacion).getIsbn());
 		textEditorial.setText(((LibroTexto) publicacion).getEditorial());
 		comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
-		textNumeroPaginas.setText(publicacion.getNumeroPaginas()+"");
-		
-		
+		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
+
 		String dateIngreso = publicacion.getFechaIngreso().toString();
 		String datePublicacion = publicacion.getFechaPublicacion().toString();
 		try {
@@ -79,7 +82,6 @@ public class ListarLibrosTexto extends VentanaPadre {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 
 	}
 
@@ -116,21 +118,21 @@ public class ListarLibrosTexto extends VentanaPadre {
 		lblGenero.setLocation(10, 180);
 		lblNumeroPaginas.setLocation(10, 214);
 		textNumeroPaginas.setLocation(86, 215);
-		
+
 		JLabel lblEditorial = new JLabel("Editorial:");
 		lblEditorial.setBounds(10, 60, 68, 14);
 		contentPanel.add(lblEditorial);
-		
+
 		JLabel lblIsbn = new JLabel("ISBN:");
 		lblIsbn.setBounds(10, 86, 46, 14);
 		contentPanel.add(lblIsbn);
-		
+
 		textEditorial = new JTextField();
 		textEditorial.setEnabled(false);
 		textEditorial.setBounds(80, 57, 215, 20);
 		contentPanel.add(textEditorial);
 		textEditorial.setColumns(10);
-		
+
 		textISBN = new JTextField();
 		textISBN.setEnabled(false);
 		textISBN.setBounds(80, 83, 215, 20);
@@ -138,7 +140,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 		textISBN.setColumns(10);
 		setTitle("Listar libros de texto");
 		setBounds(100, 100, 450, 320);
-		
+
 		btnEnviar.setVisible(false);
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);
@@ -146,7 +148,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 		rdbtnSemanal.setVisible(false);
 		lblPeriodo.setVisible(false);
 		okButton.setVisible(false);
-		
+
 		mostrarLibroTexto(indicePublicacion);
 		comprobarBotones();
 

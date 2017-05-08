@@ -8,9 +8,11 @@ import java.util.Date;
 import javax.swing.JDialog;
 
 import biblioteca.estructura.Fichero;
+import biblioteca.estructura.LibroTexto;
+import biblioteca.estructura.Novela;
 import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
-
+import biblioteca.estructura.Revista;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -20,7 +22,7 @@ import java.awt.event.ActionEvent;
  * @version 1.0
  *
  */
-public class ListarPeriodicos extends VentanaPadre {
+public class ListarBiblioteca extends VentanaPadre {
 
 	/**
 	 * 
@@ -35,7 +37,7 @@ public class ListarPeriodicos extends VentanaPadre {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ListarPeriodicos dialog = new ListarPeriodicos();
+					ListarBiblioteca dialog = new ListarBiblioteca();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 				} catch (Exception e) {
@@ -45,8 +47,19 @@ public class ListarPeriodicos extends VentanaPadre {
 		});
 	}
 
+	private void getGenero(Publicacion publicacion) {
+		if (publicacion instanceof Novela)
+			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
+		else if (publicacion instanceof Revista)
+			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
+		else if (publicacion instanceof Periodico)
+			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
+		else if (publicacion instanceof LibroTexto)
+			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
+	}
+
 	private void comprobarBotones() {
-		if (indicePublicacion + 1 >= Fichero.almacen.listarPeriodicos().size()) {
+		if (indicePublicacion + 1 >= Fichero.almacen.size()) {
 			buttonAdelante.setEnabled(false);
 		} else {
 			buttonAdelante.setEnabled(true);
@@ -58,26 +71,12 @@ public class ListarPeriodicos extends VentanaPadre {
 		}
 	}
 
-	private void mostrarPeriodico(int indicePublicacion) {
-		Publicacion publicacion = Fichero.almacen.listarPeriodicos().get(indicePublicacion);
+	private void mostrarPublicaciones(int indicePublicacion) {
+		Publicacion publicacion = Fichero.almacen.get(indicePublicacion);
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
-		comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
-
-		switch (((Periodico) Fichero.almacen.listarPeriodicos().get(indicePublicacion)).getPeriodo()) {
-		case DIARIO:
-			rdbtnDiario.setSelected(true);
-			break;
-		case SEMANAL:
-			rdbtnSemanal.setSelected(true);
-			break;
-		case MENSUAL:
-			rdbtnMensual.setSelected(true);
-		case ANUAL:
-			rdbtnAnual.setSelected(true);
-
-		}
+		getGenero(publicacion);
 
 		String dateIngreso = publicacion.getFechaIngreso().toString();
 		String datePublicacion = publicacion.getFechaPublicacion().toString();
@@ -90,46 +89,46 @@ public class ListarPeriodicos extends VentanaPadre {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public ListarPeriodicos() {
-		cancelButton.setText("Aceptar");
-		buttonAdelante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				mostrarPeriodico(++indicePublicacion);
-				comprobarBotones();
-
-			}
-		});
+	public ListarBiblioteca() {
+		spinnerIngreso.setLocation(128, 63);
+		spinnerPublicacion.setLocation(128, 97);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPeriodico(--indicePublicacion);
+				mostrarPublicaciones(--indicePublicacion);
+				comprobarBotones();
+			}
+		});
+		buttonAdelante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				mostrarPublicaciones(++indicePublicacion);
 				comprobarBotones();
 			}
 		});
 		buttonAdelante.setEnabled(false);
 		btnAtras.setEnabled(false);
-		spinnerPublicacion.setEnabled(false);
-		spinnerIngreso.setEnabled(false);
-		spinnerPublicacion.setLocation(147, 97);
-		spinnerIngreso.setLocation(147, 63);
+		setTitle("Listar todo");
+		cancelButton.setText("Aceptar");
 		textNumeroPaginas.setEnabled(false);
-		rdbtnAnual.setEnabled(false);
-		rdbtnMensual.setEnabled(false);
-		rdbtnSemanal.setEnabled(false);
-		rdbtnDiario.setEnabled(false);
-		comboGenero.setEnabled(false);
+		setBounds(100, 100, 450, 300);
 		comboGenero.setEditable(true);
 		textTitulo.setEnabled(false);
-		setTitle("Listar peri\u00F3dicos");
-		setBounds(100, 100, 450, 300);
-		btnEnviar.setVisible(false);
+		spinnerIngreso.setEnabled(false);
+		spinnerPublicacion.setEnabled(false);
+		comboGenero.setEnabled(false);
+		lblPeriodo.setVisible(false);
+		rdbtnAnual.setVisible(false);
+		rdbtnDiario.setVisible(false);
+		rdbtnMensual.setVisible(false);
+		rdbtnSemanal.setVisible(false);
 		okButton.setVisible(false);
 
-		mostrarPeriodico(indicePublicacion);
+		mostrarPublicaciones(indicePublicacion);
 		comprobarBotones();
 	}
 
