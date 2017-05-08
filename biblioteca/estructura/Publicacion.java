@@ -117,7 +117,7 @@ public class Publicacion implements Serializable {
 		return identificador;
 	}
 
-	protected LocalDate getFechaDevolucion() {
+	public LocalDate getFechaDevolucion() {
 		return fechaDevolucion;
 	}
 
@@ -305,7 +305,7 @@ public class Publicacion implements Serializable {
 	 * 
 	 * @throws FechaNoValidaException
 	 */
-	protected void calcularFechaDevolucion(double puntuacion) throws FechaNoValidaException {
+	protected void calcularFechaDevolucion(double puntuacion){
 		LocalDate hoy = LocalDate.now();
 		if (puntuacion < 20) {
 			setFechaDevolucion(hoy.plusMonths(1));

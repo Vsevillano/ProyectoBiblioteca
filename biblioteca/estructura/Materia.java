@@ -7,7 +7,7 @@ package biblioteca.estructura;
  *
  */
 public enum Materia {
-	LENGUAJE, MATEMATIAS, FISICA, QUIMICA, HISTORIA, FILOSOFIA;
+	LENGUAJE, MATEMATICAS, FISICA, QUIMICA, HISTORIA, FILOSOFIA;
 
 	/**
 	 * Genera las opciones del meni de Materia (Solo test)

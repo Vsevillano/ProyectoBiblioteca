@@ -1,36 +1,30 @@
 package biblioteca.gui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.LibroTexto;
+import biblioteca.estructura.Novela;
+import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.DefaultComboBoxModel;
-import biblioteca.estructura.Materia;
+import biblioteca.estructura.Revista;
 
-/**
- * 
- * @author Victoriano Sevillano Vega
- * @version 1.0
- *
- */
-public class ListarLibrosTexto extends VentanaPadre {
+public class ADevolverHoy extends VentanaPadre {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JTextField textEditorial;
-	private JTextField textISBN;
 	private int indicePublicacion = 0;
+
+
 
 	/**
 	 * Launch the application.
@@ -39,7 +33,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ListarLibrosTexto dialog = new ListarLibrosTexto();
+					ADevolverHoy dialog = new ADevolverHoy();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 				} catch (Exception e) {
@@ -49,8 +43,10 @@ public class ListarLibrosTexto extends VentanaPadre {
 		});
 	}
 
+
+	
 	private void comprobarBotones() {
-		if (indicePublicacion + 1 >= Fichero.almacen.listarLibrosTexto().size()) {
+		if (indicePublicacion + 1 >= Fichero.almacen.listarADevolverHoy().size()) {
 			buttonAdelante.setEnabled(false);
 		} else {
 			buttonAdelante.setEnabled(true);
@@ -61,14 +57,23 @@ public class ListarLibrosTexto extends VentanaPadre {
 			btnAtras.setEnabled(true);
 		}
 	}
+	
+	private void getGenero(Publicacion publicacion) {
+		if (publicacion instanceof Novela)
+			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
+		else if (publicacion instanceof Revista)
+			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
+		else if (publicacion instanceof Periodico)
+			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
+		else if (publicacion instanceof LibroTexto)
+			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
+	}
 
-	private void mostrarLibroTexto(int indicePublicacion) {
-		Publicacion publicacion = Fichero.almacen.listarLibrosTexto().get(indicePublicacion);
+	private void mostrarPublicacion(int indicePublicacion) {
+		Publicacion publicacion = Fichero.almacen.listarADevolverHoy().get(indicePublicacion);
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
-		textISBN.setText(((LibroTexto) publicacion).getIsbn());
-		textEditorial.setText(((LibroTexto) publicacion).getEditorial());
-		comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
+		getGenero(publicacion);
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
 
 		try {
@@ -77,7 +82,6 @@ public class ListarLibrosTexto extends VentanaPadre {
 			textFechaDevolucion.setText(model.format(dateDev));
 		} catch (NullPointerException | ParseException e1) {
 			textFechaDevolucion.setText("");
-
 		}
 		
 		String dateIngreso = publicacion.getFechaIngreso().toString();
@@ -94,73 +98,47 @@ public class ListarLibrosTexto extends VentanaPadre {
 
 	}
 
+
 	/**
 	 * Create the dialog.
 	 */
-	public ListarLibrosTexto() {
-		comboGenero.setEnabled(false);
-		comboGenero.setModel(new DefaultComboBoxModel(Materia.values()));
-		cancelButton.setText("Aceptar");
+	public ADevolverHoy() {
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarLibroTexto(--indicePublicacion);
+				mostrarPublicacion(--indicePublicacion);
 				comprobarBotones();
 			}
 		});
 		buttonAdelante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarLibroTexto(++indicePublicacion);
+				mostrarPublicacion(++indicePublicacion);
 				comprobarBotones();
 			}
 		});
-		buttonAdelante.setEnabled(false);
-		btnAtras.setEnabled(false);
+		setTitle("A devolver hoy");
 		textNumeroPaginas.setEnabled(false);
+		comboGenero.setEnabled(false);
 		spinnerPublicacion.setEnabled(false);
 		spinnerIngreso.setEnabled(false);
 		textTitulo.setEnabled(false);
-		spinnerIngreso.setLocation(132, 111);
-		lblFechaIngreso.setLocation(10, 111);
-		lblFechaPublicacion.setLocation(10, 145);
-		spinnerPublicacion.setLocation(132, 145);
-		comboGenero.setLocation(80, 181);
-		lblGenero.setLocation(10, 180);
-		lblNumeroPaginas.setLocation(10, 214);
-		textNumeroPaginas.setLocation(86, 215);
-
-		JLabel lblEditorial = new JLabel("Editorial:");
-		lblEditorial.setBounds(10, 60, 68, 14);
-		contentPanel.add(lblEditorial);
-
-		JLabel lblIsbn = new JLabel("ISBN:");
-		lblIsbn.setBounds(10, 86, 46, 14);
-		contentPanel.add(lblIsbn);
-
-		textEditorial = new JTextField();
-		textEditorial.setEnabled(false);
-		textEditorial.setBounds(80, 57, 215, 20);
-		contentPanel.add(textEditorial);
-		textEditorial.setColumns(10);
-
-		textISBN = new JTextField();
-		textISBN.setEnabled(false);
-		textISBN.setBounds(80, 83, 215, 20);
-		contentPanel.add(textISBN);
-		textISBN.setColumns(10);
-		setTitle("Listar libros de texto");
-		setBounds(100, 100, 450, 320);
-
-		btnEnviar.setVisible(false);
+		spinnerPublicacion.setLocation(141, 97);
+		spinnerIngreso.setLocation(141, 63);
+		btnEnviar.setText("Prestar");
+		btnEnviar.setEnabled(true);
+		setBounds(100, 100, 450, 300);
+		
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);
 		rdbtnMensual.setVisible(false);
 		rdbtnSemanal.setVisible(false);
 		lblPeriodo.setVisible(false);
 		okButton.setVisible(false);
-
-		mostrarLibroTexto(indicePublicacion);
+		btnAtras.setEnabled(false);
+		buttonAdelante.setEnabled(false);
+		cancelButton.setText("Aceptar");
+		btnEnviar.setVisible(false);
+		mostrarPublicacion(indicePublicacion);
 		comprobarBotones();
-
 	}
 
 }

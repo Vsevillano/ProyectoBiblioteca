@@ -320,30 +320,23 @@ public class Biblioteca implements Serializable {
 	 * @return
 	 * @throws FechaNoValidaException
 	 */
-	boolean prestarPublicacion(int id) throws FechaNoValidaException {
+	public void prestarPublicacion(int id) {
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.getIdentificador() == id && publicacion.isPrestado() == false) {
 				publicacion.setPrestado(true);
 				if (publicacion instanceof Novela) {
 					publicacion.calcularFechaDevolucion(((Novela) publicacion).calcularTiempoPrestado());
-					return true;
 				} else if (publicacion instanceof Revista) {
 					publicacion.calcularFechaDevolucion(((Revista) publicacion).calcularTiempoPrestado());
-					return true;
 				} else if (publicacion instanceof Periodico) {
 					publicacion.calcularFechaDevolucion(((Periodico) publicacion).calcularTiempoPrestado());
-					return true;
-
 				} else if (publicacion instanceof LibroTexto) {
 					publicacion.calcularFechaDevolucion(((LibroTexto) publicacion).calcularTiempoPrestado());
-					return true;
 				} else {
-					return false;
 				}
 			}
 
 		}
-		return false;
 	}
 
 	/**
@@ -353,16 +346,14 @@ public class Biblioteca implements Serializable {
 	 * @return
 	 * @throws FechaNoValidaException
 	 */
-	boolean devolverPublicacion(int id) throws FechaNoValidaException {
+	public void devolverPublicacion(int id) {
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.getIdentificador() == id && publicacion.isPrestado() == true) {
 				publicacion.setPrestado(false);
 				publicacion.setFechaDevolucion(null);
-				return true;
 			}
 
 		}
-		return false;
 	}
 
 	/**

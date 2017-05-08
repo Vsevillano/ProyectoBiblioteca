@@ -265,15 +265,39 @@ public class Principal extends JFrame implements Serializable {
 		menuBar.add(mnPrestamosdevoluciones);
 
 		JMenuItem mntmRealizarPrstamo = new JMenuItem("Realizar pr\u00E9stamo");
+		mntmRealizarPrstamo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PrestarPublicacion prestarPublicacion = new PrestarPublicacion();
+				prestarPublicacion.setVisible(true);
+			}
+		});
 		mnPrestamosdevoluciones.add(mntmRealizarPrstamo);
 
 		JMenuItem mntmRealizarDevoluin = new JMenuItem("Realizar devoluci\u00F3n");
+		mntmRealizarDevoluin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DevolverPublicacion devolverPublicacion = new DevolverPublicacion();
+				devolverPublicacion.setVisible(true);
+			}
+		});
 		mnPrestamosdevoluciones.add(mntmRealizarDevoluin);
 
 		JMenuItem mntmListarPrestados = new JMenuItem("Pubicaciones prestadas");
+		mntmListarPrestados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PublicacionesPrestadas publicacionesPrestadas = new PublicacionesPrestadas();
+				publicacionesPrestadas.setVisible(true);
+			}
+		});
 		mnPrestamosdevoluciones.add(mntmListarPrestados);
 
 		JMenuItem mntmListarADevolver = new JMenuItem("A devolver hoy");
+		mntmListarADevolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ADevolverHoy aDevolverHoy = new ADevolverHoy();
+				aDevolverHoy.setVisible(true);
+			}
+		});
 		mnPrestamosdevoluciones.add(mntmListarADevolver);
 
 		JMenu mnAyuda = new JMenu("Ayuda");

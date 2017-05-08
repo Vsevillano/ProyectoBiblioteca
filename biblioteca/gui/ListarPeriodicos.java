@@ -79,6 +79,15 @@ public class ListarPeriodicos extends VentanaPadre {
 
 		}
 
+		try {
+			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
+			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
+			textFechaDevolucion.setText(model.format(dateDev));
+		} catch (NullPointerException | ParseException e1) {
+			textFechaDevolucion.setText("");
+
+		}
+		
 		String dateIngreso = publicacion.getFechaIngreso().toString();
 		String datePublicacion = publicacion.getFechaPublicacion().toString();
 		try {

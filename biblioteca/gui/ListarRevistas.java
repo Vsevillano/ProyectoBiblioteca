@@ -67,6 +67,15 @@ public class ListarRevistas extends VentanaPadre {
 		comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
 
+		try {
+			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
+			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
+			textFechaDevolucion.setText(model.format(dateDev));
+		} catch (NullPointerException | ParseException e1) {
+			textFechaDevolucion.setText("");
+
+		}
+		
 		switch (((Revista) Fichero.almacen.listarRevistas().get(indicePublicacion)).getPeriodo()) {
 		case DIARIO:
 			rdbtnDiario.setSelected(true);

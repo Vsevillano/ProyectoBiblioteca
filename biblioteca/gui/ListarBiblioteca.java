@@ -77,6 +77,15 @@ public class ListarBiblioteca extends VentanaPadre {
 		textTitulo.setText(publicacion.getTitulo());
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
 		getGenero(publicacion);
+		
+		try {
+			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
+			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
+			textFechaDevolucion.setText(model.format(dateDev));
+		} catch (NullPointerException | ParseException e1) {
+			textFechaDevolucion.setText("");
+
+		}
 
 		String dateIngreso = publicacion.getFechaIngreso().toString();
 		String datePublicacion = publicacion.getFechaPublicacion().toString();
