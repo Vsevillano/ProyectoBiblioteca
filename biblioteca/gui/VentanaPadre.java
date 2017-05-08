@@ -76,6 +76,7 @@ public class VentanaPadre extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaPadre() {
+		setModal(true);
 		setBounds(100, 100, 465, 307);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

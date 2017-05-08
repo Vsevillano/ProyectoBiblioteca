@@ -236,8 +236,10 @@ public class Biblioteca implements Serializable {
 	 * @param ident
 	 * @throws PublicacionNoExisteException
 	 */
-	void eliminarIdent(int ident) throws PublicacionNoExisteException {
-		if (!biblioteca.remove(new Novela(ident))) {
+	public void eliminarIdent(int ident) throws PublicacionNoExisteException {
+		try {
+			biblioteca.remove(ident);
+		} catch (IndexOutOfBoundsException e) {
 			throw new PublicacionNoExisteException("La publicacion no existe");
 		}
 
@@ -274,18 +276,15 @@ public class Biblioteca implements Serializable {
 	 * @return
 	 * @throws PublicacionNoExisteException
 	 */
-	ArrayList<Publicacion> buscarIndice(int identificador) throws PublicacionNoExisteException {
-		lista.clear();
+	public Publicacion buscarPorID(int identificador) throws PublicacionNoExisteException {
 		try {
+			Publicacion publi = null;
 			for (Publicacion publicacion : biblioteca) {
 				if (publicacion.getIdentificador() == identificador)
-					lista.add(publicacion);
+					publi = publicacion;
 			}
-			if (!lista.isEmpty())
-			return lista;
-			else
-				throw new PublicacionNoExisteException("La publicacion no existe.");
-		} catch (ArrayIndexOutOfBoundsException e) {
+			return publi;
+		} catch (NullPointerException e) {
 			throw new PublicacionNoExisteException("La publicacion no existe.");
 		}
 
@@ -362,9 +361,5 @@ public class Biblioteca implements Serializable {
 		return biblioteca.get(i);
 	}
 
-	
-	public String getContador() {
-		return Publicacion.getContador()+"";
-	}
 
 }

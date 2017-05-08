@@ -111,6 +111,11 @@ public class TestBiblioteca {
 
 	}
 
+	/**
+	 * Gestiona las opciones del menu prestar
+	 * @param opcion
+	 * @throws FechaNoValidaException
+	 */
 	private static void gestionarOpcionesPrestar(int opcion) throws FechaNoValidaException {
 		switch (opcion) {
 		case 1:
@@ -132,6 +137,10 @@ public class TestBiblioteca {
 		}
 	}
 
+	/**
+	 * Gestiona las opciones del menu Buscar
+	 * @param opcion
+	 */
 	private static void gestionarOpcionesBuscar(int opcion) {
 		switch (opcion) {
 		case 1:
@@ -146,7 +155,7 @@ public class TestBiblioteca {
 		case 2:
 			// Buscar por id
 			try {
-				System.out.println(biblioteca.buscarIndice(Teclado.leerEntero("Itroduzca el ID:")));
+				System.out.println(biblioteca.buscarPorID(Teclado.leerEntero("Itroduzca el ID:")));
 			} catch (PublicacionNoExisteException e) {
 				System.err.println(e.getMessage());
 			}
@@ -155,6 +164,10 @@ public class TestBiblioteca {
 
 	}
 
+	/**
+	 * Gestiona las opciones del menu borrar
+	 * @param opcion
+	 */
 	private static void gestionarOpcionesMenuBorrar(int opcion) {
 		switch (opcion) {
 		case 1:
@@ -179,6 +192,10 @@ public class TestBiblioteca {
 
 	}
 
+	/**
+	 * Gestiona las opciones del menu listar
+	 * @param opcion
+	 */
 	private static void gestionarOpcionesListar(int opcion) {
 		switch (opcion) {
 		case 1:
@@ -256,21 +273,26 @@ public class TestBiblioteca {
 
 	}
 
+	/**
+	 * Pide una fecha por teclado
+	 * @param mensaje
+	 * @return
+	 */
 	private static LocalDate pedirFecha(String mensaje) {
-		LocalDate today;
+		LocalDate hoy;
 		try {
-			int year = Teclado.leerEntero("Año:"); // año
-			int month = Teclado.leerEntero("Mes:"); // mes [1,...,12]
-			int dayOfMonth = Teclado.leerEntero("Dia:"); // día [1,...,31]
+			int anno = Teclado.leerEntero("Año:"); // año
+			int mes = Teclado.leerEntero("Mes:"); // mes [1,...,12]
+			int dia = Teclado.leerEntero("Dia:"); // día [1,...,31]
 
-			if (year < 1900) {
-				throw new IllegalArgumentException("Año inválido.");
-			}
+//			if (year < 1900) {
+//				throw new IllegalArgumentException("Año inválido.");
+//			}
 
-			today = LocalDate.of(year, month, dayOfMonth);
+			hoy = LocalDate.of(anno, mes, dia);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			System.out.println(formatter.format(today)); // 01/01/2016
-			return today;
+			System.out.println(formatter.format(hoy)); // 01/01/2016
+			return hoy;
 		} catch (IllegalArgumentException e) {
 			System.err.println(e.getMessage());
 		}

@@ -162,12 +162,24 @@ public class Principal extends JFrame implements Serializable {
 			}
 		});
 		mnAadir.add(mntmLibroDeTexto);
-		
-				JMenuItem mntmPorIndice_1 = new JMenuItem("Borrar");
-				mnEdicion.add(mntmPorIndice_1);
-						
-								JMenuItem mntmPorColor = new JMenuItem("Buscar");
-								mnEdicion.add(mntmPorColor);
+
+		JMenuItem mntmPorIndice_1 = new JMenuItem("Borrar");
+		mntmPorIndice_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BorrarPorID borrarPorID = new BorrarPorID();
+				borrarPorID.setVisible(true);
+			}
+		});
+		mnEdicion.add(mntmPorIndice_1);
+
+		JMenuItem mntmPorColor = new JMenuItem("Buscar");
+		mntmPorColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BuscarPorId buscarPorId = new BuscarPorId();
+				buscarPorId.setVisible(true);
+			}
+		});
+		mnEdicion.add(mntmPorColor);
 
 		JMenu mnListar = new JMenu("Listar");
 		mnListar.setMnemonic('L');
@@ -203,8 +215,12 @@ public class Principal extends JFrame implements Serializable {
 		JMenuItem mntmListarPeriodicos = new JMenuItem("Listar periodicos");
 		mntmListarPeriodicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListarPeriodicos listarPeriodicos = new ListarPeriodicos();
-				listarPeriodicos.setVisible(true);
+				try {
+					ListarPeriodicos listarPeriodicos = new ListarPeriodicos();
+					listarPeriodicos.setVisible(true);
+				} catch (IndexOutOfBoundsException e1) {
+					JOptionPane.showMessageDialog(null, "No hay periodicos!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		mnListar.add(mntmListarPeriodicos);
@@ -212,8 +228,12 @@ public class Principal extends JFrame implements Serializable {
 		JMenuItem mntmListarLibrosDe = new JMenuItem("Listar libros de texto");
 		mntmListarLibrosDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListarLibrosTexto librosTexto = new ListarLibrosTexto();
-				librosTexto.setVisible(true);
+				try {
+					ListarLibrosTexto librosTexto = new ListarLibrosTexto();
+					librosTexto.setVisible(true);
+				} catch (IndexOutOfBoundsException e1) {
+					JOptionPane.showMessageDialog(null, "No hay libros de texto!", "Error!", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		mnListar.add(mntmListarLibrosDe);
@@ -222,7 +242,27 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(separator_1);
 
 		JMenuItem mntmListarTodo = new JMenuItem("Listar todo");
+		mntmListarTodo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(Fichero.almacen.toString());
+			}
+		});
 		mnListar.add(mntmListarTodo);
+
+		JMenu mnPrestamosdevoluciones = new JMenu("Prestamos/Devoluciones");
+		menuBar.add(mnPrestamosdevoluciones);
+
+		JMenuItem mntmRealizarPrstamo = new JMenuItem("Realizar pr\u00E9stamo");
+		mnPrestamosdevoluciones.add(mntmRealizarPrstamo);
+
+		JMenuItem mntmRealizarDevoluin = new JMenuItem("Realizar devoluci\u00F3n");
+		mnPrestamosdevoluciones.add(mntmRealizarDevoluin);
+
+		JMenuItem mntmListarPrestados = new JMenuItem("Pubicaciones prestadas");
+		mnPrestamosdevoluciones.add(mntmListarPrestados);
+
+		JMenuItem mntmListarADevolver = new JMenuItem("A devolver hoy");
+		mnPrestamosdevoluciones.add(mntmListarADevolver);
 
 		JMenu mnAyuda = new JMenu("Ayuda");
 		menuBar.add(mnAyuda);

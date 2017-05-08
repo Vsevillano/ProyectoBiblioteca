@@ -48,6 +48,7 @@ public class AnnadirLibroTexto extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public AnnadirLibroTexto() {
+		cancelButton.setText("Aceptar");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -62,7 +63,6 @@ public class AnnadirLibroTexto extends VentanaPadre {
 					textNumeroPaginas.setText("");
 					textISBN.setText("");
 					int id = Integer.parseInt(textId.getText());
-					textId.setText((id + 1) + "");
 					Fichero.almacen.setModificado(true);
 
 				} catch (FechaNoValidaException | NumeroPaginasNoValidoException | EditorialNoValidaException
@@ -115,6 +115,7 @@ public class AnnadirLibroTexto extends VentanaPadre {
 		lblPeriodo.setVisible(false);
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
+		
 
 	}
 }

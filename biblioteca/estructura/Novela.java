@@ -29,6 +29,7 @@ public class Novela extends Publicacion implements Evaluable,Serializable {
 	}
 
 	public Novela(int ident) {
+		super(ident);
 	}
 	
 	public String getAutor() {

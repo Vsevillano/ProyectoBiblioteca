@@ -88,8 +88,8 @@ public class Publicacion implements Serializable {
 	 * 
 	 * @param ident
 	 */
-	public Publicacion() {
-		setIdentificador();
+	public Publicacion(int ident) {
+		this.identificador = ident;
 	}
 
 	/**
@@ -99,10 +99,6 @@ public class Publicacion implements Serializable {
 	 */
 	public Publicacion(String titulo) {
 		this.titulo = titulo;
-	}
-
-	public static int getContador() {
-		return contador;
 	}
 
 	/**

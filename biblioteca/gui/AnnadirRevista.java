@@ -123,7 +123,6 @@ public class AnnadirRevista extends VentanaPadre {
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
 
-		textId.setText(Fichero.almacen.getContador());
 
 	}
 }

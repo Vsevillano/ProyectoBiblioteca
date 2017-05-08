@@ -7,10 +7,12 @@ import javax.swing.DefaultComboBoxModel;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroNovela;
+import biblioteca.estructura.Publicacion;
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
+import biblioteca.excepciones.PublicacionNoExisteException;
 import biblioteca.excepciones.PublicacionYaExisteException;
 import biblioteca.excepciones.TituloNoValidoException;
 
@@ -68,9 +70,8 @@ public class AnnadirNovela extends VentanaPadre {
 					textEditorial.setText("");
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
-					int id = Integer.parseInt(textId.getText());
-					textId.setText((id + 1) + "");
 					Fichero.almacen.setModificado(true);
+
 
 				} catch (FechaNoValidaException | NumeroPaginasNoValidoException | EditorialNoValidaException
 						| AutorNovalidoException | TituloNoValidoException e1) {
@@ -131,8 +132,8 @@ public class AnnadirNovela extends VentanaPadre {
 		buttonAdelante.setVisible(false);
 		okButton.setVisible(false);
 		cancelButton.setText("Aceptar");
+		
 
-		textId.setText(Fichero.almacen.getContador());
 	}
 
 }

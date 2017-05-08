@@ -93,6 +93,7 @@ public class ListarRevistas extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public ListarRevistas() {
+		cancelButton.setText("Aceptar");
 		buttonAdelante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				mostrarRevista(++indicePublicacion);
