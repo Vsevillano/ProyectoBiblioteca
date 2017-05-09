@@ -11,7 +11,7 @@ import biblioteca.estructura.Novela;
 import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
 import biblioteca.estructura.Revista;
-import biblioteca.excepciones.LibroYaPrestadoException;
+import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.PublicacionNoExisteException;
 
 import java.awt.event.ActionListener;
@@ -89,7 +89,7 @@ public class PrestarPublicacion extends VentanaPadre {
 						// Actualizamos estado del fichero
 						Fichero.almacen.setModificado(true);
 						
-						} catch (LibroYaPrestadoException e) {
+						} catch (PublicacionYaPrestadaException e) {
 							JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 						}
 						

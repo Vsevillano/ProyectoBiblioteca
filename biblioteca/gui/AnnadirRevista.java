@@ -14,7 +14,6 @@ import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroRevista;
 import biblioteca.estructura.Periodo;
 import biblioteca.excepciones.EditorialNoValidaException;
-import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
@@ -104,7 +103,7 @@ public class AnnadirRevista extends VentanaPadre {
 					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
-				} catch (PeriodoNoValidoException | FechaNoValidaException | NumeroPaginasNoValidoException
+				} catch (PeriodoNoValidoException | NumeroPaginasNoValidoException
 						| EditorialNoValidaException | TituloNoValidoException e1) {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);

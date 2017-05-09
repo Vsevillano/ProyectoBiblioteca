@@ -6,14 +6,12 @@ import java.util.ArrayList;
 
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
-import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
-import biblioteca.excepciones.LibroYaPrestadoException;
+import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.PublicacionNoExisteException;
 import biblioteca.excepciones.PublicacionNoPrestadaException;
-import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.TituloNoValidoException;
 
 /**
@@ -76,7 +74,7 @@ public class Biblioteca implements Serializable {
 	 */
 	public void anadirNovela(String titulo, String autor, String editorial, GeneroNovela genero, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas)
-			throws FechaNoValidaException, NumeroPaginasNoValidoException, EditorialNoValidaException,
+			throws NumeroPaginasNoValidoException, EditorialNoValidaException,
 			AutorNovalidoException, TituloNoValidoException {
 		biblioteca.add(new Novela(titulo, autor, editorial, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 
@@ -99,7 +97,7 @@ public class Biblioteca implements Serializable {
 	 */
 	public void anadirRevista(String titulo, String editorial, Periodo periodo, GeneroRevista genero,
 			LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas)
-			throws FechaNoValidaException, NumeroPaginasNoValidoException, TituloNoValidoException,
+			throws NumeroPaginasNoValidoException, TituloNoValidoException,
 			EditorialNoValidaException, PeriodoNoValidoException {
 		biblioteca.add(new Revista(titulo, editorial, periodo, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
@@ -118,7 +116,7 @@ public class Biblioteca implements Serializable {
 	 * @throws PeriodoNoValidoException
 	 */
 	public void annadirPeriodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
-			LocalDate fechaPublicacion, int numeroPaginas) throws FechaNoValidaException,
+			LocalDate fechaPublicacion, int numeroPaginas) throws 
 			NumeroPaginasNoValidoException, TituloNoValidoException, PeriodoNoValidoException {
 		biblioteca.add(new Periodico(titulo, genero, periodo, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
@@ -141,7 +139,7 @@ public class Biblioteca implements Serializable {
 	 */
 	public void annadirLibroTexto(String titulo, String editorial, String isbn, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, Materia materia)
-			throws ISBNNoValidoException, FechaNoValidaException, NumeroPaginasNoValidoException,
+			throws ISBNNoValidoException, NumeroPaginasNoValidoException,
 			TituloNoValidoException, EditorialNoValidaException {
 		biblioteca.add(new LibroTexto(titulo, editorial, isbn, fechaIngreso, fechaPublicacion, numeroPaginas, materia));
 	}
@@ -321,10 +319,10 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @param id
 	 * @return
-	 * @throws LibroYaPrestadoException 
+	 * @throws PublicacionYaPrestadaException 
 	 * @throws FechaNoValidaException
 	 */
-	public void prestarPublicacion(int id) throws LibroYaPrestadoException {
+	public void prestarPublicacion(int id) throws PublicacionYaPrestadaException {
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.getIdentificador() == id && publicacion.isPrestado() == false) {
 				publicacion.setPrestado(true);
@@ -338,7 +336,7 @@ public class Biblioteca implements Serializable {
 					publicacion.calcularFechaDevolucion(((LibroTexto) publicacion).calcularTiempoPrestado());
 				}
 			} else if (publicacion.getIdentificador() == id && publicacion.isPrestado() == true) {
-			throw new LibroYaPrestadoException("El libro ya se encuentra prestado");
+			throw new PublicacionYaPrestadaException("El libro ya se encuentra prestado");
 		}
 
 		}

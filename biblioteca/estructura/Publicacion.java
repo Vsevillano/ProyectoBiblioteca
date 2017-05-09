@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
-import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
 
@@ -80,7 +79,7 @@ public class Publicacion implements Serializable {
 	 * @throws FechaNoValidaException
 	 */
 	public Publicacion(String titulo, LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas)
-			throws NumeroPaginasNoValidoException, TituloNoValidoException, FechaNoValidaException {
+			throws NumeroPaginasNoValidoException, TituloNoValidoException {
 		setIdentificador();
 		setTitulo(titulo);
 		setFechaIngreso(fechaIngreso);

@@ -5,9 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
-import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
-import biblioteca.excepciones.LibroYaPrestadoException;
+import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.PublicacionNoExisteException;
@@ -145,11 +144,8 @@ public class TestBiblioteca {
 			// Prestamos/Devoluciones
 			do {
 				opcion = menuPrestar.gestionar();
-				try {
 					gestionarOpcionesPrestar(opcion);
-				} catch (FechaNoValidaException e) {
-					System.err.println(e.getMessage());
-				}
+
 			} while (opcion != menuPrestar.SALIR);
 			break;
 		default:
@@ -165,13 +161,13 @@ public class TestBiblioteca {
 	 * @param opcion
 	 * @throws FechaNoValidaException
 	 */
-	private static void gestionarOpcionesPrestar(int opcion) throws FechaNoValidaException {
+	private static void gestionarOpcionesPrestar(int opcion) {
 		switch (opcion) {
 		case 1:
 			// Prestar libro
 			try {
 				biblioteca.prestarPublicacion(Teclado.leerEntero("ID de la publicacion:"));
-			} catch (LibroYaPrestadoException e) {
+			} catch (PublicacionYaPrestadaException e) {
 				System.err.println(e.getMessage());
 			}
 			break;
@@ -327,8 +323,6 @@ public class TestBiblioteca {
 			System.err.println(e.getMessage());
 		} catch (EditorialNoValidaException e) {
 			System.err.println(e.getMessage());
-		} catch (FechaNoValidaException e) {
-			System.err.println(e.getMessage());
 		}
 
 	}
@@ -372,8 +366,6 @@ public class TestBiblioteca {
 			System.err.println(e.getMessage());
 		} catch (TituloNoValidoException e) {
 			System.err.println(e.getMessage());
-		} catch (FechaNoValidaException e) {
-			System.err.println(e.getMessage());
 		} catch (PeriodoNoValidoException e) {
 			System.err.println(e.getMessage());
 		}
@@ -395,8 +387,6 @@ public class TestBiblioteca {
 			System.err.println(e.getMessage());
 		} catch (EditorialNoValidaException e) {
 			System.err.println(e.getMessage());
-		} catch (FechaNoValidaException e) {
-			System.err.println(e.getMessage());
 		} catch (PeriodoNoValidoException e) {
 			System.err.println(e.getMessage());
 		}
@@ -415,7 +405,7 @@ public class TestBiblioteca {
 			biblioteca.anadirNovela(titulo, autor, editorial, genero, pedirFecha("Fecha de ingreso:"),
 					pedirFecha("Fecha de publicacion:"), Teclado.leerEntero("Numero de paginas:"));
 		} catch (NumeroPaginasNoValidoException | EditorialNoValidaException | AutorNovalidoException
-				| TituloNoValidoException | FechaNoValidaException e) {
+				| TituloNoValidoException e) {
 			System.err.println(e.getMessage());
 		}
 

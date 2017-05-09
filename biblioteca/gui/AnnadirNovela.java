@@ -9,7 +9,6 @@ import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroNovela;
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
-import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
 
@@ -93,7 +92,7 @@ public class AnnadirNovela extends VentanaPadre {
 					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
-				} catch (FechaNoValidaException | NumeroPaginasNoValidoException | EditorialNoValidaException
+				} catch (NumeroPaginasNoValidoException | EditorialNoValidaException
 						| AutorNovalidoException | TituloNoValidoException e1) {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);

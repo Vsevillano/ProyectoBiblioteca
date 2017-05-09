@@ -13,7 +13,6 @@ import javax.swing.DefaultComboBoxModel;
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.Materia;
 import biblioteca.excepciones.EditorialNoValidaException;
-import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
@@ -89,7 +88,7 @@ public class AnnadirLibroTexto extends VentanaPadre {
 					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
-				} catch (FechaNoValidaException | NumeroPaginasNoValidoException | EditorialNoValidaException
+				} catch (NumeroPaginasNoValidoException | EditorialNoValidaException
 						| ISBNNoValidoException | TituloNoValidoException e1) {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
