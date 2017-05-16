@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ListIterator;
 
 import javax.swing.JDialog;
 
@@ -22,9 +23,9 @@ public class ADevolverHoy extends VentanaPadre {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int indicePublicacion = 0;
 
-
+	private ListIterator<Publicacion> it;
+	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -43,21 +44,27 @@ public class ADevolverHoy extends VentanaPadre {
 		});
 	}
 
-
-	
-	private void comprobarBotones() {
-		if (indicePublicacion + 1 >= Fichero.almacen.listarADevolverHoy().size()) {
-			buttonAdelante.setEnabled(false);
-		} else {
-			buttonAdelante.setEnabled(true);
+	/**
+	 * Muestra el coche siguiente
+	 */
+	private void siguiente() {
+		if (it.hasNext()) {
+			publicacion = it.next();
 		}
-		if (indicePublicacion - 1 == -1) {
-			btnAtras.setEnabled(false);
-		} else {
-			btnAtras.setEnabled(true);
-		}
+		mostrarPublicacion();
 	}
-	
+
+	/**
+	 * Muestra el coche anterior
+	 */
+	private void anterior() {
+		if (it.hasPrevious()) {
+			publicacion = it.previous();
+		}
+		mostrarPublicacion();
+
+	}
+
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
 			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
@@ -69,8 +76,7 @@ public class ADevolverHoy extends VentanaPadre {
 			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
 	}
 
-	private void mostrarPublicacion(int indicePublicacion) {
-		Publicacion publicacion = Fichero.almacen.listarADevolverHoy().get(indicePublicacion);
+	private void mostrarPublicacion() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		getGenero(publicacion);
@@ -83,7 +89,7 @@ public class ADevolverHoy extends VentanaPadre {
 		} catch (NullPointerException | ParseException e1) {
 			textFechaDevolucion.setText("");
 		}
-		
+
 		String dateIngreso = publicacion.getFechaIngreso().toString();
 		String datePublicacion = publicacion.getFechaPublicacion().toString();
 		try {
@@ -98,7 +104,6 @@ public class ADevolverHoy extends VentanaPadre {
 
 	}
 
-
 	/**
 	 * Create the dialog.
 	 */
@@ -106,14 +111,12 @@ public class ADevolverHoy extends VentanaPadre {
 		comboGenero.setEditable(true);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPublicacion(--indicePublicacion);
-				comprobarBotones();
+				anterior();
 			}
 		});
 		buttonAdelante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPublicacion(++indicePublicacion);
-				comprobarBotones();
+				siguiente();
 			}
 		});
 		setTitle("A devolver hoy");
@@ -127,7 +130,7 @@ public class ADevolverHoy extends VentanaPadre {
 		btnEnviar.setText("Prestar");
 		btnEnviar.setEnabled(true);
 		setBounds(100, 100, 450, 300);
-		
+
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);
 		rdbtnMensual.setVisible(false);
@@ -138,8 +141,12 @@ public class ADevolverHoy extends VentanaPadre {
 		buttonAdelante.setEnabled(false);
 		cancelButton.setText("Aceptar");
 		btnEnviar.setVisible(false);
-		mostrarPublicacion(indicePublicacion);
-		comprobarBotones();
+
+		it = Fichero.almacen.listarADevolverHoy();	
+		publicacion = it.next();
+		mostrarPublicacion();
+		btnAtras.setEnabled(false);
+
 	}
 
 }

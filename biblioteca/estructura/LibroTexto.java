@@ -2,10 +2,10 @@ package biblioteca.estructura;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
 
 import biblioteca.excepciones.EditorialNoValidaException;
+import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
@@ -59,7 +59,7 @@ public class LibroTexto extends Publicacion implements Evaluable, Serializable {
 	 */
 	public LibroTexto(String titulo, String editorial, String isbn, LocalDate fechaIngreso, LocalDate fechaPublicacion,
 			int numeroPaginas, Materia materia) throws ISBNNoValidoException, NumeroPaginasNoValidoException,
-			TituloNoValidoException, EditorialNoValidaException {
+			TituloNoValidoException, EditorialNoValidaException, FechaNoValidaException {
 		super(titulo, fechaIngreso, fechaPublicacion, numeroPaginas);
 		setEditorial(editorial);
 		setIsbn(isbn);

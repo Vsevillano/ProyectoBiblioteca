@@ -5,13 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 
-import biblioteca.estructura.Fichero;
-import biblioteca.estructura.GeneroNovela;
-import biblioteca.excepciones.AutorNovalidoException;
-import biblioteca.excepciones.EditorialNoValidaException;
-import biblioteca.excepciones.NumeroPaginasNoValidoException;
-import biblioteca.excepciones.TituloNoValidoException;
-
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -21,6 +14,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
+
+import biblioteca.estructura.Fichero;
+import biblioteca.estructura.GeneroNovela;
+import biblioteca.excepciones.AutorNovalidoException;
+import biblioteca.excepciones.EditorialNoValidaException;
+import biblioteca.excepciones.FechaNoValidaException;
+import biblioteca.excepciones.NumeroPaginasNoValidoException;
+import biblioteca.excepciones.TituloNoValidoException;
 
 /**
  * 
@@ -69,6 +70,7 @@ public class AnnadirNovela extends VentanaPadre {
 					LocalDate dateIngreso = LocalDate.parse(formater.format(spinnerIngreso.getValue()));
 					LocalDate datePublicacion = LocalDate.parse(formater.format(spinnerPublicacion.getValue()));
 				
+						
 					// Añadimos novela
 					Fichero.almacen.anadirNovela(textTitulo.getText(), textAutor.getText(), textEditorial.getText(),
 							(GeneroNovela) comboGenero.getSelectedItem(), dateIngreso, datePublicacion,
@@ -98,6 +100,9 @@ public class AnnadirNovela extends VentanaPadre {
 							JOptionPane.ERROR_MESSAGE);
 				} catch (NumberFormatException e2) {
 					JOptionPane.showMessageDialog(contentPanel, "Numero de paginas no valido!", "ERROR!!!!",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (FechaNoValidaException e1) {
+					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				}
 
@@ -154,7 +159,7 @@ public class AnnadirNovela extends VentanaPadre {
 		try {
 		textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
 		}catch (IndexOutOfBoundsException e) {
-			textId.setText(0+"");
+
 		}
 	}
 

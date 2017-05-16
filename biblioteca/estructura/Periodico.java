@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Pattern;
 
+import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
@@ -46,7 +47,7 @@ public class Periodico extends Publicacion implements Evaluable, Serializable {
 	 */
 	public Periodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas) throws NumeroPaginasNoValidoException,
-			TituloNoValidoException, PeriodoNoValidoException {
+			TituloNoValidoException, PeriodoNoValidoException, FechaNoValidaException {
 		super(titulo, fechaIngreso, fechaPublicacion, numeroPaginas);
 		setGenero(genero);
 		setPeriodo(periodo);

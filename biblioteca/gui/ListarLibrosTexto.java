@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ListIterator;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -11,11 +12,12 @@ import javax.swing.JTextField;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.LibroTexto;
+import biblioteca.estructura.Materia;
 import biblioteca.estructura.Publicacion;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
-import biblioteca.estructura.Materia;
 
 /**
  * 
@@ -30,8 +32,8 @@ public class ListarLibrosTexto extends VentanaPadre {
 	private static final long serialVersionUID = 1L;
 	private JTextField textEditorial;
 	private JTextField textISBN;
-	private int indicePublicacion = 0;
-
+	private ListIterator<Publicacion> it;
+	private Publicacion publicacion;
 	/**
 	 * Launch the application.
 	 */
@@ -48,22 +50,48 @@ public class ListarLibrosTexto extends VentanaPadre {
 			}
 		});
 	}
-
-	private void comprobarBotones() {
-		if (indicePublicacion + 1 >= Fichero.almacen.listarLibrosTexto().size()) {
-			buttonAdelante.setEnabled(false);
-		} else {
-			buttonAdelante.setEnabled(true);
+	
+	/**
+	 * Muestra el coche siguiente
+	 */
+	private void siguiente() {
+		if (it.hasNext()) {
+			publicacion = it.next();
+			
 		}
-		if (indicePublicacion - 1 == -1) {
-			btnAtras.setEnabled(false);
-		} else {
-			btnAtras.setEnabled(true);
-		}
+		mostrarLibroTexto();
 	}
 
-	private void mostrarLibroTexto(int indicePublicacion) {
-		Publicacion publicacion = Fichero.almacen.listarLibrosTexto().get(indicePublicacion);
+	/**
+	 * Muestra el coche anterior
+	 */
+	private void anterior() {
+		if (it.hasPrevious()) {
+			publicacion = it.previous();
+			
+		}
+		mostrarLibroTexto();
+
+	}
+	
+	private void comprobarBotones() {
+		if (!it.hasNext()) {
+			buttonAdelante.setEnabled(false);
+			publicacion = it.previous();
+		}
+		else
+			buttonAdelante.setEnabled(true);
+		if (!it.hasPrevious()) {
+			btnAtras.setEnabled(false);
+			publicacion = it.next();
+		}
+		else
+			btnAtras.setEnabled(true);
+	}
+
+
+
+	private void mostrarLibroTexto() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		textISBN.setText(((LibroTexto) publicacion).getIsbn());
@@ -91,6 +119,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		comprobarBotones();
 
 	}
 
@@ -103,18 +132,14 @@ public class ListarLibrosTexto extends VentanaPadre {
 		cancelButton.setText("Aceptar");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarLibroTexto(--indicePublicacion);
-				comprobarBotones();
+				anterior();
 			}
 		});
 		buttonAdelante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarLibroTexto(++indicePublicacion);
-				comprobarBotones();
+				siguiente();
 			}
 		});
-		buttonAdelante.setEnabled(false);
-		btnAtras.setEnabled(false);
 		textNumeroPaginas.setEnabled(false);
 		spinnerPublicacion.setEnabled(false);
 		spinnerIngreso.setEnabled(false);
@@ -158,8 +183,10 @@ public class ListarLibrosTexto extends VentanaPadre {
 		lblPeriodo.setVisible(false);
 		okButton.setVisible(false);
 
-		mostrarLibroTexto(indicePublicacion);
-		comprobarBotones();
+		it = Fichero.almacen.listarLibrosTexto();
+		publicacion = it.next();
+		mostrarLibroTexto();
+		btnAtras.setEnabled(false);
 
 	}
 

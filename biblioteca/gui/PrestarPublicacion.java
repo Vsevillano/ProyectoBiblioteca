@@ -11,8 +11,8 @@ import biblioteca.estructura.Novela;
 import biblioteca.estructura.Periodico;
 import biblioteca.estructura.Publicacion;
 import biblioteca.estructura.Revista;
-import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.PublicacionNoExisteException;
+import biblioteca.excepciones.PublicacionYaPrestadaException;
 
 import java.awt.event.ActionListener;
 import java.text.ParseException;
@@ -59,6 +59,7 @@ public class PrestarPublicacion extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public PrestarPublicacion() {
+		comboGenero.setEditable(true);
 		setTitle("Prestar publicacion");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -82,17 +83,17 @@ public class PrestarPublicacion extends VentanaPadre {
 
 					if (respuesta == JOptionPane.YES_OPTION) {
 						try {
-						Fichero.almacen.prestarPublicacion(Integer.parseInt(textId.getText()));
-						textTitulo.setText("");
-						textNumeroPaginas.setText("");
-						textId.setText("");
-						// Actualizamos estado del fichero
-						Fichero.almacen.setModificado(true);
-						
+							Fichero.almacen.prestarPublicacion(Integer.parseInt(textId.getText()));
+							textTitulo.setText("");
+							textNumeroPaginas.setText("");
+							textId.setText("");
+							// Actualizamos estado del fichero
+							Fichero.almacen.setModificado(true);
+
 						} catch (PublicacionYaPrestadaException e) {
 							JOptionPane.showMessageDialog(null, e.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 						}
-						
+
 					}
 				} catch (ParseException e2) {
 					// TODO Auto-generated catch block
@@ -105,7 +106,8 @@ public class PrestarPublicacion extends VentanaPadre {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 
 				} catch (NullPointerException e) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}

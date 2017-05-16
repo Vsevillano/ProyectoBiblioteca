@@ -22,10 +22,13 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.NoSuchElementException;
 import java.awt.event.InputEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * 
@@ -65,9 +68,20 @@ public class Principal extends JFrame implements Serializable {
 	 * Create the frame.
 	 */
 	public Principal() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				salir();
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				salir();
+			}
+		});
 		filechooser.setSelectedFile(new File("*.obj"));
 		setTitle("Sin_titulo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -193,13 +207,14 @@ public class Principal extends JFrame implements Serializable {
 		menuBar.add(mnListar);
 
 		JMenuItem mntmListarNovelas = new JMenuItem("Listar novelas");
-		mntmListarNovelas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mntmListarNovelas
+				.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarNovelas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ListarNovelas listarNovelas = new ListarNovelas();
 					listarNovelas.setVisible(true);
-				} catch (IndexOutOfBoundsException e1) {
+				} catch (IndexOutOfBoundsException | NoSuchElementException e1) {
 					JOptionPane.showMessageDialog(null, "No hay novelas!", "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -207,13 +222,14 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(mntmListarNovelas);
 
 		JMenuItem mntmListarRevistas = new JMenuItem("Listar revistas");
-		mntmListarRevistas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mntmListarRevistas
+				.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarRevistas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ListarRevistas listarRevistas = new ListarRevistas();
 					listarRevistas.setVisible(true);
-				} catch (IndexOutOfBoundsException e1) {
+				} catch (IndexOutOfBoundsException | NoSuchElementException e1) {
 					JOptionPane.showMessageDialog(null, "No hay revistas!", "Error!", JOptionPane.ERROR_MESSAGE);
 
 				}
@@ -222,13 +238,14 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(mntmListarRevistas);
 
 		JMenuItem mntmListarPeriodicos = new JMenuItem("Listar periodicos");
-		mntmListarPeriodicos.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mntmListarPeriodicos
+				.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarPeriodicos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ListarPeriodicos listarPeriodicos = new ListarPeriodicos();
 					listarPeriodicos.setVisible(true);
-				} catch (IndexOutOfBoundsException e1) {
+				} catch (IndexOutOfBoundsException | NoSuchElementException e1) {
 					JOptionPane.showMessageDialog(null, "No hay periodicos!", "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -236,13 +253,14 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(mntmListarPeriodicos);
 
 		JMenuItem mntmListarLibrosDe = new JMenuItem("Listar libros de texto");
-		mntmListarLibrosDe.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mntmListarLibrosDe
+				.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_B, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarLibrosDe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ListarLibrosTexto librosTexto = new ListarLibrosTexto();
 					librosTexto.setVisible(true);
-				} catch (IndexOutOfBoundsException e1) {
+				} catch (IndexOutOfBoundsException | NoSuchElementException e1) {
 					JOptionPane.showMessageDialog(null, "No hay libros de texto!", "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -253,13 +271,14 @@ public class Principal extends JFrame implements Serializable {
 		mnListar.add(separator_1);
 
 		JMenuItem mntmListarTodo = new JMenuItem("Listar todo");
-		mntmListarTodo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
+		mntmListarTodo
+				.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK | InputEvent.SHIFT_MASK));
 		mntmListarTodo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					ListarBiblioteca listarBiblioteca = new ListarBiblioteca();
 					listarBiblioteca.setVisible(true);
-				} catch (IndexOutOfBoundsException e) {
+				} catch (IndexOutOfBoundsException | NoSuchElementException e) {
 					JOptionPane.showMessageDialog(null, "Biblioteca vacia!", "Error!", JOptionPane.ERROR_MESSAGE);
 
 				}
@@ -295,7 +314,7 @@ public class Principal extends JFrame implements Serializable {
 				try {
 					PublicacionesPrestadas publicacionesPrestadas = new PublicacionesPrestadas();
 					publicacionesPrestadas.setVisible(true);
-				} catch (IndexOutOfBoundsException e1) {
+				} catch (IndexOutOfBoundsException | NoSuchElementException e1) {
 					JOptionPane.showMessageDialog(null, "No hay publicaciones prestadas!", "Error!",
 							JOptionPane.ERROR_MESSAGE);
 				}
@@ -309,7 +328,7 @@ public class Principal extends JFrame implements Serializable {
 				try {
 					ADevolverHoy aDevolverHoy = new ADevolverHoy();
 					aDevolverHoy.setVisible(true);
-				} catch (IndexOutOfBoundsException e1) {
+				} catch (IndexOutOfBoundsException | NoSuchElementException e1) {
 					JOptionPane.showMessageDialog(null, "No hay libros a devolver hoy", "Error!",
 							JOptionPane.ERROR_MESSAGE);
 				}

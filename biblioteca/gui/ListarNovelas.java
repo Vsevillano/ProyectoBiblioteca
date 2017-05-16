@@ -1,21 +1,25 @@
 package biblioteca.gui;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel;
 
+import biblioteca.estructura.Biblioteca;
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroNovela;
 import biblioteca.estructura.Novela;
 import biblioteca.estructura.Publicacion;
 
+import javax.swing.DefaultComboBoxModel;
+
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ListIterator;
 import java.awt.event.ActionEvent;
 
 /**
@@ -32,7 +36,8 @@ public class ListarNovelas extends VentanaPadre {
 	private JTextField textAutor;
 	private JTextField textEditorial;
 
-	private int indicePublicacion = 0;
+	private ListIterator<Publicacion> it;
+	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -51,21 +56,47 @@ public class ListarNovelas extends VentanaPadre {
 		});
 	}
 
-	private void comprobarBotones() {
-		if (indicePublicacion + 1 >= Fichero.almacen.listarNovelas().size()) {
-			buttonAdelante.setEnabled(false);
-		} else {
-			buttonAdelante.setEnabled(true);
+	
+	/**
+	 * Muestra el coche siguiente
+	 */
+	private void siguiente() {
+		if (it.hasNext()) {
+			publicacion = it.next();
+			
 		}
-		if (indicePublicacion - 1 == -1) {
-			btnAtras.setEnabled(false);
-		} else {
-			btnAtras.setEnabled(true);
-		}
+		mostrarNovela();
 	}
 
-	private void mostrarNovela(int indicePublicacion) {
-		Publicacion publicacion = Fichero.almacen.listarNovelas().get(indicePublicacion);
+	/**
+	 * Muestra el coche anterior
+	 */
+	private void anterior() {
+		if (it.hasPrevious()) {
+			publicacion = it.previous();
+			
+		}
+		mostrarNovela();
+
+	}
+	
+	private void comprobarBotones() {
+		if (!it.hasNext()) {
+			buttonAdelante.setEnabled(false);
+			publicacion = it.previous();
+		}
+		else
+			buttonAdelante.setEnabled(true);
+		if (!it.hasPrevious()) {
+			btnAtras.setEnabled(false);
+			publicacion = it.next();
+		}
+		else
+			btnAtras.setEnabled(true);
+	}
+
+
+	private void mostrarNovela() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		textAutor.setText(((Novela) publicacion).getAutor());
@@ -93,6 +124,7 @@ public class ListarNovelas extends VentanaPadre {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		comprobarBotones();
 
 	}
 
@@ -103,14 +135,12 @@ public class ListarNovelas extends VentanaPadre {
 		setTitle("Listar novelas");
 		buttonAdelante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarNovela(++indicePublicacion);
-				comprobarBotones();
+				siguiente();
 			}
 		});
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarNovela(--indicePublicacion);
-				comprobarBotones();
+				anterior();
 			}
 		});
 		textNumeroPaginas.setEnabled(false);
@@ -162,13 +192,14 @@ public class ListarNovelas extends VentanaPadre {
 		rdbtnMensual.setVisible(false);
 		rdbtnSemanal.setVisible(false);
 		okButton.setVisible(false);
-		btnAtras.setEnabled(false);
 		btnEnviar.setVisible(false);
-		buttonAdelante.setEnabled(false);
 		cancelButton.setText("Aceptar");
 
-		mostrarNovela(indicePublicacion);
-		comprobarBotones();
+		it = Fichero.almacen.listarNovelas();
+		publicacion = it.next();
+		mostrarNovela();
+		btnAtras.setEnabled(false);
+
 
 	}
 

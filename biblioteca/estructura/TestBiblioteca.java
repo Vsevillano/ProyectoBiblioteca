@@ -5,12 +5,13 @@ import java.time.format.DateTimeFormatter;
 
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
+import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
-import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.PublicacionNoExisteException;
 import biblioteca.excepciones.PublicacionNoPrestadaException;
+import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.TituloNoValidoException;
 import biblioteca.utiles.Menu;
 import biblioteca.utiles.Teclado;
@@ -323,6 +324,8 @@ public class TestBiblioteca {
 			System.err.println(e.getMessage());
 		} catch (EditorialNoValidaException e) {
 			System.err.println(e.getMessage());
+		} catch (FechaNoValidaException e) {
+			System.err.println(e.getMessage());
 		}
 
 	}
@@ -368,6 +371,8 @@ public class TestBiblioteca {
 			System.err.println(e.getMessage());
 		} catch (PeriodoNoValidoException e) {
 			System.err.println(e.getMessage());
+		} catch (FechaNoValidaException e) {
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -389,6 +394,8 @@ public class TestBiblioteca {
 			System.err.println(e.getMessage());
 		} catch (PeriodoNoValidoException e) {
 			System.err.println(e.getMessage());
+		} catch (FechaNoValidaException e) {
+			System.err.println(e.getMessage());
 		}
 	}
 
@@ -406,6 +413,8 @@ public class TestBiblioteca {
 					pedirFecha("Fecha de publicacion:"), Teclado.leerEntero("Numero de paginas:"));
 		} catch (NumeroPaginasNoValidoException | EditorialNoValidaException | AutorNovalidoException
 				| TituloNoValidoException e) {
+			System.err.println(e.getMessage());
+		} catch (FechaNoValidaException e) {
 			System.err.println(e.getMessage());
 		}
 
