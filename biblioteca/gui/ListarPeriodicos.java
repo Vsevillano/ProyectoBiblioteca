@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ListIterator;
 
 import javax.swing.JDialog;
 
@@ -26,7 +27,8 @@ public class ListarPeriodicos extends VentanaPadre {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int indicePublicacion = 0;
+	private ListIterator<Publicacion> it;
+	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -45,27 +47,55 @@ public class ListarPeriodicos extends VentanaPadre {
 		});
 	}
 
-	private void comprobarBotones() {
-		if (indicePublicacion + 1 >= Fichero.almacen.listarPeriodicos().size()) {
-			buttonAdelante.setEnabled(false);
-		} else {
-			buttonAdelante.setEnabled(true);
+	/**
+	 * Muestra el siguiente
+	 */
+	private void siguiente() {
+		if (it.hasNext()) {
+			publicacion = it.next();
+
 		}
-		if (indicePublicacion - 1 == -1) {
-			btnAtras.setEnabled(false);
-		} else {
-			btnAtras.setEnabled(true);
-		}
+		mostrarPeriodico();
 	}
 
-	private void mostrarPeriodico(int indicePublicacion) {
-		Publicacion publicacion = Fichero.almacen.listarPeriodicos().get(indicePublicacion);
+	/**
+	 * Muestra el anterior
+	 */
+	private void anterior() {
+		if (it.hasPrevious()) {
+			publicacion = it.previous();
+
+		}
+		mostrarPeriodico();
+
+	}
+
+	/**
+	 * Comprueba los botones
+	 */
+	private void comprobarBotones() {
+		if (!it.hasNext()) {
+			buttonAdelante.setEnabled(false);
+			publicacion = it.previous();
+		} else
+			buttonAdelante.setEnabled(true);
+		if (!it.hasPrevious()) {
+			btnAtras.setEnabled(false);
+			publicacion = it.next();
+		} else
+			btnAtras.setEnabled(true);
+	}
+
+	/**
+	 * Muestra el periodico
+	 */
+	private void mostrarPeriodico() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
 
-		switch (((Periodico) Fichero.almacen.listarPeriodicos().get(indicePublicacion)).getPeriodo()) {
+		switch (((Periodico) publicacion).getPeriodo()) {
 		case DIARIO:
 			rdbtnDiario.setSelected(true);
 			break;
@@ -83,22 +113,20 @@ public class ListarPeriodicos extends VentanaPadre {
 			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
 			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
 			textFechaDevolucion.setText(model.format(dateDev));
-		} catch (NullPointerException | ParseException e1) {
-			textFechaDevolucion.setText("");
 
-		}
-		
-		String dateIngreso = publicacion.getFechaIngreso().toString();
-		String datePublicacion = publicacion.getFechaPublicacion().toString();
-		try {
+			String dateIngreso = publicacion.getFechaIngreso().toString();
+			String datePublicacion = publicacion.getFechaPublicacion().toString();
+
 			Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
 			Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
 			spinnerIngreso.setValue(dateIng);
 			spinnerPublicacion.setValue(datePub);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		} catch (NullPointerException | ParseException e1) {
+			textFechaDevolucion.setText("");
+
 		}
+		comprobarBotones();
 	}
 
 	/**
@@ -108,19 +136,15 @@ public class ListarPeriodicos extends VentanaPadre {
 		cancelButton.setText("Aceptar");
 		buttonAdelante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPeriodico(++indicePublicacion);
-				comprobarBotones();
+				siguiente();
 
 			}
 		});
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPeriodico(--indicePublicacion);
-				comprobarBotones();
+				anterior();
 			}
 		});
-		buttonAdelante.setEnabled(false);
-		btnAtras.setEnabled(false);
 		spinnerPublicacion.setEnabled(false);
 		spinnerIngreso.setEnabled(false);
 		spinnerPublicacion.setLocation(147, 97);
@@ -138,8 +162,10 @@ public class ListarPeriodicos extends VentanaPadre {
 		btnEnviar.setVisible(false);
 		okButton.setVisible(false);
 
-		mostrarPeriodico(indicePublicacion);
-		comprobarBotones();
+		it = Fichero.almacen.listarPeriodicos();
+		publicacion = it.next();
+		mostrarPeriodico();
+		btnAtras.setEnabled(false);
 	}
 
 }

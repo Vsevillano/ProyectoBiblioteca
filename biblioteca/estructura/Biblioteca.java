@@ -3,15 +3,22 @@ package biblioteca.estructura;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
+import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
-import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.PublicacionNoExisteException;
 import biblioteca.excepciones.PublicacionNoPrestadaException;
+import biblioteca.excepciones.PublicacionYaPrestadaException;
 import biblioteca.excepciones.TituloNoValidoException;
 
 /**
@@ -71,11 +78,12 @@ public class Biblioteca implements Serializable {
 	 * @throws TituloNoValidoException
 	 * @throws AutorNovalidoException
 	 * @throws EditorialNoValidaException
+	 * @throws FechaNoValidaException 
 	 */
 	public void anadirNovela(String titulo, String autor, String editorial, GeneroNovela genero, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas)
 			throws NumeroPaginasNoValidoException, EditorialNoValidaException,
-			AutorNovalidoException, TituloNoValidoException {
+			AutorNovalidoException, TituloNoValidoException, FechaNoValidaException {
 		biblioteca.add(new Novela(titulo, autor, editorial, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 
 	}
@@ -94,11 +102,12 @@ public class Biblioteca implements Serializable {
 	 * @throws EditorialNoValidaException
 	 * @throws TituloNoValidoException
 	 * @throws PeriodoNoValidoException
+	 * @throws FechaNoValidaException 
 	 */
 	public void anadirRevista(String titulo, String editorial, Periodo periodo, GeneroRevista genero,
 			LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas)
 			throws NumeroPaginasNoValidoException, TituloNoValidoException,
-			EditorialNoValidaException, PeriodoNoValidoException {
+			EditorialNoValidaException, PeriodoNoValidoException, FechaNoValidaException {
 		biblioteca.add(new Revista(titulo, editorial, periodo, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
 
@@ -114,10 +123,11 @@ public class Biblioteca implements Serializable {
 	 * @throws NumeroPaginasNoValidoException
 	 * @throws TituloNoValidoException
 	 * @throws PeriodoNoValidoException
+	 * @throws FechaNoValidaException 
 	 */
 	public void annadirPeriodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas) throws 
-			NumeroPaginasNoValidoException, TituloNoValidoException, PeriodoNoValidoException {
+			NumeroPaginasNoValidoException, TituloNoValidoException, PeriodoNoValidoException, FechaNoValidaException {
 		biblioteca.add(new Periodico(titulo, genero, periodo, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
 
@@ -140,7 +150,7 @@ public class Biblioteca implements Serializable {
 	public void annadirLibroTexto(String titulo, String editorial, String isbn, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, Materia materia)
 			throws ISBNNoValidoException, NumeroPaginasNoValidoException,
-			TituloNoValidoException, EditorialNoValidaException {
+			TituloNoValidoException, EditorialNoValidaException, FechaNoValidaException {
 		biblioteca.add(new LibroTexto(titulo, editorial, isbn, fechaIngreso, fechaPublicacion, numeroPaginas, materia));
 	}
 
@@ -159,13 +169,13 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @return un array de Novelas
 	 */
-	public ArrayList<Publicacion> listarNovelas() {
+	public ListIterator<Publicacion> listarNovelas() {
 		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion instanceof Novela)
 				lista.add((Novela) publicacion);
 		}
-		return lista;
+		return lista.listIterator();
 	}
 
 	/**
@@ -173,13 +183,13 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @return arrayList de periodicos
 	 */
-	public ArrayList<Publicacion> listarPeriodicos() {
+	public ListIterator<Publicacion> listarPeriodicos() {
 		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion instanceof Periodico)
 				lista.add((Periodico) publicacion);
 		}
-		return lista;
+		return lista.listIterator();
 	}
 
 	/**
@@ -187,13 +197,13 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @return un arrayList de revistas
 	 */
-	public ArrayList<Publicacion> listarRevistas() {
+	public ListIterator<Publicacion> listarRevistas() {
 		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion instanceof Revista)
 				lista.add((Revista) publicacion);
 		}
-		return lista;
+		return lista.listIterator();
 	}
 
 	/**
@@ -201,13 +211,13 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @return un arrayList de libros de texto
 	 */
-	public ArrayList<Publicacion> listarLibrosTexto() {
+	public ListIterator<Publicacion> listarLibrosTexto() {
 		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion instanceof LibroTexto)
 				lista.add((LibroTexto) publicacion);
 		}
-		return lista;
+		return lista.listIterator();
 	}
 
 	/**
@@ -215,13 +225,14 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @return
 	 */
-	public ArrayList<Publicacion> listarPrestados() {
+	public ListIterator<Publicacion> listarPrestados() {
 		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
 			if (publicacion.isPrestado() == true)
 				lista.add(publicacion);
 		}
-		return lista;
+		Collections.sort(lista);
+		return lista.listIterator();
 	}
 
 	/**
@@ -229,7 +240,7 @@ public class Biblioteca implements Serializable {
 	 * 
 	 * @return
 	 */
-	public ArrayList<Publicacion> listarADevolverHoy() {
+	public ListIterator<Publicacion> listarADevolverHoy() {
 		lista = new ArrayList<Publicacion>();
 		LocalDate hoy = LocalDate.now();
 		for (Publicacion publicacion : biblioteca) {
@@ -237,7 +248,7 @@ public class Biblioteca implements Serializable {
 				lista.add(publicacion);
 			}
 		}
-		return lista;
+		return lista.listIterator();
 	}
 
 	/**
@@ -381,6 +392,10 @@ public class Biblioteca implements Serializable {
 	 */
 	public Publicacion get(int i) {
 		return biblioteca.get(i);
+	}
+
+	public int indexOf(Publicacion publicacion) {
+		return biblioteca.indexOf(publicacion);
 	}
 
 }

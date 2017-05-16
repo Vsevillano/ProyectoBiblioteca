@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
+import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
 
@@ -52,7 +53,7 @@ public class Novela extends Publicacion implements Evaluable, Serializable {
 	 */
 	public Novela(String titulo, String autor, String editorial, GeneroNovela genero, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas) throws NumeroPaginasNoValidoException,
-			EditorialNoValidaException, AutorNovalidoException, TituloNoValidoException {
+			EditorialNoValidaException, AutorNovalidoException, TituloNoValidoException, FechaNoValidaException {
 		super(titulo, fechaIngreso, fechaPublicacion, numeroPaginas);
 		setAutor(autor);
 		setEditorial(editorial);

@@ -6,14 +6,16 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import javax.swing.DefaultComboBoxModel;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroPeriodico;
 import biblioteca.estructura.Periodo;
+import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.PeriodoNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
+
+import javax.swing.DefaultComboBoxModel;
 
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -103,6 +105,9 @@ public class AnnadirPeriodico extends VentanaPadre {
 							JOptionPane.ERROR_MESSAGE);
 				} catch (NumberFormatException e2) {
 					JOptionPane.showMessageDialog(contentPanel, "Numero de paginas no valido!", "ERROR!!!!",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (FechaNoValidaException e) {
+					JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				}
 
