@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ListIterator;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import biblioteca.estructura.Revista;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 /**
  * 
  * @author Victoriano Sevillano Vega
@@ -29,7 +31,8 @@ public class PublicacionesPrestadas extends VentanaPadre {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int indicePublicacion = 0;
+	private ListIterator<Publicacion> it;
+	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -48,19 +51,48 @@ public class PublicacionesPrestadas extends VentanaPadre {
 		});
 	}
 
-	private void comprobarBotones() {
-		if (indicePublicacion + 1 >= Fichero.almacen.listarPrestados().size()) {
-			buttonAdelante.setEnabled(false);
-		} else {
-			buttonAdelante.setEnabled(true);
+	/**
+	 * Muestra el siguiente
+	 */
+	private void siguiente() {
+		if (it.hasNext()) {
+			publicacion = it.next();
+
 		}
-		if (indicePublicacion - 1 == -1) {
-			btnAtras.setEnabled(false);
-		} else {
-			btnAtras.setEnabled(true);
-		}
+		mostrarPublicacion();
 	}
 
+	/**
+	 * Muestra el anterior
+	 */
+	private void anterior() {
+		if (it.hasPrevious()) {
+			publicacion = it.previous();
+
+		}
+		mostrarPublicacion();
+	}
+
+	/**
+	 * Comprueba los botones
+	 */
+	private void comprobarBotones() {
+		if (!it.hasNext()) {
+			buttonAdelante.setEnabled(false);
+			publicacion = it.previous();
+		} else
+			buttonAdelante.setEnabled(true);
+		if (!it.hasPrevious()) {
+			btnAtras.setEnabled(false);
+			publicacion = it.next();
+		} else
+			btnAtras.setEnabled(true);
+	}
+
+	/**
+	 * Obtiene el genero en funcion de la clase
+	 * @param publicacion
+	 */
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
 			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
@@ -72,9 +104,11 @@ public class PublicacionesPrestadas extends VentanaPadre {
 			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
 	}
 
-	private void mostrarPublicacion(int indicePublicacion) {
+	/**
+	 * Muestra la publicacion
+	 */
+	private void mostrarPublicacion() {
 		try {
-			Publicacion publicacion = Fichero.almacen.listarPrestados().get(indicePublicacion);
 			textId.setText(publicacion.getIdentificador() + "");
 			textTitulo.setText(publicacion.getTitulo());
 			getGenero(publicacion);
@@ -92,13 +126,13 @@ public class PublicacionesPrestadas extends VentanaPadre {
 			spinnerIngreso.setValue(dateIng);
 			spinnerPublicacion.setValue(datePub);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Formato de fecha no valido!", "Error!", JOptionPane.ERROR_MESSAGE);
 		} catch (NullPointerException e) {
 			textFechaDevolucion.setText("");
 			JOptionPane.showMessageDialog(null, "No hay publicaciones!", "Error!", JOptionPane.ERROR_MESSAGE);
 
 		}
+		comprobarBotones();
 
 	}
 
@@ -109,14 +143,12 @@ public class PublicacionesPrestadas extends VentanaPadre {
 		comboGenero.setEditable(true);
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPublicacion(--indicePublicacion);
-				comprobarBotones();
+				anterior();
 			}
 		});
 		buttonAdelante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarPublicacion(++indicePublicacion);
-				comprobarBotones();
+				siguiente();
 			}
 		});
 		setTitle("Publicaciones prestadas");
@@ -137,12 +169,14 @@ public class PublicacionesPrestadas extends VentanaPadre {
 		rdbtnSemanal.setVisible(false);
 		lblPeriodo.setVisible(false);
 		okButton.setVisible(false);
-		btnAtras.setEnabled(false);
-		buttonAdelante.setEnabled(false);
 		cancelButton.setText("Aceptar");
 		btnEnviar.setVisible(false);
-		mostrarPublicacion(indicePublicacion);
-		comprobarBotones();
+
+		it = Fichero.almacen.listarPrestados();
+		publicacion = it.next();
+		mostrarPublicacion();
+		btnAtras.setEnabled(false);
+
 	}
 
 }

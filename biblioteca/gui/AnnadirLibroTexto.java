@@ -8,14 +8,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
-import javax.swing.DefaultComboBoxModel;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.Materia;
 import biblioteca.excepciones.EditorialNoValidaException;
+import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
+
+import javax.swing.DefaultComboBoxModel;
 
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -94,6 +96,9 @@ public class AnnadirLibroTexto extends VentanaPadre {
 							JOptionPane.ERROR_MESSAGE);
 				} catch (NumberFormatException e2) {
 					JOptionPane.showMessageDialog(contentPanel, "Numero de paginas no valido!", "ERROR!!!!",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (FechaNoValidaException e3) {
+					JOptionPane.showMessageDialog(contentPanel, e3.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}

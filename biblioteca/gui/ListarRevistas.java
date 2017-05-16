@@ -4,14 +4,16 @@ import java.awt.EventQueue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ListIterator;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import biblioteca.estructura.Fichero;
-import biblioteca.estructura.Revista;
 import biblioteca.estructura.Publicacion;
+import biblioteca.estructura.Revista;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -27,7 +29,8 @@ public class ListarRevistas extends VentanaPadre {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField textEditorial;
-	private int indicePublicacion = 0;
+	private ListIterator<Publicacion> it;
+	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -46,21 +49,48 @@ public class ListarRevistas extends VentanaPadre {
 		});
 	}
 
-	private void comprobarBotones() {
-		if (indicePublicacion + 1 >= Fichero.almacen.listarRevistas().size()) {
-			buttonAdelante.setEnabled(false);
-		} else {
-			buttonAdelante.setEnabled(true);
+	/**
+	 * Muestra el siguiente
+	 */
+	private void siguiente() {
+		if (it.hasNext()) {
+			publicacion = it.next();
+
 		}
-		if (indicePublicacion - 1 == -1) {
-			btnAtras.setEnabled(false);
-		} else {
-			btnAtras.setEnabled(true);
-		}
+		mostrarRevista();
 	}
 
-	private void mostrarRevista(int indicePublicacion) {
-		Publicacion publicacion = Fichero.almacen.listarRevistas().get(indicePublicacion);
+	/**
+	 * Muestra el anterior
+	 */
+	private void anterior() {
+		if (it.hasPrevious()) {
+			publicacion = it.previous();
+
+		}
+		mostrarRevista();
+	}
+
+	/**
+	 * Comprueba los botones
+	 */
+	private void comprobarBotones() {
+		if (!it.hasNext()) {
+			buttonAdelante.setEnabled(false);
+			publicacion = it.previous();
+		} else
+			buttonAdelante.setEnabled(true);
+		if (!it.hasPrevious()) {
+			btnAtras.setEnabled(false);
+			publicacion = it.next();
+		} else
+			btnAtras.setEnabled(true);
+	}
+
+	/**
+	 * Muestra la revista
+	 */
+	private void mostrarRevista() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		textEditorial.setText(((Revista) publicacion).getEditorial());
@@ -71,36 +101,33 @@ public class ListarRevistas extends VentanaPadre {
 			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
 			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
 			textFechaDevolucion.setText(model.format(dateDev));
-		} catch (NullPointerException | ParseException e1) {
-			textFechaDevolucion.setText("");
 
-		}
-		
-		switch (((Revista) Fichero.almacen.listarRevistas().get(indicePublicacion)).getPeriodo()) {
-		case DIARIO:
-			rdbtnDiario.setSelected(true);
-			break;
-		case SEMANAL:
-			rdbtnSemanal.setSelected(true);
-			break;
-		case MENSUAL:
-			rdbtnMensual.setSelected(true);
-		case ANUAL:
-			rdbtnAnual.setSelected(true);
+			switch (((Revista) publicacion).getPeriodo()) {
+			case DIARIO:
+				rdbtnDiario.setSelected(true);
+				break;
+			case SEMANAL:
+				rdbtnSemanal.setSelected(true);
+				break;
+			case MENSUAL:
+				rdbtnMensual.setSelected(true);
+			case ANUAL:
+				rdbtnAnual.setSelected(true);
 
-		}
+			}
 
-		String dateIngreso = publicacion.getFechaIngreso().toString();
-		String datePublicacion = publicacion.getFechaPublicacion().toString();
-		try {
+			String dateIngreso = publicacion.getFechaIngreso().toString();
+			String datePublicacion = publicacion.getFechaPublicacion().toString();
+
 			Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
 			Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
 			spinnerIngreso.setValue(dateIng);
 			spinnerPublicacion.setValue(datePub);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (NullPointerException | ParseException e1) {
+			textFechaDevolucion.setText("");
+
 		}
+		comprobarBotones();
 
 	}
 
@@ -108,17 +135,16 @@ public class ListarRevistas extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public ListarRevistas() {
+		textNumeroPaginas.setEnabled(false);
 		cancelButton.setText("Aceptar");
 		buttonAdelante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarRevista(++indicePublicacion);
-				comprobarBotones();
+				siguiente();
 			}
 		});
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarRevista(--indicePublicacion);
-				comprobarBotones();
+				anterior();
 			}
 		});
 		comboGenero.setEditable(true);
@@ -157,8 +183,10 @@ public class ListarRevistas extends VentanaPadre {
 		setBounds(100, 100, 450, 320);
 		okButton.setVisible(false);
 
-		mostrarRevista(indicePublicacion);
-		comprobarBotones();
+		it = Fichero.almacen.listarRevistas();
+		publicacion = it.next();
+		mostrarRevista();
+		btnAtras.setEnabled(false);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
+import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
 import biblioteca.excepciones.TituloNoValidoException;
 
@@ -14,7 +15,7 @@ import biblioteca.excepciones.TituloNoValidoException;
  * @version 1.0
  *
  */
-public class Publicacion implements Serializable {
+public class Publicacion implements Serializable, Comparable<Publicacion> {
 	/**
 	 * 
 	 */
@@ -54,12 +55,6 @@ public class Publicacion implements Serializable {
 	 */
 	private static final Pattern patternField = Pattern.compile("([¥,'\\-a-zA-Z·ÈÌÛ˙Ò—0-9]+\\s?){2,}");
 
-	// /**
-	// * Patron para las fechas, acepta 11/12/2017
-	// */
-	// private static final Pattern patronFecha =
-	// Pattern.compile("^\\d{2}[/]\\d{2}[/]\\d{4}$");
-
 	/**
 	 * Constructor de la publicacion
 	 * 
@@ -79,7 +74,7 @@ public class Publicacion implements Serializable {
 	 * @throws FechaNoValidaException
 	 */
 	public Publicacion(String titulo, LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas)
-			throws NumeroPaginasNoValidoException, TituloNoValidoException {
+			throws NumeroPaginasNoValidoException, TituloNoValidoException, FechaNoValidaException {
 		setIdentificador();
 		setTitulo(titulo);
 		setFechaIngreso(fechaIngreso);
@@ -121,11 +116,7 @@ public class Publicacion implements Serializable {
 	}
 
 	protected void setFechaDevolucion(LocalDate fechaDevolucion) {
-		// if (fechaValida(fechaDevolucion))
 		this.fechaDevolucion = fechaDevolucion;
-		// else
-		// throw new FechaNoValidaException("La fecha de devolucion no es
-		// valida");
 	}
 
 	/**
@@ -135,10 +126,7 @@ public class Publicacion implements Serializable {
 	 * @throws FechaNoValidaException
 	 */
 	private void setFechaIngreso(LocalDate fechaIngreso) {
-		// if (fechaValida(fechaIngreso))
 		this.fechaIngreso = fechaIngreso;
-		// else
-		// throw new FechaNoValidaException("La fecha de ingreso no es valida");
 	}
 
 	/**
@@ -147,11 +135,11 @@ public class Publicacion implements Serializable {
 	 * @param fechaPublicacion
 	 * @throws FechaNoValidaException
 	 */
-	private void setFechaPublicacion(LocalDate fechaPublicacion) {
-		// if (fechaValida(fechaPublicacion))
-		this.fechaPublicacion = fechaPublicacion;
-		// else
-		// throw new FechaNoValidaException("La fecha de ingreso no es valida");
+	private void setFechaPublicacion(LocalDate fechaPublicacion) throws FechaNoValidaException {
+		if (fechaPublicacion.isBefore(getFechaIngreso()) == true || fechaPublicacion.isEqual(getFechaIngreso()) == true)
+			this.fechaPublicacion = fechaPublicacion;
+		else
+			throw new FechaNoValidaException("La fecha de ingreso no es valida");
 	}
 
 	/**
@@ -256,15 +244,6 @@ public class Publicacion implements Serializable {
 		return patternField.matcher(campo).matches();
 	}
 
-	// /**
-	// *
-	// * @param fecha
-	// * @return
-	// */
-	// protected boolean fechaValida(LocalDate fecha) {
-	// return patronFecha.matcher(fecha.toString()).matches();
-	// }
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -277,6 +256,10 @@ public class Publicacion implements Serializable {
 				+ getNumeroPaginas() + ", fechaDevolucion=" + getFechaDevolucion() + "]";
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -286,6 +269,10 @@ public class Publicacion implements Serializable {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		Publicacion other = (Publicacion) obj;
@@ -304,7 +291,7 @@ public class Publicacion implements Serializable {
 	 * 
 	 * @throws FechaNoValidaException
 	 */
-	protected void calcularFechaDevolucion(double puntuacion){
+	protected void calcularFechaDevolucion(double puntuacion) {
 		LocalDate hoy = LocalDate.now();
 		if (puntuacion < 20) {
 			setFechaDevolucion(hoy.plusMonths(1));
@@ -317,6 +304,16 @@ public class Publicacion implements Serializable {
 		} else {
 			setFechaDevolucion(hoy);
 		}
+	}
+
+	/*
+	 * Compara dos fechas de devolucion
+	 * (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Publicacion o) {
+		return (int) Math.round((o.getFechaDevolucion().compareTo(this.getFechaDevolucion())));
 	}
 
 }
