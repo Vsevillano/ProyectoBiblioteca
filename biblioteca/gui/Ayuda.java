@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JScrollBar;
+import java.awt.Toolkit;
 
 /**
  * 
@@ -45,6 +46,7 @@ public class Ayuda extends JDialog {
 	 * Create the dialog.
 	 */
 	public Ayuda() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Victor\\workspace\\Proyecto\\img\\libros.png"));
 		setTitle("Ayuda de la biblioteca");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());

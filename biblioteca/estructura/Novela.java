@@ -59,6 +59,18 @@ public class Novela extends Publicacion implements Evaluable, Serializable {
 		setEditorial(editorial);
 		setGenero(genero);
 	}
+	
+	
+	public Novela(String titulo, String autor, String editorial, GeneroNovela genero, LocalDate fechaIngreso,
+			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws NumeroPaginasNoValidoException,
+			EditorialNoValidaException, AutorNovalidoException, TituloNoValidoException, FechaNoValidaException {
+		super(titulo, fechaIngreso, fechaPublicacion, numeroPaginas, identificador);
+		setAutor(autor);
+		setEditorial(editorial);
+		setGenero(genero);
+	}
+	
+	
 
 	/**
 	 * Constructor por identificador

@@ -65,6 +65,21 @@ public class ADevolverHoy extends VentanaPadre {
 
 	}
 
+	private void comprobarBotones() {
+		if (!it.hasNext()) {
+			buttonAdelante.setEnabled(false);
+			publicacion = it.previous();
+		}
+		else
+			buttonAdelante.setEnabled(true);
+		if (!it.hasPrevious()) {
+			btnAtras.setEnabled(false);
+			publicacion = it.next();
+		}
+		else
+			btnAtras.setEnabled(true);
+	}
+	
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
 			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
@@ -101,6 +116,7 @@ public class ADevolverHoy extends VentanaPadre {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		comprobarBotones();
 
 	}
 

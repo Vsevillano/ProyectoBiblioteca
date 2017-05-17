@@ -11,6 +11,7 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 /**
  * 
@@ -43,6 +44,7 @@ public class AcercaDe extends JDialog {
 	 * Create the dialog.
 	 */
 	public AcercaDe() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Victor\\workspace\\Proyecto\\img\\libros.png"));
 		setTitle("Acerca del Concesionario");
 		setModal(true);
 		setBounds(100, 100, 450, 300);

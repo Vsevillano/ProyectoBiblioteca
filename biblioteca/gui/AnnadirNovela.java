@@ -17,6 +17,7 @@ import javax.swing.SpinnerDateModel;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroNovela;
+import biblioteca.estructura.Publicacion;
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
@@ -69,33 +70,32 @@ public class AnnadirNovela extends VentanaPadre {
 					SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
 					LocalDate dateIngreso = LocalDate.parse(formater.format(spinnerIngreso.getValue()));
 					LocalDate datePublicacion = LocalDate.parse(formater.format(spinnerPublicacion.getValue()));
-				
-						
+
 					// Añadimos novela
 					Fichero.almacen.anadirNovela(textTitulo.getText(), textAutor.getText(), textEditorial.getText(),
 							(GeneroNovela) comboGenero.getSelectedItem(), dateIngreso, datePublicacion,
-							Integer.parseInt(textNumeroPaginas.getText()));
+							Integer.parseInt(textNumeroPaginas.getText()), Integer.parseInt(textId.getText()));
 
 					// Reseteamos campos de la ventana
 					textAutor.setText("");
 					textEditorial.setText("");
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
-					
+
 					SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
 					spinnerIngreso.setModel(new SpinnerDateModel());
 					spinnerIngreso.setEditor(new JSpinner.DateEditor(spinnerIngreso, model.toPattern()));
 					spinnerPublicacion.setModel(new SpinnerDateModel());
 					spinnerPublicacion.setEditor(new JSpinner.DateEditor(spinnerPublicacion, model.toPattern()));
-					
-					textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
 
+					// Cambiamos el id de la ventana
+					textId.setText((Integer.parseInt(textId.getText()) + 1) + "");
 
 					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
-				} catch (NumeroPaginasNoValidoException | EditorialNoValidaException
-						| AutorNovalidoException | TituloNoValidoException e1) {
+				} catch (NumeroPaginasNoValidoException | EditorialNoValidaException | AutorNovalidoException
+						| TituloNoValidoException e1) {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				} catch (NumberFormatException e2) {
@@ -157,9 +157,10 @@ public class AnnadirNovela extends VentanaPadre {
 		okButton.setVisible(false);
 		cancelButton.setText("Aceptar");
 		try {
-		textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
-		}catch (IndexOutOfBoundsException e) {
-
+			textId.setText((Fichero.almacen.get(Fichero.almacen.size() - 1).getIdentificador() + 1) + "");
+		} catch (IndexOutOfBoundsException e) {
+			Publicacion publicacion = new Publicacion("");
+			textId.setText(publicacion.getIdentificador()+"");
 		}
 	}
 

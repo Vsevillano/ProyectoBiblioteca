@@ -64,6 +64,7 @@ public class BuscarPorId extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public BuscarPorId() {
+		comboGenero.setEditable(true);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {

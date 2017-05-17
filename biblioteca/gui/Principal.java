@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Toolkit;
 
 /**
  * 
@@ -68,6 +69,7 @@ public class Principal extends JFrame implements Serializable {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Victor\\workspace\\Proyecto\\img\\libros.png"));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {

@@ -52,6 +52,14 @@ public class Periodico extends Publicacion implements Evaluable, Serializable {
 		setGenero(genero);
 		setPeriodo(periodo);
 	}
+	
+	public Periodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
+			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws NumeroPaginasNoValidoException,
+			TituloNoValidoException, PeriodoNoValidoException, FechaNoValidaException {
+		super(titulo, fechaIngreso, fechaPublicacion, numeroPaginas, identificador);
+		setGenero(genero);
+		setPeriodo(periodo);
+	}
 
 	/**
 	 * Obtiene el Genero del periodico

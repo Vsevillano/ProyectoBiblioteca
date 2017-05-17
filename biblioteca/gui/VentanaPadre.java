@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import java.awt.Toolkit;
 
 /**
  * 
@@ -75,6 +76,7 @@ public class VentanaPadre extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaPadre() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Victor\\workspace\\Proyecto\\img\\libros.png"));
 		setModal(true);
 		setBounds(100, 100, 465, 307);
 		getContentPane().setLayout(new BorderLayout());
