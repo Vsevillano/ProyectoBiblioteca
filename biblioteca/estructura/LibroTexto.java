@@ -66,6 +66,22 @@ public class LibroTexto extends Publicacion implements Evaluable, Serializable {
 		setMateria(materia);
 	}
 	
+	/**
+	 * Sobrecarga para el gui
+	 * @param titulo
+	 * @param editorial
+	 * @param isbn
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param materia
+	 * @param identificador
+	 * @throws ISBNNoValidoException
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws TituloNoValidoException
+	 * @throws EditorialNoValidaException
+	 * @throws FechaNoValidaException
+	 */
 	public LibroTexto(String titulo, String editorial, String isbn, LocalDate fechaIngreso, LocalDate fechaPublicacion,
 			int numeroPaginas, Materia materia, int identificador) throws ISBNNoValidoException, NumeroPaginasNoValidoException,
 			TituloNoValidoException, EditorialNoValidaException, FechaNoValidaException {

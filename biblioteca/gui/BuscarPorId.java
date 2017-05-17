@@ -90,7 +90,8 @@ public class BuscarPorId extends VentanaPadre {
 					e2.printStackTrace();
 
 				} catch (NullPointerException e2) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe", "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La publicacion no existe", "Error!",
+							JOptionPane.ERROR_MESSAGE);
 
 				}
 
@@ -99,7 +100,7 @@ public class BuscarPorId extends VentanaPadre {
 		});
 		btnEnviar.setEnabled(true);
 
-		setTitle("Buscar publicacion");
+		setTitle("Buscar por ID");
 		textNumeroPaginas.setEnabled(false);
 		comboGenero.setEnabled(false);
 		spinnerPublicacion.setEnabled(false);

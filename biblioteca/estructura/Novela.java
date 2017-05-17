@@ -60,7 +60,22 @@ public class Novela extends Publicacion implements Evaluable, Serializable {
 		setGenero(genero);
 	}
 	
-	
+	/**
+	 * Sobrecarga para el gui
+	 * @param titulo
+	 * @param autor
+	 * @param editorial
+	 * @param genero
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param identificador
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws EditorialNoValidaException
+	 * @throws AutorNovalidoException
+	 * @throws TituloNoValidoException
+	 * @throws FechaNoValidaException
+	 */
 	public Novela(String titulo, String autor, String editorial, GeneroNovela genero, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws NumeroPaginasNoValidoException,
 			EditorialNoValidaException, AutorNovalidoException, TituloNoValidoException, FechaNoValidaException {

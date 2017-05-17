@@ -34,6 +34,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 	private JTextField textISBN;
 	private ListIterator<Publicacion> it;
 	private Publicacion publicacion;
+
 	/**
 	 * Launch the application.
 	 */
@@ -50,14 +51,14 @@ public class ListarLibrosTexto extends VentanaPadre {
 			}
 		});
 	}
-	
+
 	/**
 	 * Muestra el coche siguiente
 	 */
 	private void siguiente() {
 		if (it.hasNext()) {
 			publicacion = it.next();
-			
+
 		}
 		mostrarLibroTexto();
 	}
@@ -68,28 +69,24 @@ public class ListarLibrosTexto extends VentanaPadre {
 	private void anterior() {
 		if (it.hasPrevious()) {
 			publicacion = it.previous();
-			
+
 		}
 		mostrarLibroTexto();
 
 	}
-	
+
 	private void comprobarBotones() {
 		if (!it.hasNext()) {
 			buttonAdelante.setEnabled(false);
 			publicacion = it.previous();
-		}
-		else
+		} else
 			buttonAdelante.setEnabled(true);
 		if (!it.hasPrevious()) {
 			btnAtras.setEnabled(false);
 			publicacion = it.next();
-		}
-		else
+		} else
 			btnAtras.setEnabled(true);
 	}
-
-
 
 	private void mostrarLibroTexto() {
 		textId.setText(publicacion.getIdentificador() + "");
@@ -107,7 +104,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 			textFechaDevolucion.setText("");
 
 		}
-		
+
 		String dateIngreso = publicacion.getFechaIngreso().toString();
 		String datePublicacion = publicacion.getFechaPublicacion().toString();
 		try {
@@ -116,7 +113,6 @@ public class ListarLibrosTexto extends VentanaPadre {
 			spinnerIngreso.setValue(dateIng);
 			spinnerPublicacion.setValue(datePub);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		comprobarBotones();

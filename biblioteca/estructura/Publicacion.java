@@ -2,7 +2,6 @@ package biblioteca.estructura;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 import biblioteca.excepciones.FechaNoValidaException;
@@ -83,9 +82,10 @@ public class Publicacion implements Serializable, Comparable<Publicacion> {
 		setFechaPublicacion(fechaPublicacion);
 		setNumeroPaginas(numeroPaginas);
 	}
-	
+
 	/**
 	 * Sobrecarga con identificador
+	 * 
 	 * @param titulo
 	 * @param fechaIngreso
 	 * @param fechaPublicacion
@@ -95,8 +95,8 @@ public class Publicacion implements Serializable, Comparable<Publicacion> {
 	 * @throws TituloNoValidoException
 	 * @throws FechaNoValidaException
 	 */
-	public Publicacion(String titulo, LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas, int identificador)
-			throws NumeroPaginasNoValidoException, TituloNoValidoException, FechaNoValidaException {
+	public Publicacion(String titulo, LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas,
+			int identificador) throws NumeroPaginasNoValidoException, TituloNoValidoException, FechaNoValidaException {
 		setIdentificador(identificador);
 		setTitulo(titulo);
 		setFechaIngreso(fechaIngreso);
@@ -104,10 +104,6 @@ public class Publicacion implements Serializable, Comparable<Publicacion> {
 		setFechaDevolucion(fechaDevolucion);
 		setFechaPublicacion(fechaPublicacion);
 		setNumeroPaginas(numeroPaginas);
-	}
-	
-	private void setIdentificador(int identificador) {
-		this.identificador = identificador;
 	}
 
 	/**
@@ -173,6 +169,15 @@ public class Publicacion implements Serializable, Comparable<Publicacion> {
 	 */
 	private void setIdentificador() {
 		identificador = contador++;
+	}
+
+	/**
+	 * Sobrecarga del setidentificador
+	 * 
+	 * @param identificador
+	 */
+	private void setIdentificador(int identificador) {
+		this.identificador = identificador;
 	}
 
 	/**
@@ -284,6 +289,7 @@ public class Publicacion implements Serializable, Comparable<Publicacion> {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -297,6 +303,7 @@ public class Publicacion implements Serializable, Comparable<Publicacion> {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -333,8 +340,8 @@ public class Publicacion implements Serializable, Comparable<Publicacion> {
 	}
 
 	/*
-	 * Compara dos fechas de devolucion
-	 * (non-Javadoc)
+	 * Compara dos fechas de devolucion (non-Javadoc)
+	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override

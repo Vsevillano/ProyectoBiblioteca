@@ -160,7 +160,7 @@ public class AnnadirNovela extends VentanaPadre {
 			textId.setText((Fichero.almacen.get(Fichero.almacen.size() - 1).getIdentificador() + 1) + "");
 		} catch (IndexOutOfBoundsException e) {
 			Publicacion publicacion = new Publicacion("");
-			textId.setText(publicacion.getIdentificador()+"");
+			textId.setText(publicacion.getIdentificador() + "");
 		}
 	}
 

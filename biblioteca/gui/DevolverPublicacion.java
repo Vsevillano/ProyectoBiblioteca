@@ -90,14 +90,16 @@ public class DevolverPublicacion extends VentanaPadre {
 						Fichero.almacen.setModificado(true);
 					}
 				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!",
+							JOptionPane.ERROR_MESSAGE);
 
 				} catch (ParseException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 
 				} catch (NullPointerException e1) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!",
+							JOptionPane.ERROR_MESSAGE);
 				} catch (PublicacionNoExisteException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 				} catch (PublicacionNoPrestadaException e1) {
