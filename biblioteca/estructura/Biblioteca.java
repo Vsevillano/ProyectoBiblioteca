@@ -87,6 +87,14 @@ public class Biblioteca implements Serializable {
 		biblioteca.add(new Novela(titulo, autor, editorial, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 
 	}
+	
+	public void anadirNovela(String titulo, String autor, String editorial, GeneroNovela genero, LocalDate fechaIngreso,
+			LocalDate fechaPublicacion, int numeroPaginas, int identificador)
+			throws NumeroPaginasNoValidoException, EditorialNoValidaException,
+			AutorNovalidoException, TituloNoValidoException, FechaNoValidaException {
+		biblioteca.add(new Novela(titulo, autor, editorial, genero, fechaIngreso, fechaPublicacion, numeroPaginas, identificador));
+
+	}
 
 	/**
 	 * 
@@ -110,6 +118,13 @@ public class Biblioteca implements Serializable {
 			EditorialNoValidaException, PeriodoNoValidoException, FechaNoValidaException {
 		biblioteca.add(new Revista(titulo, editorial, periodo, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
+	
+	public void anadirRevista(String titulo, String editorial, Periodo periodo, GeneroRevista genero,
+			LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas, int identificador)
+			throws NumeroPaginasNoValidoException, TituloNoValidoException,
+			EditorialNoValidaException, PeriodoNoValidoException, FechaNoValidaException {
+		biblioteca.add(new Revista(titulo, editorial, periodo, genero, fechaIngreso, fechaPublicacion, numeroPaginas, identificador));
+	}
 
 	/**
 	 * 
@@ -129,6 +144,12 @@ public class Biblioteca implements Serializable {
 			LocalDate fechaPublicacion, int numeroPaginas) throws 
 			NumeroPaginasNoValidoException, TituloNoValidoException, PeriodoNoValidoException, FechaNoValidaException {
 		biblioteca.add(new Periodico(titulo, genero, periodo, fechaIngreso, fechaPublicacion, numeroPaginas));
+	}
+	
+	public void annadirPeriodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
+			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws 
+			NumeroPaginasNoValidoException, TituloNoValidoException, PeriodoNoValidoException, FechaNoValidaException {
+		biblioteca.add(new Periodico(titulo, genero, periodo, fechaIngreso, fechaPublicacion, numeroPaginas, identificador));
 	}
 
 	/**
@@ -152,6 +173,13 @@ public class Biblioteca implements Serializable {
 			throws ISBNNoValidoException, NumeroPaginasNoValidoException,
 			TituloNoValidoException, EditorialNoValidaException, FechaNoValidaException {
 		biblioteca.add(new LibroTexto(titulo, editorial, isbn, fechaIngreso, fechaPublicacion, numeroPaginas, materia));
+	}
+	
+	public void annadirLibroTexto(String titulo, String editorial, String isbn, LocalDate fechaIngreso,
+			LocalDate fechaPublicacion, int numeroPaginas, Materia materia, int identificador)
+			throws ISBNNoValidoException, NumeroPaginasNoValidoException,
+			TituloNoValidoException, EditorialNoValidaException, FechaNoValidaException {
+		biblioteca.add(new LibroTexto(titulo, editorial, isbn, fechaIngreso, fechaPublicacion, numeroPaginas, materia, identificador));
 	}
 
 	/*

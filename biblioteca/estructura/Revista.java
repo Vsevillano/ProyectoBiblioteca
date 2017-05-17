@@ -60,6 +60,15 @@ public class Revista extends Publicacion implements Evaluable, Serializable {
 		setPeriodo(periodo);
 		setGenero(genero);
 	}
+	
+	public Revista(String titulo, String editorial, Periodo periodo, GeneroRevista genero, LocalDate fechaIngreso,
+			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws NumeroPaginasNoValidoException,
+			TituloNoValidoException, EditorialNoValidaException, PeriodoNoValidoException, FechaNoValidaException {
+		super(titulo, fechaIngreso, fechaPublicacion, numeroPaginas, identificador);
+		setEditorial(editorial);
+		setPeriodo(periodo);
+		setGenero(genero);
+	}
 
 	/**
 	 * Obtiene la editorial

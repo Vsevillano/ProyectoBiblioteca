@@ -137,6 +137,7 @@ public class ListarBiblioteca extends VentanaPadre {
 		rdbtnMensual.setVisible(false);
 		rdbtnSemanal.setVisible(false);
 		okButton.setVisible(false);
+		btnEnviar.setVisible(false);
 
 		mostrarPublicaciones(indicePublicacion);
 		comprobarBotones();

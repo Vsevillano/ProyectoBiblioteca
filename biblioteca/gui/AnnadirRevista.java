@@ -12,6 +12,7 @@ import javax.swing.SpinnerDateModel;
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroRevista;
 import biblioteca.estructura.Periodo;
+import biblioteca.estructura.Publicacion;
 import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
@@ -86,7 +87,7 @@ public class AnnadirRevista extends VentanaPadre {
 					// Añadimos revista
 					Fichero.almacen.anadirRevista(textTitulo.getText(), textEditorial.getText(), getPeriodo(),
 							(GeneroRevista) comboGenero.getSelectedItem(), dateIngreso, datePublicacion,
-							Integer.parseInt(textNumeroPaginas.getText()));
+							Integer.parseInt(textNumeroPaginas.getText()), Integer.parseInt(textId.getText()));
 
 					// Reseteamos campos de la ventana
 					textEditorial.setText("");
@@ -99,7 +100,8 @@ public class AnnadirRevista extends VentanaPadre {
 					spinnerPublicacion.setModel(new SpinnerDateModel());
 					spinnerPublicacion.setEditor(new JSpinner.DateEditor(spinnerPublicacion, model.toPattern()));
 					
-					textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
+					// Cambiamos el id de la ventana
+					textId.setText((Integer.parseInt(textId.getText()) + 1) + "");
 
 
 					// Actualizamos estado del fichero
@@ -110,7 +112,7 @@ public class AnnadirRevista extends VentanaPadre {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				} catch (NumberFormatException e2) {
-					JOptionPane.showMessageDialog(contentPanel, "Numero de paginas no valido!", "ERROR!!!!",
+					JOptionPane.showMessageDialog(contentPanel, "Id incorrecto!", "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				} catch (FechaNoValidaException e) {
 					JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "ERROR!!!!",
@@ -150,9 +152,10 @@ public class AnnadirRevista extends VentanaPadre {
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
 		try {
-		textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
+			textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
 		}catch (IndexOutOfBoundsException e) {
-			textId.setText(0+"");
+			Publicacion publicacion = new Publicacion("");
+			textId.setText(publicacion.getIdentificador()+"");
 		}
 	}
 }

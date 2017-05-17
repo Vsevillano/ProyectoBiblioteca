@@ -83,6 +83,32 @@ public class Publicacion implements Serializable, Comparable<Publicacion> {
 		setFechaPublicacion(fechaPublicacion);
 		setNumeroPaginas(numeroPaginas);
 	}
+	
+	/**
+	 * Sobrecarga con identificador
+	 * @param titulo
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param identificador
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws TituloNoValidoException
+	 * @throws FechaNoValidaException
+	 */
+	public Publicacion(String titulo, LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas, int identificador)
+			throws NumeroPaginasNoValidoException, TituloNoValidoException, FechaNoValidaException {
+		setIdentificador(identificador);
+		setTitulo(titulo);
+		setFechaIngreso(fechaIngreso);
+		setPrestado(prestado);
+		setFechaDevolucion(fechaDevolucion);
+		setFechaPublicacion(fechaPublicacion);
+		setNumeroPaginas(numeroPaginas);
+	}
+	
+	private void setIdentificador(int identificador) {
+		this.identificador = identificador;
+	}
 
 	/**
 	 * Constructor por identificador

@@ -11,6 +11,7 @@ import javax.swing.SpinnerDateModel;
 
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.Materia;
+import biblioteca.estructura.Publicacion;
 import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.ISBNNoValidoException;
@@ -23,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
 /**
  * 
@@ -71,7 +73,7 @@ public class AnnadirLibroTexto extends VentanaPadre {
 					// Añadimos libro
 					Fichero.almacen.annadirLibroTexto(textTitulo.getText(), textEditorial.getText(), textISBN.getText(),
 							dateIngreso, datePublicacion, Integer.parseInt(textNumeroPaginas.getText()),
-							(Materia) comboGenero.getSelectedItem());
+							(Materia) comboGenero.getSelectedItem(), Integer.parseInt(textId.getText()));
 
 					// Reseteamos campos de la ventana
 					textEditorial.setText("");
@@ -85,8 +87,10 @@ public class AnnadirLibroTexto extends VentanaPadre {
 					spinnerPublicacion.setModel(new SpinnerDateModel());
 					spinnerPublicacion.setEditor(new JSpinner.DateEditor(spinnerPublicacion, model.toPattern()));
 					
-					textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
+					// Cambiamos el id de la ventana
+					textId.setText((Integer.parseInt(textId.getText()) + 1) + "");
 
+					 
 					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
@@ -133,7 +137,7 @@ public class AnnadirLibroTexto extends VentanaPadre {
 		textISBN.setBounds(80, 88, 215, 20);
 		contentPanel.add(textISBN);
 		textISBN.setColumns(10);
-		setTitle("A\u00F1adir Libro de texto");
+		setTitle("  A\u00F1adir Libro de texto");
 		setBounds(100, 100, 450, 320);
 		rdbtnAnual.setVisible(false);
 		rdbtnDiario.setVisible(false);
@@ -143,10 +147,12 @@ public class AnnadirLibroTexto extends VentanaPadre {
 		lblPeriodo.setVisible(false);
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
+		
 		try {
-		textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
+			textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
 		}catch (IndexOutOfBoundsException e) {
-			textId.setText(0+"");
+			Publicacion publicacion = new Publicacion("");
+			textId.setText(publicacion.getIdentificador()+"");
 		}
 	}
 }

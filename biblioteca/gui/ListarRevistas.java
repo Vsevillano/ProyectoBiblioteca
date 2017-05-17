@@ -182,6 +182,7 @@ public class ListarRevistas extends VentanaPadre {
 		textEditorial.setColumns(10);
 		setBounds(100, 100, 450, 320);
 		okButton.setVisible(false);
+		btnEnviar.setVisible(false);
 
 		it = Fichero.almacen.listarRevistas();
 		publicacion = it.next();
