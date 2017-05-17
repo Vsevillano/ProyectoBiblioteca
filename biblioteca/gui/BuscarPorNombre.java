@@ -98,7 +98,7 @@ public class BuscarPorNombre extends VentanaPadre {
 		textTitulo.setText(publicacion.getTitulo());
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
 		getGenero(publicacion);
-		
+
 		try {
 			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
 			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
@@ -132,7 +132,7 @@ public class BuscarPorNombre extends VentanaPadre {
 		btnEnviar.setEnabled(true);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
 					it = Fichero.almacen.buscarPorTitulo(textTitulo.getText());
 					publicacion = it.next();
@@ -142,8 +142,6 @@ public class BuscarPorNombre extends VentanaPadre {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 
 				}
-
-
 
 			}
 		});

@@ -91,6 +91,7 @@ public class PublicacionesPrestadas extends VentanaPadre {
 
 	/**
 	 * Obtiene el genero en funcion de la clase
+	 * 
 	 * @param publicacion
 	 */
 	private void getGenero(Publicacion publicacion) {

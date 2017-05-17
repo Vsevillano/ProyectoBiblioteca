@@ -184,48 +184,48 @@ public class Principal extends JFrame implements Serializable {
 			}
 		});
 		mnAadir.add(mntmLibroDeTexto);
-		
+
 		JMenu mnNewMenu = new JMenu("Borrar");
 		mnEdicion.add(mnNewMenu);
-		
-				JMenuItem mntmPorIndice_1 = new JMenuItem("Borrar por ID");
-				mnNewMenu.add(mntmPorIndice_1);
-				
-				JMenuItem mntmBorrarPorNombre = new JMenuItem("Borrar por nombre");
-				mntmBorrarPorNombre.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						BorrarPorNombre borrarPorNombre = new BorrarPorNombre();
-						borrarPorNombre.setVisible(true);
-					}
-				});
-				mnNewMenu.add(mntmBorrarPorNombre);
-				mntmPorIndice_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						BorrarPorID borrarPorID = new BorrarPorID();
-						borrarPorID.setVisible(true);
-					}
-				});
-		
+
+		JMenuItem mntmPorIndice_1 = new JMenuItem("Borrar por ID");
+		mnNewMenu.add(mntmPorIndice_1);
+
+		JMenuItem mntmBorrarPorNombre = new JMenuItem("Borrar por nombre");
+		mntmBorrarPorNombre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BorrarPorNombre borrarPorNombre = new BorrarPorNombre();
+				borrarPorNombre.setVisible(true);
+			}
+		});
+		mnNewMenu.add(mntmBorrarPorNombre);
+		mntmPorIndice_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BorrarPorID borrarPorID = new BorrarPorID();
+				borrarPorID.setVisible(true);
+			}
+		});
+
 		JMenu mnBuscarr = new JMenu("Buscar");
 		mnEdicion.add(mnBuscarr);
-		
-				JMenuItem mntmPorColor = new JMenuItem("Buscar por ID");
-				mnBuscarr.add(mntmPorColor);
-				
-				JMenuItem mntmBuscarPorNombre = new JMenuItem("Buscar por nombre");
-				mntmBuscarPorNombre.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						BuscarPorNombre buscarPorNombre = new BuscarPorNombre();
-						buscarPorNombre.setVisible(true);
-					}
-				});
-				mnBuscarr.add(mntmBuscarPorNombre);
-				mntmPorColor.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						BuscarPorId buscarPorId = new BuscarPorId();
-						buscarPorId.setVisible(true);
-					}
-				});
+
+		JMenuItem mntmPorColor = new JMenuItem("Buscar por ID");
+		mnBuscarr.add(mntmPorColor);
+
+		JMenuItem mntmBuscarPorNombre = new JMenuItem("Buscar por nombre");
+		mntmBuscarPorNombre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BuscarPorNombre buscarPorNombre = new BuscarPorNombre();
+				buscarPorNombre.setVisible(true);
+			}
+		});
+		mnBuscarr.add(mntmBuscarPorNombre);
+		mntmPorColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				BuscarPorId buscarPorId = new BuscarPorId();
+				buscarPorId.setVisible(true);
+			}
+		});
 
 		JMenu mnListar = new JMenu("Listar");
 		mnListar.setMnemonic('L');

@@ -93,30 +93,28 @@ public class AnnadirRevista extends VentanaPadre {
 					textEditorial.setText("");
 					textTitulo.setText("");
 					textNumeroPaginas.setText("");
-					
+
 					SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
 					spinnerIngreso.setModel(new SpinnerDateModel());
 					spinnerIngreso.setEditor(new JSpinner.DateEditor(spinnerIngreso, model.toPattern()));
 					spinnerPublicacion.setModel(new SpinnerDateModel());
 					spinnerPublicacion.setEditor(new JSpinner.DateEditor(spinnerPublicacion, model.toPattern()));
-					
+
 					// Cambiamos el id de la ventana
 					textId.setText((Integer.parseInt(textId.getText()) + 1) + "");
-
 
 					// Actualizamos estado del fichero
 					Fichero.almacen.setModificado(true);
 
-				} catch (PeriodoNoValidoException | NumeroPaginasNoValidoException
-						| EditorialNoValidaException | TituloNoValidoException e1) {
+				} catch (PeriodoNoValidoException | NumeroPaginasNoValidoException | EditorialNoValidaException
+						| TituloNoValidoException e1) {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				} catch (NumberFormatException e2) {
 					JOptionPane.showMessageDialog(contentPanel, "Id incorrecto!", "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				} catch (FechaNoValidaException e) {
-					JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "ERROR!!!!",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "ERROR!!!!", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
@@ -152,10 +150,10 @@ public class AnnadirRevista extends VentanaPadre {
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
 		try {
-			textId.setText((Fichero.almacen.get(Fichero.almacen.size()-1).getIdentificador()+1)+"");
-		}catch (IndexOutOfBoundsException e) {
+			textId.setText((Fichero.almacen.get(Fichero.almacen.size() - 1).getIdentificador() + 1) + "");
+		} catch (IndexOutOfBoundsException e) {
 			Publicacion publicacion = new Publicacion("");
-			textId.setText(publicacion.getIdentificador()+"");
+			textId.setText(publicacion.getIdentificador() + "");
 		}
 	}
 }

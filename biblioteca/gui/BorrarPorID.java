@@ -104,7 +104,8 @@ public class BorrarPorID extends VentanaPadre {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				} catch (NullPointerException e) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}

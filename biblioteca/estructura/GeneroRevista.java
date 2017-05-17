@@ -25,6 +25,7 @@ public enum GeneroRevista {
 
 	/**
 	 * Obtiene el array de valores de GeneroRevista
+	 * 
 	 * @return
 	 */
 	public GeneroRevista[] getValues() {

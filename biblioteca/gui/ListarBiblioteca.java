@@ -32,6 +32,7 @@ public class ListarBiblioteca extends VentanaPadre {
 	private static final long serialVersionUID = 1L;
 	private ListIterator<Publicacion> it;
 	private Publicacion publicacion;
+
 	/**
 	 * Launch the application.
 	 */
@@ -49,7 +50,6 @@ public class ListarBiblioteca extends VentanaPadre {
 		});
 	}
 
-	
 	/**
 	 * Muestra el siguiente
 	 */
@@ -88,7 +88,7 @@ public class ListarBiblioteca extends VentanaPadre {
 		} else
 			btnAtras.setEnabled(true);
 	}
-	
+
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
 			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
@@ -100,14 +100,12 @@ public class ListarBiblioteca extends VentanaPadre {
 			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
 	}
 
-
-
 	private void mostrarPublicaciones() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
 		getGenero(publicacion);
-		
+
 		try {
 			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
 			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
@@ -164,7 +162,6 @@ public class ListarBiblioteca extends VentanaPadre {
 		rdbtnSemanal.setVisible(false);
 		okButton.setVisible(false);
 		btnEnviar.setVisible(false);
-
 
 		it = Fichero.almacen.listarBiblioteca();
 		publicacion = it.next();

@@ -3,7 +3,6 @@ package biblioteca.estructura;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.regex.Pattern;
 
 import biblioteca.excepciones.FechaNoValidaException;
 import biblioteca.excepciones.NumeroPaginasNoValidoException;
@@ -52,7 +51,21 @@ public class Periodico extends Publicacion implements Evaluable, Serializable {
 		setGenero(genero);
 		setPeriodo(periodo);
 	}
-	
+
+	/**
+	 * Sobrecarga de constructor par ael gui
+	 * @param titulo
+	 * @param genero
+	 * @param periodo
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param identificador
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws TituloNoValidoException
+	 * @throws PeriodoNoValidoException
+	 * @throws FechaNoValidaException
+	 */
 	public Periodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws NumeroPaginasNoValidoException,
 			TituloNoValidoException, PeriodoNoValidoException, FechaNoValidaException {

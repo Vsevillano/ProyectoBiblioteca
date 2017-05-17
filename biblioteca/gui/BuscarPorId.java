@@ -90,7 +90,8 @@ public class BuscarPorId extends VentanaPadre {
 					e2.printStackTrace();
 
 				} catch (NullPointerException e2) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe", "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La publicacion no existe", "Error!",
+							JOptionPane.ERROR_MESSAGE);
 
 				}
 

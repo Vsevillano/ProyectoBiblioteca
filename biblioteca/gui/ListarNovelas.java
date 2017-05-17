@@ -121,7 +121,6 @@ public class ListarNovelas extends VentanaPadre {
 			spinnerIngreso.setValue(dateIng);
 			spinnerPublicacion.setValue(datePub);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		comprobarBotones();

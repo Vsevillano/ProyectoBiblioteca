@@ -3,7 +3,6 @@ package biblioteca.estructura;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.regex.Pattern;
 
 import biblioteca.excepciones.EditorialNoValidaException;
 import biblioteca.excepciones.FechaNoValidaException;
@@ -60,7 +59,23 @@ public class Revista extends Publicacion implements Evaluable, Serializable {
 		setPeriodo(periodo);
 		setGenero(genero);
 	}
-	
+
+	/**
+	 * Sobrecarga de constructor
+	 * @param titulo
+	 * @param editorial
+	 * @param periodo
+	 * @param genero
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param identificador
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws TituloNoValidoException
+	 * @throws EditorialNoValidaException
+	 * @throws PeriodoNoValidoException
+	 * @throws FechaNoValidaException
+	 */
 	public Revista(String titulo, String editorial, Periodo periodo, GeneroRevista genero, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws NumeroPaginasNoValidoException,
 			TituloNoValidoException, EditorialNoValidaException, PeriodoNoValidoException, FechaNoValidaException {

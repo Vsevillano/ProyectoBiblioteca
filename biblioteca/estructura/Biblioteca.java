@@ -3,11 +3,7 @@ package biblioteca.estructura;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 import java.util.ListIterator;
 
 import biblioteca.excepciones.AutorNovalidoException;
@@ -67,6 +63,7 @@ public class Biblioteca implements Serializable {
 	}
 
 	/**
+	 * Constructor para el test
 	 * 
 	 * @param titulo
 	 * @param autor
@@ -89,6 +86,23 @@ public class Biblioteca implements Serializable {
 
 	}
 
+	/**
+	 * Constructor para el gui
+	 * 
+	 * @param titulo
+	 * @param autor
+	 * @param editorial
+	 * @param genero
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param identificador
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws EditorialNoValidaException
+	 * @throws AutorNovalidoException
+	 * @throws TituloNoValidoException
+	 * @throws FechaNoValidaException
+	 */
 	public void anadirNovela(String titulo, String autor, String editorial, GeneroNovela genero, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws NumeroPaginasNoValidoException,
 			EditorialNoValidaException, AutorNovalidoException, TituloNoValidoException, FechaNoValidaException {
@@ -98,6 +112,7 @@ public class Biblioteca implements Serializable {
 	}
 
 	/**
+	 * Constructor para el test
 	 * 
 	 * @param titulo
 	 * @param editorial
@@ -120,6 +135,23 @@ public class Biblioteca implements Serializable {
 		biblioteca.add(new Revista(titulo, editorial, periodo, genero, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
 
+	/**
+	 * Constructor para el gui
+	 * 
+	 * @param titulo
+	 * @param editorial
+	 * @param periodo
+	 * @param genero
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param identificador
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws TituloNoValidoException
+	 * @throws EditorialNoValidaException
+	 * @throws PeriodoNoValidoException
+	 * @throws FechaNoValidaException
+	 */
 	public void anadirRevista(String titulo, String editorial, Periodo periodo, GeneroRevista genero,
 			LocalDate fechaIngreso, LocalDate fechaPublicacion, int numeroPaginas, int identificador)
 			throws NumeroPaginasNoValidoException, TituloNoValidoException, EditorialNoValidaException,
@@ -129,6 +161,7 @@ public class Biblioteca implements Serializable {
 	}
 
 	/**
+	 * Constructor para el test
 	 * 
 	 * @param titulo
 	 * @param fechaPublicacion
@@ -148,6 +181,21 @@ public class Biblioteca implements Serializable {
 		biblioteca.add(new Periodico(titulo, genero, periodo, fechaIngreso, fechaPublicacion, numeroPaginas));
 	}
 
+	/**
+	 * Constructor para el gui
+	 * 
+	 * @param titulo
+	 * @param genero
+	 * @param periodo
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param identificador
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws TituloNoValidoException
+	 * @throws PeriodoNoValidoException
+	 * @throws FechaNoValidaException
+	 */
 	public void annadirPeriodico(String titulo, GeneroPeriodico genero, Periodo periodo, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, int identificador) throws NumeroPaginasNoValidoException,
 			TituloNoValidoException, PeriodoNoValidoException, FechaNoValidaException {
@@ -156,7 +204,7 @@ public class Biblioteca implements Serializable {
 	}
 
 	/**
-	 * Añade un libro de texto a la bilioteca
+	 * Constructor para el test
 	 * 
 	 * @param titulo
 	 * @param editorial
@@ -178,6 +226,23 @@ public class Biblioteca implements Serializable {
 		biblioteca.add(new LibroTexto(titulo, editorial, isbn, fechaIngreso, fechaPublicacion, numeroPaginas, materia));
 	}
 
+	/**
+	 * Constructor para el gui
+	 * 
+	 * @param titulo
+	 * @param editorial
+	 * @param isbn
+	 * @param fechaIngreso
+	 * @param fechaPublicacion
+	 * @param numeroPaginas
+	 * @param materia
+	 * @param identificador
+	 * @throws ISBNNoValidoException
+	 * @throws NumeroPaginasNoValidoException
+	 * @throws TituloNoValidoException
+	 * @throws EditorialNoValidaException
+	 * @throws FechaNoValidaException
+	 */
 	public void annadirLibroTexto(String titulo, String editorial, String isbn, LocalDate fechaIngreso,
 			LocalDate fechaPublicacion, int numeroPaginas, Materia materia, int identificador)
 			throws ISBNNoValidoException, NumeroPaginasNoValidoException, TituloNoValidoException,
@@ -195,7 +260,12 @@ public class Biblioteca implements Serializable {
 	public String toString() {
 		return "Biblioteca [biblioteca=" + biblioteca + "]\n";
 	}
-	
+
+	/**
+	 * Devuelve el iterador de la biblioteca
+	 * 
+	 * @return listiteraror de biblioteca
+	 */
 	public ListIterator<Publicacion> listarBiblioteca() {
 		return biblioteca.listIterator();
 	}
@@ -203,7 +273,7 @@ public class Biblioteca implements Serializable {
 	/**
 	 * Lista las novelas de la biblioteca
 	 * 
-	 * @return un array de Novelas
+	 * @return listiterator de novelas
 	 */
 	public ListIterator<Publicacion> listarNovelas() {
 		lista = new ArrayList<Publicacion>();
@@ -217,7 +287,7 @@ public class Biblioteca implements Serializable {
 	/**
 	 * Lista los periodicos de la biblioteca
 	 * 
-	 * @return arrayList de periodicos
+	 * @return listiterator de periodicos
 	 */
 	public ListIterator<Publicacion> listarPeriodicos() {
 		lista = new ArrayList<Publicacion>();
@@ -231,7 +301,7 @@ public class Biblioteca implements Serializable {
 	/**
 	 * Lista las revistas de la biblioteca
 	 * 
-	 * @return un arrayList de revistas
+	 * @return listiterator de revistas
 	 */
 	public ListIterator<Publicacion> listarRevistas() {
 		lista = new ArrayList<Publicacion>();
@@ -245,7 +315,7 @@ public class Biblioteca implements Serializable {
 	/**
 	 * Lista los libros de texto en la biblioteca
 	 * 
-	 * @return un arrayList de libros de texto
+	 * @return un listiterator de libros de texto
 	 */
 	public ListIterator<Publicacion> listarLibrosTexto() {
 		lista = new ArrayList<Publicacion>();
@@ -259,7 +329,7 @@ public class Biblioteca implements Serializable {
 	/**
 	 * Lista los libros prestados
 	 * 
-	 * @return
+	 * @return listiterator de publicaciones prestadas
 	 */
 	public ListIterator<Publicacion> listarPrestados() {
 		lista = new ArrayList<Publicacion>();
@@ -274,7 +344,7 @@ public class Biblioteca implements Serializable {
 	/**
 	 * Lista los libros a devolver a fecha de hoy
 	 * 
-	 * @return
+	 * @return listiterator de publicaciones a devolver hoy
 	 */
 	public ListIterator<Publicacion> listarADevolverHoy() {
 		lista = new ArrayList<Publicacion>();
@@ -289,6 +359,7 @@ public class Biblioteca implements Serializable {
 
 	/**
 	 * Elimina una publicacion por titulo
+	 * 
 	 * @param titulo
 	 * @return
 	 * @throws PublicacionNoExisteException
@@ -429,6 +500,12 @@ public class Biblioteca implements Serializable {
 		return biblioteca.get(i);
 	}
 
+	/**
+	 * Devuvelve el indice de la publicacion
+	 * 
+	 * @param publicacion
+	 * @return
+	 */
 	public int indexOf(Publicacion publicacion) {
 		return biblioteca.indexOf(publicacion);
 	}

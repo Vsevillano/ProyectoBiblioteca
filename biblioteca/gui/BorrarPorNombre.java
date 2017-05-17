@@ -46,44 +46,6 @@ public class BorrarPorNombre extends VentanaPadre {
 		});
 	}
 
-
-	
-	/**
-	 * Muestra el coche siguiente
-	 */
-	private void siguiente() {
-		if (it.hasNext()) {
-			publicacion = it.next();
-
-		}
-		mostrarPublicacion();
-	}
-
-	/**
-	 * Muestra el coche anterior
-	 */
-	private void anterior() {
-		if (it.hasPrevious()) {
-			publicacion = it.previous();
-
-		}
-		mostrarPublicacion();
-
-	}
-
-	private void comprobarBotones() {
-		if (!it.hasNext()) {
-			buttonAdelante.setEnabled(false);
-			publicacion = it.previous();
-		} else
-			buttonAdelante.setEnabled(true);
-		if (!it.hasPrevious()) {
-			btnAtras.setEnabled(false);
-			publicacion = it.next();
-		} else
-			btnAtras.setEnabled(true);
-	}
-
 	private void getGenero(Publicacion publicacion) {
 		if (publicacion instanceof Novela)
 			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
@@ -95,36 +57,6 @@ public class BorrarPorNombre extends VentanaPadre {
 			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
 	}
 
-	private void mostrarPublicacion() {
-		textId.setText(publicacion.getIdentificador() + "");
-		textTitulo.setText(publicacion.getTitulo());
-		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
-		getGenero(publicacion);
-		
-		try {
-			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
-			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
-			textFechaDevolucion.setText(model.format(dateDev));
-		} catch (NullPointerException | ParseException e1) {
-			textFechaDevolucion.setText("");
-
-		}
-
-		String dateIngreso = publicacion.getFechaIngreso().toString();
-		String datePublicacion = publicacion.getFechaPublicacion().toString();
-		try {
-			Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
-			Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
-			spinnerIngreso.setValue(dateIng);
-			spinnerPublicacion.setValue(datePub);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		comprobarBotones();
-
-	}
-
 	/**
 	 * Create the dialog.
 	 */
@@ -134,7 +66,7 @@ public class BorrarPorNombre extends VentanaPadre {
 		btnEnviar.setEnabled(true);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				try {
 					it = Fichero.almacen.buscarPorTitulo(textTitulo.getText());
 					publicacion = it.next();
@@ -173,22 +105,13 @@ public class BorrarPorNombre extends VentanaPadre {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				} catch (NullPointerException e3) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
+			}
+		});
 
-			}
-		});
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				anterior();
-			}
-		});
-		buttonAdelante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				siguiente();
-			}
-		});
 		setTitle("Borrar por nombre");
 		btnEnviar.setText("Buscar");
 		rdbtnAnual.setEnabled(false);
@@ -203,8 +126,8 @@ public class BorrarPorNombre extends VentanaPadre {
 		spinnerIngreso.setLocation(140, 63);
 		setBounds(100, 100, 450, 300);
 
-		btnAtras.setEnabled(false);
-		buttonAdelante.setEnabled(false);
+		btnAtras.setVisible(false);
+		buttonAdelante.setVisible(false);
 		okButton.setVisible(false);
 
 	}

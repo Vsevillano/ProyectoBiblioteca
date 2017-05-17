@@ -1,7 +1,6 @@
 package biblioteca.estructura;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import biblioteca.excepciones.AutorNovalidoException;
 import biblioteca.excepciones.EditorialNoValidaException;
@@ -89,7 +88,6 @@ public class TestBiblioteca {
 	/**
 	 * Menu figuras
 	 */
-	private static Menu menuFiguras;
 
 	/**
 	 * Main
@@ -145,7 +143,7 @@ public class TestBiblioteca {
 			// Prestamos/Devoluciones
 			do {
 				opcion = menuPrestar.gestionar();
-					gestionarOpcionesPrestar(opcion);
+				gestionarOpcionesPrestar(opcion);
 
 			} while (opcion != menuPrestar.SALIR);
 			break;
@@ -229,7 +227,6 @@ public class TestBiblioteca {
 		case 1:
 			// Borrar por indice
 			// Menu para elegir una figura, solo para el test
-			menuFiguras = new Menu("** Elige una de las figuras a borrar", generarArrayPublicaciones());
 			try {
 				biblioteca.borrarPorTitulo(Teclado.leerCadena("Titulo de la publicacion:"));
 			} catch (PublicacionNoExisteException e) {
@@ -339,17 +336,11 @@ public class TestBiblioteca {
 	private static LocalDate pedirFecha(String mensaje) {
 		LocalDate hoy;
 		try {
-			int anno = Teclado.leerEntero("Año:"); // año
-			int mes = Teclado.leerEntero("Mes:"); // mes [1,...,12]
-			int dia = Teclado.leerEntero("Dia:"); // día [1,...,31]
-
-			// if (year < 1900) {
-			// throw new IllegalArgumentException("Año inválido.");
-			// }
+			int anno = Teclado.leerEntero("Año:");
+			int mes = Teclado.leerEntero("Mes:");
+			int dia = Teclado.leerEntero("Dia:");
 
 			hoy = LocalDate.of(anno, mes, dia);
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-			// System.out.println(formatter.format(hoy)); // 01/01/2016
 			return hoy;
 		} catch (IllegalArgumentException e) {
 			System.err.println(e.getMessage());
@@ -516,16 +507,4 @@ public class TestBiblioteca {
 		}
 	}
 
-	/**
-	 * Genera las opciones para elegir por indice una publicacion
-	 * 
-	 * @return
-	 */
-	private static String[] generarArrayPublicaciones() {
-		String[] opcionesMenu = new String[biblioteca.size()];
-		for (int i = 0; i < biblioteca.size(); i++) {
-			opcionesMenu[i] = biblioteca.get(i).toString();
-		}
-		return opcionesMenu;
-	}
 }
