@@ -99,7 +99,7 @@ public class BuscarPorId extends VentanaPadre {
 		});
 		btnEnviar.setEnabled(true);
 
-		setTitle("Buscar publicacion");
+		setTitle("Buscar por ID");
 		textNumeroPaginas.setEnabled(false);
 		comboGenero.setEnabled(false);
 		spinnerPublicacion.setEnabled(false);

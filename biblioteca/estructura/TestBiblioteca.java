@@ -231,7 +231,7 @@ public class TestBiblioteca {
 			// Menu para elegir una figura, solo para el test
 			menuFiguras = new Menu("** Elige una de las figuras a borrar", generarArrayPublicaciones());
 			try {
-				biblioteca.eliminarIndice(menuFiguras.gestionar());
+				biblioteca.borrarPorTitulo(Teclado.leerCadena("Titulo de la publicacion:"));
 			} catch (PublicacionNoExisteException e) {
 				System.err.println(e.getMessage());
 			}
@@ -488,29 +488,29 @@ public class TestBiblioteca {
 	private static void cargaRapida() {
 		try {
 			biblioteca.anadirNovela("Novela1", "Autor1", "Editorial1", GeneroNovela.AUTOAYUDA,
-					LocalDate.of(1900, 01, 21), LocalDate.of(2012, 01, 22), 20);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 20);
 			biblioteca.anadirNovela("Novela2", "Autor2", "Editorial2", GeneroNovela.AUTOAYUDA,
-					LocalDate.of(2012, 01, 21), LocalDate.of(2012, 01, 22), 200);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 200);
 			biblioteca.anadirNovela("Novela3", "Autor3", "Editorial3", GeneroNovela.AUTOAYUDA,
-					LocalDate.of(1950, 01, 21), LocalDate.of(2012, 01, 22), 100);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 100);
 			biblioteca.anadirRevista("Revista1", "Editorial1", Periodo.DIARIO, GeneroRevista.CULTURA,
-					LocalDate.of(2011, 12, 14), LocalDate.of(2015, 11, 25), 50);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 50);
 			biblioteca.anadirRevista("Revista2", "Editorial2", Periodo.DIARIO, GeneroRevista.CULTURA,
-					LocalDate.of(2000, 12, 14), LocalDate.of(2015, 11, 25), 70);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 70);
 			biblioteca.anadirRevista("Revista3", "Editorial3", Periodo.DIARIO, GeneroRevista.CULTURA,
-					LocalDate.of(1950, 12, 14), LocalDate.of(2015, 11, 25), 1000);
-			biblioteca.annadirLibroTexto("LibroText1", "Edit1", "1234567890", LocalDate.of(1999, 12, 22),
-					LocalDate.of(2015, 12, 12), 500, Materia.FILOSOFIA);
-			biblioteca.annadirLibroTexto("LibroText2", "Edit2", "1234567890", LocalDate.of(1999, 12, 22),
-					LocalDate.of(2000, 12, 12), 50, Materia.FILOSOFIA);
-			biblioteca.annadirLibroTexto("LibroText3", "Edit3", "1234567890", LocalDate.of(1999, 12, 22),
-					LocalDate.of(1995, 12, 12), 5, Materia.FILOSOFIA);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 1000);
+			biblioteca.annadirLibroTexto("LibroText1", "Edit1", "1234567890", LocalDate.of(1900, 01, 21),
+					LocalDate.of(1900, 01, 21), 500, Materia.FILOSOFIA);
+			biblioteca.annadirLibroTexto("LibroText2", "Edit2", "1234567890", LocalDate.of(1900, 01, 21),
+					LocalDate.of(1900, 01, 21), 50, Materia.FILOSOFIA);
+			biblioteca.annadirLibroTexto("LibroText3", "Edit3", "1234567890", LocalDate.of(1900, 01, 21),
+					LocalDate.of(1900, 01, 21), 5, Materia.FILOSOFIA);
 			biblioteca.annadirPeriodico("Periodico1", GeneroPeriodico.CULTURA, Periodo.DIARIO,
-					LocalDate.of(2017, 12, 11), LocalDate.of(1999, 02, 25), 30);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 30);
 			biblioteca.annadirPeriodico("Periodico2", GeneroPeriodico.CULTURA, Periodo.DIARIO,
-					LocalDate.of(1920, 12, 11), LocalDate.of(1999, 02, 25), 3000);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 3000);
 			biblioteca.annadirPeriodico("Periodico3", GeneroPeriodico.CULTURA, Periodo.DIARIO,
-					LocalDate.of(1999, 12, 11), LocalDate.of(1999, 02, 25), 300);
+					LocalDate.of(1900, 01, 21), LocalDate.of(1900, 01, 21), 300);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

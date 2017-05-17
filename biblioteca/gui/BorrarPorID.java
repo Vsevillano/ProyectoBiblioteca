@@ -64,7 +64,7 @@ public class BorrarPorID extends VentanaPadre {
 	 * Create the dialog.
 	 */
 	public BorrarPorID() {
-		setTitle("Borrar publicacion");
+		setTitle("Borrar por ID");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
