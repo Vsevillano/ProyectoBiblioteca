@@ -45,7 +45,7 @@ public class Principal extends JFrame implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+	private PanelFondo contentPane = new PanelFondo();
 	private JFileChooser filechooser = new JFileChooser();
 	private Ayuda ayuda = null;
 
@@ -69,9 +69,9 @@ public class Principal extends JFrame implements Serializable {
 	 * Create the frame.
 	 */
 	public Principal() {
-		
+		contentPane.setVisible(true);
 		// favicon
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Victor\\workspace\\Proyecto\\img\\libros.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/biblioteca/imagenes/libros.png")));
 		
 		// Cerrar ventana en X y con alt + f4
 		addWindowListener(new WindowAdapter() {
@@ -92,7 +92,7 @@ public class Principal extends JFrame implements Serializable {
 		setTitle("Sin_titulo");
 		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 818, 496);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -395,7 +395,6 @@ public class Principal extends JFrame implements Serializable {
 		mnAyuda.add(mntmVerAyuda);
 		mnAyuda.add(mntmACercaDe);
 
-		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);

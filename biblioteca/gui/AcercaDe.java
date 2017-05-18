@@ -44,7 +44,7 @@ public class AcercaDe extends JDialog {
 	 * Create the dialog.
 	 */
 	public AcercaDe() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Victor\\workspace\\Proyecto\\img\\libros.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(AcercaDe.class.getResource("/biblioteca/imagenes/libros.png")));
 		setTitle("Acerca del Concesionario");
 		setModal(true);
 		setBounds(100, 100, 450, 300);
