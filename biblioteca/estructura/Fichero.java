@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -20,6 +21,8 @@ public class Fichero {
 	 */
 	public static Biblioteca almacen = new Biblioteca();
 
+	private static final Pattern patron = Pattern.compile("^((\\w)+(\\.obj))$");
+
 	/**
 	 * Método guardar un objeto pidiendo un nombre de archivo que se creara
 	 *
@@ -29,8 +32,9 @@ public class Fichero {
 	 * @throws IOException
 	 *             Exception que lanza cuando el flujo acaba
 	 */
-	public static void guardarComo(Object objeto, File nombre) throws IOException {
-		try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(nombre)))) {
+	public static void guardarComo(Object objeto, File fichero) throws IOException {
+		fichero = comprobarArchivo(fichero);
+		try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fichero)))) {
 			out.writeObject(objeto);
 		}
 	}
@@ -44,6 +48,7 @@ public class Fichero {
 	 *             Exception que lanza cuando el flujo acaba
 	 */
 	public static void guardar(Object objeto, File fichero) throws IOException {
+		fichero = comprobarArchivo(fichero);
 		try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fichero)))) {
 			out.writeObject(objeto);
 		}
@@ -62,6 +67,15 @@ public class Fichero {
 	public static void abrir(File fichero) throws IOException, ClassNotFoundException {
 		try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fichero)))) {
 			almacen = (Biblioteca) in.readObject();
+		}
+	}
+
+	public static File comprobarArchivo(File fichero) {
+		if (patron.matcher(fichero.getName()).matches()) {
+			return fichero;
+		} else {
+			fichero = new File(fichero + ".obj");
+			return fichero;
 		}
 	}
 

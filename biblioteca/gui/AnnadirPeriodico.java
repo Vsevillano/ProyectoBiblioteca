@@ -21,6 +21,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.awt.event.ActionEvent;
 
 /**
@@ -108,6 +109,9 @@ public class AnnadirPeriodico extends VentanaPadre {
 							JOptionPane.ERROR_MESSAGE);
 				} catch (FechaNoValidaException e) {
 					JOptionPane.showMessageDialog(contentPanel, e.getMessage(), "ERROR!!!!", JOptionPane.ERROR_MESSAGE);
+				}catch (DateTimeParseException e1) {
+					JOptionPane.showMessageDialog(contentPanel, "Fecha no valida!", "ERROR!!!!",
+							JOptionPane.ERROR_MESSAGE);
 				}
 
 			}

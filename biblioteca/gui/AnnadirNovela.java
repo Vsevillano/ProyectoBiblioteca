@@ -8,6 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -103,6 +104,9 @@ public class AnnadirNovela extends VentanaPadre {
 							JOptionPane.ERROR_MESSAGE);
 				} catch (FechaNoValidaException e1) {
 					JOptionPane.showMessageDialog(contentPanel, e1.getMessage(), "ERROR!!!!",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (DateTimeParseException e1) {
+					JOptionPane.showMessageDialog(contentPanel, "Fecha no valida!", "ERROR!!!!",
 							JOptionPane.ERROR_MESSAGE);
 				}
 

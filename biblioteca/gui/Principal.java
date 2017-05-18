@@ -69,7 +69,11 @@ public class Principal extends JFrame implements Serializable {
 	 * Create the frame.
 	 */
 	public Principal() {
+		
+		// favicon
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Victor\\workspace\\Proyecto\\img\\libros.png"));
+		
+		// Cerrar ventana en X y con alt + f4
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -81,8 +85,12 @@ public class Principal extends JFrame implements Serializable {
 				salir();
 			}
 		});
+		
+		// Fichero inicial para el filechooser
 		filechooser.setSelectedFile(new File("*.obj"));
+		
 		setTitle("Sin_titulo");
+		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 
@@ -188,8 +196,8 @@ public class Principal extends JFrame implements Serializable {
 		JMenu mnNewMenu = new JMenu("Borrar");
 		mnEdicion.add(mnNewMenu);
 
-		JMenuItem mntmPorIndice_1 = new JMenuItem("Borrar por ID");
-		mnNewMenu.add(mntmPorIndice_1);
+		JMenuItem mntmBorrarPorID = new JMenuItem("Borrar por ID");
+		mnNewMenu.add(mntmBorrarPorID);
 
 		JMenuItem mntmBorrarPorNombre = new JMenuItem("Borrar por nombre");
 		mntmBorrarPorNombre.addActionListener(new ActionListener() {
@@ -199,7 +207,7 @@ public class Principal extends JFrame implements Serializable {
 			}
 		});
 		mnNewMenu.add(mntmBorrarPorNombre);
-		mntmPorIndice_1.addActionListener(new ActionListener() {
+		mntmBorrarPorID.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				BorrarPorID borrarPorID = new BorrarPorID();
 				borrarPorID.setVisible(true);
