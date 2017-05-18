@@ -71,8 +71,9 @@ public class Principal extends JFrame implements Serializable {
 	public Principal() {
 		contentPane.setVisible(true);
 		// favicon
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/biblioteca/imagenes/libros.png")));
-		
+		setIconImage(
+				Toolkit.getDefaultToolkit().getImage(Principal.class.getResource("/biblioteca/imagenes/libros.png")));
+
 		// Cerrar ventana en X y con alt + f4
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -85,12 +86,12 @@ public class Principal extends JFrame implements Serializable {
 				salir();
 			}
 		});
-		
+
 		// Fichero inicial para el filechooser
 		filechooser.setSelectedFile(new File("*.obj"));
-		
+
 		setTitle("Sin_titulo");
-		
+
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 818, 496);
 
@@ -154,7 +155,7 @@ public class Principal extends JFrame implements Serializable {
 		mnEdicion.setMnemonic('E');
 		menuBar.add(mnEdicion);
 
-		JMenu mnAadir = new JMenu("A\u00F1adir");
+		JMenu mnAadir = new JMenu("A\u00F1adir  ");
 		mnEdicion.add(mnAadir);
 
 		JMenuItem mntmNovela = new JMenuItem("Novela");
@@ -193,7 +194,7 @@ public class Principal extends JFrame implements Serializable {
 		});
 		mnAadir.add(mntmLibroDeTexto);
 
-		JMenu mnNewMenu = new JMenu("Borrar");
+		JMenu mnNewMenu = new JMenu("Borrar  ");
 		mnEdicion.add(mnNewMenu);
 
 		JMenuItem mntmBorrarPorID = new JMenuItem("Borrar por ID");
@@ -214,7 +215,7 @@ public class Principal extends JFrame implements Serializable {
 			}
 		});
 
-		JMenu mnBuscarr = new JMenu("Buscar");
+		JMenu mnBuscarr = new JMenu("Buscar  ");
 		mnEdicion.add(mnBuscarr);
 
 		JMenuItem mntmPorColor = new JMenuItem("Buscar por ID");
@@ -406,20 +407,23 @@ public class Principal extends JFrame implements Serializable {
 	 */
 	private void nuevo() {
 		if (Fichero.almacen.isModificado()) {
-			int respuesta = JOptionPane.showConfirmDialog(filechooser, "No ha guardado, ¿Desea Guardar?", "!!",
-					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-			if (respuesta == JOptionPane.YES_OPTION) {
+			switch (JOptionPane.showConfirmDialog(filechooser, "No ha guardado, ¿Desea Guardar?", "!!",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE)) {
+			case JOptionPane.YES_OPTION:
 				// Si respondemos Aceptar
 				guardarComoFile();
 				Fichero.almacen = new Biblioteca();
 				setTitle("Sin_titulo");
 				Fichero.almacen.setModificado(false);
-			} else if (respuesta == JOptionPane.NO_OPTION) {
+				break;
+			case JOptionPane.NO_OPTION:
 				// Si respondemos No
 				Fichero.almacen = new Biblioteca();
 				setTitle("Sin_titulo");
 				Fichero.almacen.setModificado(false);
-			} else {
+				break;
+			default:
+				break;
 			}
 		} else {
 			Fichero.almacen = new Biblioteca();
@@ -450,18 +454,21 @@ public class Principal extends JFrame implements Serializable {
 	 */
 	private void abrir() {
 		if (Fichero.almacen.isModificado()) {
-			int respuesta = JOptionPane.showConfirmDialog(filechooser, "No ha guardado, ¿Desea Guardar?", "!!",
-					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-			if (respuesta == JOptionPane.YES_OPTION) {
+			switch (JOptionPane.showConfirmDialog(filechooser, "No ha guardado, ¿Desea Guardar?", "!!",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE)) {
+
+			case JOptionPane.YES_OPTION:
 				guardarComoFile();
-			} else if (respuesta == JOptionPane.NO_OPTION) {
+				break;
+			case JOptionPane.NO_OPTION:
 				try {
 					abrirArchivo();
 				} catch (IOException | ClassNotFoundException ex) {
 					JOptionPane.showMessageDialog(null, "Error al abrir archivo", "!!", JOptionPane.ERROR_MESSAGE);
 				}
-			} else {
-				// No hacemos nada en cado de cancelar
+				break;
+			default:
+				break;
 			}
 		} else {
 			try {
@@ -497,15 +504,13 @@ public class Principal extends JFrame implements Serializable {
 
 		if (JFileChooser.APPROVE_OPTION == filechooser.showDialog(filechooser, "Guardar")) {
 			filechooser.setAcceptAllFileFilterUsed(false);
-			// Si el archivo existe, informamos de ello y en funcion de la
-			// respuesta ...
+
 			if (filechooser.getSelectedFile().exists()) {
 
-				int respuesta = JOptionPane.showConfirmDialog(filechooser,
-						"El archivo ya existe, ¿Desea sobreescribir?", "!!", JOptionPane.YES_NO_CANCEL_OPTION,
-						JOptionPane.WARNING_MESSAGE);
-				// Si la respuesta es Si, guardamos el archivo con el nombre
-				if (respuesta == JOptionPane.YES_OPTION) {
+				switch (JOptionPane.showConfirmDialog(filechooser, "El archivo ya existe, ¿Desea sobreescribir?", "!!",
+						JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE)) {
+
+				case JOptionPane.YES_OPTION:
 					try {
 						Fichero.guardarComo(Fichero.almacen, filechooser.getSelectedFile());
 						JOptionPane.showMessageDialog(null, "El archivo ha sido guardado", "Aceptar",
@@ -515,11 +520,12 @@ public class Principal extends JFrame implements Serializable {
 					} catch (IOException ex) {
 						ex.printStackTrace();
 					}
-					// Si la respuesta es No, informaremos de que no se ha
-					// guardado
-				} else {
+					break;
+				// En caso de NO y CANCEL informamos de que no ha sido guardado
+				default:
 					JOptionPane.showMessageDialog(null, "El archivo no se ha guardado", "Error!",
 							JOptionPane.ERROR_MESSAGE);
+					break;
 				}
 			}
 			// Si el archivo no existe guardamos
@@ -541,13 +547,16 @@ public class Principal extends JFrame implements Serializable {
 	 */
 	private void salir() {
 		if (Fichero.almacen.isModificado()) {
-			int respuesta = JOptionPane.showConfirmDialog(filechooser, "No ha guardado, ¿Desea Guardar?", "!!",
-					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-			if (respuesta == JOptionPane.YES_OPTION) {
+			switch (JOptionPane.showConfirmDialog(filechooser, "No ha guardado, ¿Desea Guardar?", "!!",
+					JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE)) {
+			case JOptionPane.YES_OPTION:
 				guardarComoFile();
-			} else if (respuesta == JOptionPane.NO_OPTION) {
+				break;
+			case JOptionPane.NO_OPTION:
 				System.exit(0);
-			} else {
+				break;
+			default:
+				break;
 			}
 		} else {
 			System.exit(0);
