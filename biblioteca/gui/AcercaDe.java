@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.SystemColor;
+import javax.swing.JLabel;
 
 /**
  * 
@@ -45,21 +47,22 @@ public class AcercaDe extends JDialog {
 	 */
 	public AcercaDe() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(AcercaDe.class.getResource("/biblioteca/imagenes/libros.png")));
-		setTitle("Acerca del Concesionario");
+		setTitle("Acerca de la biblioteca");
 		setModal(true);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-
-		JTextPane txtpnGuiDesarrolladoPor = new JTextPane();
-		txtpnGuiDesarrolladoPor.setFont(new Font("Tahoma", Font.BOLD, 11));
-		txtpnGuiDesarrolladoPor.setEditable(false);
-		txtpnGuiDesarrolladoPor.setText(
-				"\t\r\n\r\n\r\n\tGUI desarrollado por:\r\n\t\t\r\n\t\tVictoriano Sevillano Vega\r\n\r\n\r\n\tCopyright 2017. IES Gran Capit\u00E1n (C\u00F3rdoba)\r\n\r\n\r\n\r\n\r\nProyecto final de curso del m\u00F3dulo de Programacion.");
-		txtpnGuiDesarrolladoPor.setBounds(0, 0, 442, 240);
-		contentPanel.add(txtpnGuiDesarrolladoPor);
+		
+		JLabel lblGuiDesarrolladoPor = new JLabel("<html><h1>Biblioteca</h1></html>");
+		lblGuiDesarrolladoPor.setBounds(159, 11, 139, 67);
+		contentPanel.add(lblGuiDesarrolladoPor);
+		{
+			JLabel lblNewLabel = new JLabel("<html>\r\n<p>Proyecto final desarrollado por: </p>\r\n<ul>\r\n<li> Victoriano Sevillano Vega </li> \r\n</ul>\r\n<br>\r\n<p><k>Proyecto realizado en 2017 para la asignatura de programaci\u00F3n del Grado superior en Desarrollo de Aplicaciones Web.</k></p>\r\n<br>\r\n<p>M\u00E1s infomormacion en: <a href= \"https://moodle.iesgrancapitan.org\">https://moodle.iesgrancapitan.org</a></p>\r\n</html>");
+			lblNewLabel.setBounds(10, 78, 402, 139);
+			contentPanel.add(lblNewLabel);
+		}
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
