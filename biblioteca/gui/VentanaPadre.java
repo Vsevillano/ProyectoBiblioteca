@@ -76,7 +76,7 @@ public class VentanaPadre extends JDialog {
 	 * Create the dialog.
 	 */
 	public VentanaPadre() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Victor\\workspace\\Proyecto\\img\\libros.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPadre.class.getResource("/biblioteca/imagenes/libros.png")));
 		setModal(true);
 		setBounds(100, 100, 465, 307);
 		getContentPane().setLayout(new BorderLayout());

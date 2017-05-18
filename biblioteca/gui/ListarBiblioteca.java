@@ -17,6 +17,8 @@ import biblioteca.estructura.Revista;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 /**
  * 
@@ -167,6 +169,10 @@ public class ListarBiblioteca extends VentanaPadre {
 		publicacion = it.next();
 		mostrarPublicaciones();
 		btnAtras.setEnabled(false);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(ListarBiblioteca.class.getResource("/biblioteca/imagenes/pasando_paginas.gif")));
+		lblNewLabel.setBounds(326, 154, 86, 75);
+		contentPanel.add(lblNewLabel);
 	}
-
 }
