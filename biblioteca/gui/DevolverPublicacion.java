@@ -90,7 +90,7 @@ public class DevolverPublicacion extends VentanaPadre {
 						Fichero.almacen.setModificado(true);
 					}
 				} catch (NumberFormatException e1) {
-					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!",
+					JOptionPane.showMessageDialog(null, "ID no valido!", "Error!",
 							JOptionPane.ERROR_MESSAGE);
 
 				} catch (ParseException e2) {

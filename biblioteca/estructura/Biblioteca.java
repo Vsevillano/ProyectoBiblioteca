@@ -401,7 +401,7 @@ public class Biblioteca implements Serializable {
 	public ListIterator<Publicacion> buscarPorTitulo(String titulo) throws PublicacionNoExisteException {
 		lista = new ArrayList<Publicacion>();
 		for (Publicacion publicacion : biblioteca) {
-			if (publicacion.getTitulo().equals(titulo))
+			if (publicacion.getTitulo().equalsIgnoreCase(titulo))
 				lista.add(publicacion);
 		}
 		if (!lista.isEmpty())
