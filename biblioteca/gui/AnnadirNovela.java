@@ -59,6 +59,7 @@ public class AnnadirNovela extends VentanaPadre {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public AnnadirNovela() {
 		textTitulo.setBounds(90, 23, 205, 20);
 		spinnerPublicacion.setLocation(136, 156);

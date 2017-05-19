@@ -7,12 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.SystemColor;
 import javax.swing.JLabel;
 
 /**
@@ -59,8 +56,8 @@ public class AcercaDe extends JDialog {
 		lblGuiDesarrolladoPor.setBounds(159, 11, 139, 67);
 		contentPanel.add(lblGuiDesarrolladoPor);
 		{
-			JLabel lblNewLabel = new JLabel("<html>\r\n<p>Proyecto final desarrollado por: </p>\r\n<ul>\r\n<li> Victoriano Sevillano Vega </li> \r\n</ul>\r\n<br>\r\n<p><k>Proyecto realizado en 2017 para la asignatura de programaci\u00F3n del Grado superior en Desarrollo de Aplicaciones Web.</k></p>\r\n<br>\r\n<p>M\u00E1s infomormacion en: <a href= \"https://moodle.iesgrancapitan.org\">https://moodle.iesgrancapitan.org</a></p>\r\n</html>");
-			lblNewLabel.setBounds(10, 78, 402, 139);
+			JLabel lblNewLabel = new JLabel("<html>\r\n<p>Proyecto final desarrollado por: </p>\r\n<ul>\r\n<li> Victoriano Sevillano Vega </li>\r\n<li> Version (1.0.0) </li> \r\n</ul>\r\n<br>\r\n<p><k>Proyecto realizado en 2017 para la asignatura de programaci\u00F3n del Grado superior en Desarrollo de Aplicaciones Web.</k></p>\r\n<br>\r\n<p>M\u00E1s infomormacion en:<a href=\"https://moodle.iesgrancapitan.org\"> https://moodle.iesgrancapitan.org</a> .</p>\r\n</html>");
+			lblNewLabel.setBounds(10, 67, 402, 161);
 			contentPanel.add(lblNewLabel);
 		}
 		{

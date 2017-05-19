@@ -71,6 +71,7 @@ public class AnnadirPeriodico extends VentanaPadre {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public AnnadirPeriodico() {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
