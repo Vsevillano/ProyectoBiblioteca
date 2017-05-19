@@ -6,7 +6,6 @@ import java.awt.HeadlessException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import biblioteca.estructura.Biblioteca;
@@ -21,7 +20,6 @@ import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.NoSuchElementException;
 import java.awt.event.InputEvent;
 import java.awt.event.ActionListener;
@@ -37,18 +35,22 @@ import java.awt.Toolkit;
  * @version 1.0
  *
  */
-public class Principal extends JFrame implements Serializable {
+public class Principal extends JFrame {
 
-	private final Filtro filtro = new Filtro(".obj", "Objeto");
+	private final static Filtro filtro = new Filtro(".obj", "Objeto");
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private PanelFondo contentPane = new PanelFondo();
-	private JFileChooser filechooser = new JFileChooser();
+	private static JFileChooser filechooser = new JFileChooser();
 	private Ayuda ayuda = null;
 
+	// Metodo que se ejecutará si o si
+	static {
+		filechooser.setFileFilter(filtro);
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -144,6 +146,7 @@ public class Principal extends JFrame implements Serializable {
 		mnArchivo.add(separator);
 
 		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
 		mntmSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				salir();
@@ -440,8 +443,8 @@ public class Principal extends JFrame implements Serializable {
 	 * @throws ClassNotFoundException
 	 */
 	private void abrirArchivo() throws HeadlessException, IOException, ClassNotFoundException {
-		filechooser.setAcceptAllFileFilterUsed(false);
-		filechooser.addChoosableFileFilter(filtro);
+		//filechooser.setAcceptAllFileFilterUsed(false);
+		//filechooser.addChoosableFileFilter(filtro);
 		if (filechooser.showDialog(filechooser, "Abrir Archivo") == JFileChooser.APPROVE_OPTION) {
 			Fichero.abrir(filechooser.getSelectedFile());
 			setTitle(filechooser.getSelectedFile().getName());
@@ -499,11 +502,11 @@ public class Principal extends JFrame implements Serializable {
 	 * Guarda un archivo y comprueba si existe
 	 */
 	private void guardarComoFile() {
-		filechooser.setAcceptAllFileFilterUsed(false);
-		filechooser.addChoosableFileFilter(filtro);
+		//filechooser.setAcceptAllFileFilterUsed(false);
+		//filechooser.addChoosableFileFilter(filtro);
 
 		if (JFileChooser.APPROVE_OPTION == filechooser.showDialog(filechooser, "Guardar")) {
-			filechooser.setAcceptAllFileFilterUsed(false);
+			//filechooser.setAcceptAllFileFilterUsed(false);
 
 			if (filechooser.getSelectedFile().exists()) {
 

@@ -122,6 +122,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ListarLibrosTexto() {
 		comboGenero.setEnabled(false);
 		comboGenero.setModel(new DefaultComboBoxModel(Materia.values()));

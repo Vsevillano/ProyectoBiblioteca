@@ -73,6 +73,7 @@ public class AnnadirRevista extends VentanaPadre {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public AnnadirRevista() {
 		btnEnviar.setText("A\u00F1adir");
 		setTitle("A\u00F1adir revista");

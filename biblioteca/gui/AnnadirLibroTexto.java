@@ -60,6 +60,7 @@ public class AnnadirLibroTexto extends VentanaPadre {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public AnnadirLibroTexto() {
 		cancelButton.setText("Aceptar");
 		btnEnviar.addActionListener(new ActionListener() {

@@ -37,6 +37,7 @@ public class VentanaPadre extends JDialog {
 	protected JTextField textId;
 	protected JTextField textFechaDevolucion;
 	protected final ButtonGroup buttonGroup = new ButtonGroup();
+	@SuppressWarnings("rawtypes")
 	protected JComboBox comboGenero;
 	protected JLabel lblPeriodo;
 	protected JRadioButton rdbtnDiario;
@@ -75,6 +76,7 @@ public class VentanaPadre extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings("rawtypes")
 	public VentanaPadre() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPadre.class.getResource("/biblioteca/imagenes/libros.png")));
 		setModal(true);

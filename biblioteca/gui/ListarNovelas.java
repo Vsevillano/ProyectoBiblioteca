@@ -1,13 +1,11 @@
 package biblioteca.gui;
 
-import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import biblioteca.estructura.Biblioteca;
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroNovela;
 import biblioteca.estructura.Novela;
@@ -130,6 +128,7 @@ public class ListarNovelas extends VentanaPadre {
 	/**
 	 * Create the dialog.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ListarNovelas() {
 		setTitle("Listar novelas");
 		buttonAdelante.addActionListener(new ActionListener() {
