@@ -214,8 +214,8 @@ Contendrá su entorno gráfico, con una ventana principal donde habrá un menú 
 
 •	Edición
 	-	Añadir libro
-	-   Borrar libro  Por título o por identificador
-	-	Buscar libro  Por título o por identificador
+	-   Borrar libro --> Por título o por identificador
+	-	Buscar libro --> Por título o por identificador
 
 •	Listar
     -	Listar todo
