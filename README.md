@@ -103,8 +103,6 @@ Objeto/Clase revista:
 - Periodo de publicación
 - Género de la revista (Enum GeneroRevista)
 
-Esquema: 
-![esquema]({{site.baseurl}}//esquema.png)
 
 
 **4.	Interfaces**
