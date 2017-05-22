@@ -8,11 +8,11 @@ También podremos realizar las opciones de listar solamente aquellos libros que 
 **1.	ArrayList (estructura de datos)**
 La estructura de datos que va a contener este proyecto, va a ser una estructura de libros, de diferentes tipos (novelas, revistas, periódicos, libros de texto, etc.)
 Con esta estructura de libros se podrán realizar varias funciones:
-    •	Añadir publicación  novela, revista, periódico, libro de texto.
-    •	Borrar publicación (por índice o identificador)
-    •	Listar publicaciones.
-    •	Listar novelas, periódicos, revistas o libros de texto.
-    •	Buscar publicación por título o identificador.
+    • Añadir publicación  novela, revista, periódico, libro de texto.
+    • Borrar publicación (por índice o identificador)
+    • Listar publicaciones.
+    • Listar novelas, periódicos, revistas o libros de texto.
+    • Buscar publicación por título o identificador.
 
 Todos los libros se pueden prestar, para ello además, implementaremos otro menú donde podamos:
     •	Prestar libro
