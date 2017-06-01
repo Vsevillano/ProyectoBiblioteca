@@ -7,6 +7,13 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import biblioteca.estructura.LibroTexto;
+import biblioteca.estructura.Novela;
+import biblioteca.estructura.Periodico;
+import biblioteca.estructura.Publicacion;
+import biblioteca.estructura.Revista;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -14,6 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ListIterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
@@ -28,10 +36,12 @@ import java.awt.Toolkit;
  */
 public class VentanaPadre extends JDialog {
 
+	protected ListIterator<Publicacion> it;
+	protected Publicacion publicacion;
 	/**
 	 * 
 	 */
-	protected static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	protected final JPanel contentPanel = new JPanel();
 	protected JTextField textTitulo;
 	protected JTextField textId;
@@ -74,11 +84,73 @@ public class VentanaPadre extends JDialog {
 	}
 
 	/**
+	 * Muestra el siguiente
+	 */
+	protected void siguiente() {
+		if (it.hasNext()) {
+			publicacion = it.next();
+
+		}
+		mostrarPublicacion();
+	}
+
+	/**
+	 * Muestra el anterior
+	 */
+	protected void anterior() {
+		if (it.hasPrevious()) {
+			publicacion = it.previous();
+
+		}
+		mostrarPublicacion();
+
+	}
+
+	/**
+	 * 
+	 */
+	protected void mostrarPublicacion() {
+	}
+
+	/**
+	 * Comprueba los botones
+	 */
+	protected void comprobarBotones() {
+		if (!it.hasNext()) {
+			buttonAdelante.setEnabled(false);
+			publicacion = it.previous();
+		} else
+			buttonAdelante.setEnabled(true);
+		if (!it.hasPrevious()) {
+			btnAtras.setEnabled(false);
+			publicacion = it.next();
+		} else
+			btnAtras.setEnabled(true);
+	}
+	
+	/**
+	 * Obtiene el genero en funcion de la clase
+	 * 
+	 * @param publicacion
+	 */
+	protected void getGenero(Publicacion publicacion) {
+		if (publicacion instanceof Novela)
+			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
+		else if (publicacion instanceof Revista)
+			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
+		else if (publicacion instanceof Periodico)
+			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
+		else if (publicacion instanceof LibroTexto)
+			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
+	}
+
+	/**
 	 * Create the dialog.
 	 */
 	@SuppressWarnings("rawtypes")
 	public VentanaPadre() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaPadre.class.getResource("/biblioteca/imagenes/libros.png")));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(VentanaPadre.class.getResource("/biblioteca/imagenes/libros.png")));
 		setModal(true);
 		setBounds(100, 100, 465, 307);
 		getContentPane().setLayout(new BorderLayout());
@@ -165,10 +237,20 @@ public class VentanaPadre extends JDialog {
 		contentPanel.add(btnEnviar);
 
 		btnAtras = new JButton("<");
+		btnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				anterior();
+			}
+		});
 		btnAtras.setBounds(316, 135, 46, 23);
 		contentPanel.add(btnAtras);
 
 		buttonAdelante = new JButton(">");
+		buttonAdelante.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				siguiente();
+			}
+		});
 		buttonAdelante.setBounds(366, 135, 45, 23);
 		contentPanel.add(buttonAdelante);
 

@@ -6,18 +6,12 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import biblioteca.estructura.Fichero;
-import biblioteca.estructura.LibroTexto;
-import biblioteca.estructura.Novela;
-import biblioteca.estructura.Periodico;
-import biblioteca.estructura.Publicacion;
-import biblioteca.estructura.Revista;
 import biblioteca.excepciones.PublicacionNoExisteException;
 
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ListIterator;
 import java.awt.event.ActionEvent;
 
 public class BorrarPorNombre extends VentanaPadre {
@@ -26,8 +20,7 @@ public class BorrarPorNombre extends VentanaPadre {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ListIterator<Publicacion> it;
-	private Publicacion publicacion;
+
 
 	/**
 	 * Launch the application.
@@ -46,16 +39,7 @@ public class BorrarPorNombre extends VentanaPadre {
 		});
 	}
 
-	private void getGenero(Publicacion publicacion) {
-		if (publicacion instanceof Novela)
-			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
-		else if (publicacion instanceof Revista)
-			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
-		else if (publicacion instanceof Periodico)
-			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
-		else if (publicacion instanceof LibroTexto)
-			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
-	}
+
 
 	/**
 	 * Create the dialog.
@@ -129,6 +113,12 @@ public class BorrarPorNombre extends VentanaPadre {
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
 		okButton.setVisible(false);
+		
+		rdbtnAnual.setVisible(false);
+		rdbtnDiario.setVisible(false);
+		rdbtnMensual.setVisible(false);
+		rdbtnSemanal.setVisible(false);
+		lblPeriodo.setVisible(false);
 
 	}
 

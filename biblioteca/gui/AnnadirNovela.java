@@ -122,11 +122,7 @@ public class AnnadirNovela extends VentanaPadre {
 		lblFechaIngreso.setLocation(14, 122);
 		lblFechaPublicacion.setLocation(14, 156);
 
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
+
 		comboGenero.setModel(new DefaultComboBoxModel(GeneroNovela.values()));
 		btnEnviar.setEnabled(true);
 		setResizable(false);
@@ -161,6 +157,7 @@ public class AnnadirNovela extends VentanaPadre {
 		buttonAdelante.setVisible(false);
 		okButton.setVisible(false);
 		cancelButton.setText("Aceptar");
+		
 		try {
 			textId.setText((Fichero.almacen.get(Fichero.almacen.size() - 1).getIdentificador() + 1) + "");
 		} catch (IndexOutOfBoundsException e) {
