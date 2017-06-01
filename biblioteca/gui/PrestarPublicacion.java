@@ -6,11 +6,8 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import biblioteca.estructura.Fichero;
-import biblioteca.estructura.LibroTexto;
-import biblioteca.estructura.Novela;
-import biblioteca.estructura.Periodico;
+
 import biblioteca.estructura.Publicacion;
-import biblioteca.estructura.Revista;
 import biblioteca.excepciones.PublicacionNoExisteException;
 import biblioteca.excepciones.PublicacionYaPrestadaException;
 
@@ -42,17 +39,6 @@ public class PrestarPublicacion extends VentanaPadre {
 				}
 			}
 		});
-	}
-
-	private void getGenero(Publicacion publicacion) {
-		if (publicacion instanceof Novela)
-			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
-		else if (publicacion instanceof Revista)
-			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
-		else if (publicacion instanceof Periodico)
-			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
-		else if (publicacion instanceof LibroTexto)
-			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
 	}
 
 	/**

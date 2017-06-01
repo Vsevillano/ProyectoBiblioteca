@@ -9,16 +9,13 @@ import javax.swing.JTextField;
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.GeneroNovela;
 import biblioteca.estructura.Novela;
-import biblioteca.estructura.Publicacion;
 
 import javax.swing.DefaultComboBoxModel;
 
-import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ListIterator;
-import java.awt.event.ActionEvent;
+
 
 /**
  * 
@@ -33,9 +30,6 @@ public class ListarNovelas extends VentanaPadre {
 	private static final long serialVersionUID = 1L;
 	private JTextField textAutor;
 	private JTextField textEditorial;
-
-	private ListIterator<Publicacion> it;
-	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -54,72 +48,31 @@ public class ListarNovelas extends VentanaPadre {
 		});
 	}
 
-	
-	/**
-	 * Muestra el coche siguiente
-	 */
-	private void siguiente() {
-		if (it.hasNext()) {
-			publicacion = it.next();
-			
-		}
-		mostrarNovela();
-	}
-
-	/**
-	 * Muestra el coche anterior
-	 */
-	private void anterior() {
-		if (it.hasPrevious()) {
-			publicacion = it.previous();
-			
-		}
-		mostrarNovela();
-
-	}
-	
-	private void comprobarBotones() {
-		if (!it.hasNext()) {
-			buttonAdelante.setEnabled(false);
-			publicacion = it.previous();
-		}
-		else
-			buttonAdelante.setEnabled(true);
-		if (!it.hasPrevious()) {
-			btnAtras.setEnabled(false);
-			publicacion = it.next();
-		}
-		else
-			btnAtras.setEnabled(true);
-	}
-
-
-	private void mostrarNovela() {
+	@Override
+	protected void mostrarPublicacion() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		textAutor.setText(((Novela) publicacion).getAutor());
 		textEditorial.setText(((Novela) publicacion).getEditorial());
 		comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
-		
+
 		try {
 			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
 			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
 			textFechaDevolucion.setText(model.format(dateDev));
-		} catch (NullPointerException | ParseException e1) {
-			textFechaDevolucion.setText("");
 
-		}
-		
-		String dateIngreso = publicacion.getFechaIngreso().toString();
-		String datePublicacion = publicacion.getFechaPublicacion().toString();
-		try {
+			String dateIngreso = publicacion.getFechaIngreso().toString();
+			String datePublicacion = publicacion.getFechaPublicacion().toString();
+
 			Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
 			Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
 			spinnerIngreso.setValue(dateIng);
 			spinnerPublicacion.setValue(datePub);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			textFechaDevolucion.setText("");
+		} catch (NullPointerException e) {
+			textFechaDevolucion.setText("");
 		}
 		comprobarBotones();
 
@@ -130,17 +83,8 @@ public class ListarNovelas extends VentanaPadre {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public ListarNovelas() {
+
 		setTitle("Listar novelas");
-		buttonAdelante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				siguiente();
-			}
-		});
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				anterior();
-			}
-		});
 		textNumeroPaginas.setEnabled(false);
 		textTitulo.setEnabled(false);
 		comboGenero.setEnabled(false);
@@ -195,9 +139,8 @@ public class ListarNovelas extends VentanaPadre {
 
 		it = Fichero.almacen.listarNovelas();
 		publicacion = it.next();
-		mostrarNovela();
+		mostrarPublicacion();
 		btnAtras.setEnabled(false);
-
 
 	}
 

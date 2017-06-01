@@ -1,21 +1,13 @@
 package biblioteca.gui;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ListIterator;
 
 import javax.swing.JDialog;
 
 import biblioteca.estructura.Fichero;
-import biblioteca.estructura.LibroTexto;
-import biblioteca.estructura.Novela;
-import biblioteca.estructura.Periodico;
-import biblioteca.estructura.Publicacion;
-import biblioteca.estructura.Revista;
 
 public class ADevolverHoy extends VentanaPadre {
 
@@ -23,9 +15,6 @@ public class ADevolverHoy extends VentanaPadre {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	private ListIterator<Publicacion> it;
-	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -44,52 +33,13 @@ public class ADevolverHoy extends VentanaPadre {
 		});
 	}
 
-	/**
-	 * Muestra el coche siguiente
+	
+	/*
+	 * (non-Javadoc)
+	 * @see biblioteca.gui.VentanaPadre#mostrarPublicacion()
 	 */
-	private void siguiente() {
-		if (it.hasNext()) {
-			publicacion = it.next();
-		}
-		mostrarPublicacion();
-	}
-
-	/**
-	 * Muestra el coche anterior
-	 */
-	private void anterior() {
-		if (it.hasPrevious()) {
-			publicacion = it.previous();
-		}
-		mostrarPublicacion();
-
-	}
-
-	private void comprobarBotones() {
-		if (!it.hasNext()) {
-			buttonAdelante.setEnabled(false);
-			publicacion = it.previous();
-		} else
-			buttonAdelante.setEnabled(true);
-		if (!it.hasPrevious()) {
-			btnAtras.setEnabled(false);
-			publicacion = it.next();
-		} else
-			btnAtras.setEnabled(true);
-	}
-
-	private void getGenero(Publicacion publicacion) {
-		if (publicacion instanceof Novela)
-			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
-		else if (publicacion instanceof Revista)
-			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
-		else if (publicacion instanceof Periodico)
-			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
-		else if (publicacion instanceof LibroTexto)
-			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
-	}
-
-	private void mostrarPublicacion() {
+	@Override
+	protected void mostrarPublicacion() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		getGenero(publicacion);
@@ -123,16 +73,7 @@ public class ADevolverHoy extends VentanaPadre {
 	 */
 	public ADevolverHoy() {
 		comboGenero.setEditable(true);
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				anterior();
-			}
-		});
-		buttonAdelante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				siguiente();
-			}
-		});
+
 		setTitle("A devolver hoy");
 		textNumeroPaginas.setEnabled(false);
 		comboGenero.setEnabled(false);

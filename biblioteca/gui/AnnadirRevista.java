@@ -150,6 +150,7 @@ public class AnnadirRevista extends VentanaPadre {
 		okButton.setVisible(false);
 		btnAtras.setVisible(false);
 		buttonAdelante.setVisible(false);
+		
 		try {
 			textId.setText((Fichero.almacen.get(Fichero.almacen.size() - 1).getIdentificador() + 1) + "");
 		} catch (IndexOutOfBoundsException e) {

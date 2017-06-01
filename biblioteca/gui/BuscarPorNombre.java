@@ -4,17 +4,12 @@ import java.awt.EventQueue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ListIterator;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import biblioteca.estructura.Fichero;
-import biblioteca.estructura.LibroTexto;
-import biblioteca.estructura.Novela;
-import biblioteca.estructura.Periodico;
-import biblioteca.estructura.Publicacion;
-import biblioteca.estructura.Revista;
+
 import biblioteca.excepciones.PublicacionNoExisteException;
 
 import java.awt.event.ActionListener;
@@ -26,8 +21,7 @@ public class BuscarPorNombre extends VentanaPadre {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ListIterator<Publicacion> it;
-	private Publicacion publicacion;
+
 
 	/**
 	 * Launch the application.
@@ -46,54 +40,11 @@ public class BuscarPorNombre extends VentanaPadre {
 		});
 	}
 
-	/**
-	 * Muestra el coche siguiente
-	 */
-	private void siguiente() {
-		if (it.hasNext()) {
-			publicacion = it.next();
 
-		}
-		mostrarPublicacion();
-	}
 
-	/**
-	 * Muestra el coche anterior
-	 */
-	private void anterior() {
-		if (it.hasPrevious()) {
-			publicacion = it.previous();
-
-		}
-		mostrarPublicacion();
-
-	}
-
-	private void comprobarBotones() {
-		if (!it.hasNext()) {
-			buttonAdelante.setEnabled(false);
-			publicacion = it.previous();
-		} else
-			buttonAdelante.setEnabled(true);
-		if (!it.hasPrevious()) {
-			btnAtras.setEnabled(false);
-			publicacion = it.next();
-		} else
-			btnAtras.setEnabled(true);
-	}
-
-	private void getGenero(Publicacion publicacion) {
-		if (publicacion instanceof Novela)
-			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
-		else if (publicacion instanceof Revista)
-			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
-		else if (publicacion instanceof Periodico)
-			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
-		else if (publicacion instanceof LibroTexto)
-			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
-	}
-
-	private void mostrarPublicacion() {
+	
+	@Override
+	protected void mostrarPublicacion() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
@@ -145,16 +96,7 @@ public class BuscarPorNombre extends VentanaPadre {
 
 			}
 		});
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				anterior();
-			}
-		});
-		buttonAdelante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				siguiente();
-			}
-		});
+
 		setTitle("Buscar por nombre");
 		btnEnviar.setText("Buscar");
 		rdbtnAnual.setEnabled(false);
@@ -172,6 +114,12 @@ public class BuscarPorNombre extends VentanaPadre {
 		btnAtras.setEnabled(false);
 		buttonAdelante.setEnabled(false);
 		okButton.setVisible(false);
+		
+		rdbtnAnual.setVisible(false);
+		rdbtnDiario.setVisible(false);
+		rdbtnMensual.setVisible(false);
+		rdbtnSemanal.setVisible(false);
+		lblPeriodo.setVisible(false);
 
 	}
 

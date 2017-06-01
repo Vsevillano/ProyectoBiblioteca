@@ -6,11 +6,9 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import biblioteca.estructura.Fichero;
-import biblioteca.estructura.LibroTexto;
-import biblioteca.estructura.Novela;
-import biblioteca.estructura.Periodico;
+
 import biblioteca.estructura.Publicacion;
-import biblioteca.estructura.Revista;
+
 import biblioteca.excepciones.PublicacionNoExisteException;
 import biblioteca.excepciones.PublicacionNoPrestadaException;
 
@@ -44,16 +42,7 @@ public class DevolverPublicacion extends VentanaPadre {
 		});
 	}
 
-	private void getGenero(Publicacion publicacion) {
-		if (publicacion instanceof Novela)
-			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
-		else if (publicacion instanceof Revista)
-			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
-		else if (publicacion instanceof Periodico)
-			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
-		else if (publicacion instanceof LibroTexto)
-			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
-	}
+
 
 	/**
 	 * Create the dialog.
@@ -68,7 +57,13 @@ public class DevolverPublicacion extends VentanaPadre {
 					textId.setText(publicacion.getIdentificador() + "");
 					textNumeroPaginas.setText(publicacion.getNumeroPaginas() + "");
 					getGenero(publicacion);
+					
 
+						Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
+						SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
+						textFechaDevolucion.setText(model.format(dateDev));
+					
+					
 					String dateIngreso = publicacion.getFechaIngreso().toString();
 					String datePublicacion = publicacion.getFechaPublicacion().toString();
 
@@ -77,7 +72,7 @@ public class DevolverPublicacion extends VentanaPadre {
 					spinnerIngreso.setValue(dateIng);
 					spinnerPublicacion.setValue(datePub);
 
-					int respuesta = JOptionPane.showConfirmDialog(null, "Se va a prestar la publicacion, ¿Está seguro?",
+					int respuesta = JOptionPane.showConfirmDialog(null, "Se va a devolver la publicacion, ¿Está seguro?",
 							"!!", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 					if (respuesta == JOptionPane.YES_OPTION) {
@@ -94,10 +89,11 @@ public class DevolverPublicacion extends VentanaPadre {
 							JOptionPane.ERROR_MESSAGE);
 
 				} catch (ParseException e2) {
-					// TODO Auto-generated catch block
+					textFechaDevolucion.setText("");
 					e2.printStackTrace();
 
 				} catch (NullPointerException e1) {
+					textFechaDevolucion.setText("");
 					JOptionPane.showMessageDialog(null, "La publicacion no existe!", "Error!",
 							JOptionPane.ERROR_MESSAGE);
 				} catch (PublicacionNoExisteException e1) {
@@ -105,6 +101,7 @@ public class DevolverPublicacion extends VentanaPadre {
 				} catch (PublicacionNoPrestadaException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
 				}
+
 			}
 		});
 		setTitle("Devolver publicacion");

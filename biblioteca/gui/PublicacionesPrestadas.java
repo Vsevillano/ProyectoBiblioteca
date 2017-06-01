@@ -4,20 +4,13 @@ import java.awt.EventQueue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ListIterator;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 import biblioteca.estructura.Fichero;
-import biblioteca.estructura.LibroTexto;
-import biblioteca.estructura.Novela;
-import biblioteca.estructura.Periodico;
-import biblioteca.estructura.Publicacion;
-import biblioteca.estructura.Revista;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+
 
 /**
  * 
@@ -31,8 +24,6 @@ public class PublicacionesPrestadas extends VentanaPadre {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ListIterator<Publicacion> it;
-	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -51,64 +42,10 @@ public class PublicacionesPrestadas extends VentanaPadre {
 		});
 	}
 
-	/**
-	 * Muestra el siguiente
-	 */
-	private void siguiente() {
-		if (it.hasNext()) {
-			publicacion = it.next();
 
-		}
-		mostrarPublicacion();
-	}
 
-	/**
-	 * Muestra el anterior
-	 */
-	private void anterior() {
-		if (it.hasPrevious()) {
-			publicacion = it.previous();
-
-		}
-		mostrarPublicacion();
-	}
-
-	/**
-	 * Comprueba los botones
-	 */
-	private void comprobarBotones() {
-		if (!it.hasNext()) {
-			buttonAdelante.setEnabled(false);
-			publicacion = it.previous();
-		} else
-			buttonAdelante.setEnabled(true);
-		if (!it.hasPrevious()) {
-			btnAtras.setEnabled(false);
-			publicacion = it.next();
-		} else
-			btnAtras.setEnabled(true);
-	}
-
-	/**
-	 * Obtiene el genero en funcion de la clase
-	 * 
-	 * @param publicacion
-	 */
-	private void getGenero(Publicacion publicacion) {
-		if (publicacion instanceof Novela)
-			comboGenero.setSelectedItem(((Novela) publicacion).getGenero());
-		else if (publicacion instanceof Revista)
-			comboGenero.setSelectedItem(((Revista) publicacion).getGenero());
-		else if (publicacion instanceof Periodico)
-			comboGenero.setSelectedItem(((Periodico) publicacion).getGenero());
-		else if (publicacion instanceof LibroTexto)
-			comboGenero.setSelectedItem(((LibroTexto) publicacion).getMateria());
-	}
-
-	/**
-	 * Muestra la publicacion
-	 */
-	private void mostrarPublicacion() {
+	@Override
+	protected void mostrarPublicacion() {
 		try {
 			textId.setText(publicacion.getIdentificador() + "");
 			textTitulo.setText(publicacion.getTitulo());
@@ -142,16 +79,7 @@ public class PublicacionesPrestadas extends VentanaPadre {
 	 */
 	public PublicacionesPrestadas() {
 		comboGenero.setEditable(true);
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				anterior();
-			}
-		});
-		buttonAdelante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				siguiente();
-			}
-		});
+
 		setTitle("Publicaciones prestadas");
 		textNumeroPaginas.setEnabled(false);
 		comboGenero.setEnabled(false);

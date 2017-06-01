@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.ListIterator;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -13,10 +12,7 @@ import javax.swing.JTextField;
 import biblioteca.estructura.Fichero;
 import biblioteca.estructura.LibroTexto;
 import biblioteca.estructura.Materia;
-import biblioteca.estructura.Publicacion;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -32,8 +28,6 @@ public class ListarLibrosTexto extends VentanaPadre {
 	private static final long serialVersionUID = 1L;
 	private JTextField textEditorial;
 	private JTextField textISBN;
-	private ListIterator<Publicacion> it;
-	private Publicacion publicacion;
 
 	/**
 	 * Launch the application.
@@ -52,43 +46,8 @@ public class ListarLibrosTexto extends VentanaPadre {
 		});
 	}
 
-	/**
-	 * Muestra el coche siguiente
-	 */
-	private void siguiente() {
-		if (it.hasNext()) {
-			publicacion = it.next();
-
-		}
-		mostrarLibroTexto();
-	}
-
-	/**
-	 * Muestra el coche anterior
-	 */
-	private void anterior() {
-		if (it.hasPrevious()) {
-			publicacion = it.previous();
-
-		}
-		mostrarLibroTexto();
-
-	}
-
-	private void comprobarBotones() {
-		if (!it.hasNext()) {
-			buttonAdelante.setEnabled(false);
-			publicacion = it.previous();
-		} else
-			buttonAdelante.setEnabled(true);
-		if (!it.hasPrevious()) {
-			btnAtras.setEnabled(false);
-			publicacion = it.next();
-		} else
-			btnAtras.setEnabled(true);
-	}
-
-	private void mostrarLibroTexto() {
+	@Override
+	protected void mostrarPublicacion() {
 		textId.setText(publicacion.getIdentificador() + "");
 		textTitulo.setText(publicacion.getTitulo());
 		textISBN.setText(((LibroTexto) publicacion).getIsbn());
@@ -100,20 +59,17 @@ public class ListarLibrosTexto extends VentanaPadre {
 			Date dateDev = new SimpleDateFormat("yyyy-MM-dd").parse(publicacion.getFechaDevolucion().toString());
 			SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
 			textFechaDevolucion.setText(model.format(dateDev));
-		} catch (NullPointerException | ParseException e1) {
-			textFechaDevolucion.setText("");
 
-		}
+			String dateIngreso = publicacion.getFechaIngreso().toString();
+			String datePublicacion = publicacion.getFechaPublicacion().toString();
 
-		String dateIngreso = publicacion.getFechaIngreso().toString();
-		String datePublicacion = publicacion.getFechaPublicacion().toString();
-		try {
 			Date dateIng = new SimpleDateFormat("yyyy-MM-dd").parse(dateIngreso);
 			Date datePub = new SimpleDateFormat("yyyy-MM-dd").parse(datePublicacion);
 			spinnerIngreso.setValue(dateIng);
 			spinnerPublicacion.setValue(datePub);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (NullPointerException | ParseException e1) {
+			textFechaDevolucion.setText("");
+
 		}
 		comprobarBotones();
 
@@ -127,16 +83,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 		comboGenero.setEnabled(false);
 		comboGenero.setModel(new DefaultComboBoxModel(Materia.values()));
 		cancelButton.setText("Aceptar");
-		btnAtras.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				anterior();
-			}
-		});
-		buttonAdelante.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				siguiente();
-			}
-		});
+
 		textNumeroPaginas.setEnabled(false);
 		spinnerPublicacion.setEnabled(false);
 		spinnerIngreso.setEnabled(false);
@@ -182,7 +129,7 @@ public class ListarLibrosTexto extends VentanaPadre {
 
 		it = Fichero.almacen.listarLibrosTexto();
 		publicacion = it.next();
-		mostrarLibroTexto();
+		mostrarPublicacion();
 		btnAtras.setEnabled(false);
 
 	}
